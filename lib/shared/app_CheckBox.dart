@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class CheckBoxRow extends StatefulWidget {
-  CheckBoxRow({Key? key}) : super(key: key);
-  bool isCheked = false;
+  CheckBoxRow({Key? key, this.onPress, this.isCheked = false})
+      : super(key: key);
+  bool? isCheked;
+  void Function(bool? value)? onPress;
 
   @override
   State<CheckBoxRow> createState() => _CheckBoxRowState();
@@ -19,15 +21,11 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
           width: 25,
         ),
         Checkbox(
-          fillColor: widget.isCheked
+          fillColor: widget.isCheked!
               ? MaterialStateProperty.all(Colors.blue[600])
               : MaterialStateProperty.all(Colors.blue[600]!.withOpacity(0.5)),
           value: widget.isCheked,
-          onChanged: (value) {
-            setState(() {
-              widget.isCheked = value!;
-            });
-          },
+          onChanged: widget.onPress,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
           ),

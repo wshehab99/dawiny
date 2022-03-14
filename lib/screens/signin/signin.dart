@@ -9,27 +9,26 @@ import '../../shared/app_button.dart';
 import '../../shared/textFieldApp.dart';
 
 // ignore: must_be_immutable
-class SignIn extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
+class SignIn extends StatefulWidget {
   SignIn({Key? key}) : super(key: key);
+
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  final _formKey = GlobalKey<FormState>();
+  bool isCheck = false;
   CheckBoxRow checkBoxRow = CheckBoxRow();
+
   final TextEditingController _email = TextEditingController();
+
   final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.blue),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(children: [
@@ -96,17 +95,26 @@ class SignIn extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  checkBoxRow,
+                  CheckBoxRow(
+                    isCheked: isCheck,
+                    onPress: (value) {
+                      setState(() {
+                        isCheck = value!;
+                      });
+                    },
+                  ),
                   AppButton(
                       text: 'Sign in',
                       bottenColor: Colors.blue,
                       textColor: Colors.white,
                       borderradius: BorderRadius.circular(20),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          _checkuser(context);
-                        }
-                      }),
+                      onPressed: isCheck
+                          ? () {
+                              if (_formKey.currentState!.validate()) {
+                                _checkuser(context);
+                              }
+                            }
+                          : null),
                 ],
               )),
           TextButton(
@@ -167,12 +175,23 @@ class SignIn extends StatelessWidget {
     );
   }
 
+//check if the email and password are in the list
   _checkuser(context) {
     User user = User(
-        email: _email.text, password: _password.text, fullName: 'fullName');
-
-    User.currentUser = user;
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      email: _email.text,
+      password: _password.text,
+    );
+    for (int i = 0; i < User.users.length; i++) {
+      if (user.email == User.users[i].email &&
+          user.password == User.users[i].password) {
+        User.currentUser = User.users[i];
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        break;
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Sothing wrong')));
+      }
+    }
   }
 }
