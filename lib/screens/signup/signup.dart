@@ -15,6 +15,7 @@ class SignUp extends StatelessWidget {
 
   final CheckBoxRow _checkBoxRow = CheckBoxRow();
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
