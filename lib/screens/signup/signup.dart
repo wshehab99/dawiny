@@ -8,13 +8,26 @@ import '../../shared/app_button.dart';
 import '../../shared/textFieldApp.dart';
 import '../signin/continue_with.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   SignUp({Key? key}) : super(key: key);
+
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
   final TextEditingController _email = TextEditingController();
+
   final TextEditingController _password = TextEditingController();
 
+  final TextEditingController _confirmPassword = TextEditingController();
+
+  bool isCheck = false;
+
   final CheckBoxRow _checkBoxRow = CheckBoxRow();
+
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,25 +101,51 @@ class SignUp extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    _checkBoxRow,
+                    TeriaqTextField(
+                        controller: _confirmPassword,
+                        label: 'Confirm Password',
+                        hint: 'Password',
+                        validator: (value) {
+                          if (value!.isEmpty || value.length < 8) {
+                            return 'please enter a password more than 8 character';
+                          }
+                          if (value != _password.text) {
+                            return "Password are not same!";
+                          }
+                        },
+                        hide: true),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    CheckBoxRow(
+                      isCheked: isCheck,
+                      onPress: (value) {
+                        setState(() {
+                          isCheck = value!;
+                        });
+                      },
+                    ),
                     AppButton(
                       text: 'Sign up',
                       borderradius: BorderRadius.circular(60),
                       textColor: Colors.white,
                       bottenColor: Colors.blue,
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          //create new user
-                          User.currentUser = User(
-                              email: _email.text, password: _password.text);
+                      onPressed: isCheck
+                          ? () {
+                              if (_formKey.currentState!.validate()) {
+                                //create new user
+                                User.currentUser = User(
+                                    email: _email.text,
+                                    password: _password.text);
 
-                          User.users.add(User.currentUser!);
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => UserProfile()));
-                        }
-                      },
+                                User.users.add(User.currentUser!);
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => UserProfile()));
+                              }
+                            }
+                          : null,
                     ),
                   ],
                 )),
