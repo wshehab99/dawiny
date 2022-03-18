@@ -3,6 +3,8 @@ import 'package:find_doctor/screens/welcome/welcomescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../screens/doctors/doctors.dart';
+
 class Teriaq extends StatelessWidget {
   const Teriaq({Key? key}) : super(key: key);
 
@@ -19,7 +21,7 @@ class Teriaq extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: const SplashScreen(),
+            home: const Doctors(),
             routes: {"WelcomeScreen": (context) => WelcomeScreen()},
           );
         });
