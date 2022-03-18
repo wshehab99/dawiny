@@ -1,3 +1,4 @@
+import 'package:find_doctor/screens/congrats_screen/congratesScreen.dart';
 import 'package:find_doctor/screens/profile_photo_card.dart';
 import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
 import 'package:find_doctor/shared/app_button.dart';
@@ -101,7 +102,10 @@ class _UserProfileState extends State<UserProfile> {
             borderradius: BorderRadius.circular(60),
             textColor: Colors.white,
             bottenColor: Colors.blue,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => CongratsScreen()));
+            },
           ))
         ]),
       ),

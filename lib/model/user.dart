@@ -22,7 +22,8 @@ class User {
     User(
         email: 'waleed@gmail.com',
         password: 'password123',
-        fullName: "fullName")
+        fullName: "fullName"),
+    User(email: "Morsy@gmail.com", password: "123456789")
   ];
   static User? currentUser;
 }
