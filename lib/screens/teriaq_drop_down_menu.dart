@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
 class AppDropDownMenu extends StatefulWidget {
-  const AppDropDownMenu({Key? key}) : super(key: key);
+  AppDropDownMenu({Key? key, this.dropdownValue, this.choices})
+      : super(key: key);
+  String? dropdownValue;
+  List<String>? choices;
 
   @override
   State<AppDropDownMenu> createState() => _AppDropDownMenuState();
 }
 
 class _AppDropDownMenuState extends State<AppDropDownMenu> {
-  String? dropdownValue;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -48,12 +50,15 @@ class _AppDropDownMenuState extends State<AppDropDownMenu> {
             ],
           ),
           child: DropdownButtonFormField<String>(
+            validator: (value) {
+              if (value == null) return 'choose your gender';
+            },
             decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
               hintText: 'Gender',
               hintStyle: const TextStyle(color: Colors.black26),
-              border: OutlineInputBorder(
+              focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(35),
                   borderSide: BorderSide(color: Colors.grey.shade200)),
               enabledBorder: OutlineInputBorder(
@@ -62,15 +67,15 @@ class _AppDropDownMenuState extends State<AppDropDownMenu> {
                     color: Colors.grey.shade100,
                   )),
             ),
-            value: dropdownValue,
+            value: widget.dropdownValue,
             elevation: 3,
             onChanged: (String? newValue) {
               setState(() {
-                dropdownValue = newValue!;
+                widget.dropdownValue = newValue!;
               });
             },
-            items: <String>['Male', 'Female']
-                .map<DropdownMenuItem<String>>((String value) {
+            items:
+                widget.choices!.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),

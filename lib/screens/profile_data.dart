@@ -1,23 +1,38 @@
+import 'package:find_doctor/screens/congrats_screen/congratesScreen.dart';
 import 'package:find_doctor/screens/profile_photo_card.dart';
 import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
 import 'package:find_doctor/shared/app_button.dart';
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
+import '../model/user.dart';
 import '../shared/textFieldApp.dart';
 
 // ignore: must_be_immutable
-class UserProfile extends StatelessWidget {
-  UserProfile({Key? key}) : super(key: key);
+class UserProfile extends StatefulWidget {
+  const UserProfile({Key? key}) : super(key: key);
+
+  @override
+  State<UserProfile> createState() => _UserProfileState();
+}
+
+class _UserProfileState extends State<UserProfile> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _fullName = TextEditingController();
-  final TextEditingController _gender = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
   final TextEditingController _address = TextEditingController();
-  DateTime selectedDate = DateTime.now();
+  final AppDropDownMenu appDropDownMenu = AppDropDownMenu(
+    choices: const ['Male', 'Femle'],
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const SizedBox(
+            height: 10,
+          ),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: const [
@@ -46,51 +61,79 @@ class UserProfile extends StatelessWidget {
             height: 15,
           ),
           const Divider(),
-          TeriaqTextField(
-              label: 'Full Name', hint: "Full Name", controller: _fullName),
-          const SizedBox(
-            height: 15,
-          ),
-          TeriaqTextField(
-              label: 'Email',
-              hint: "Email",
-              icon: const Icon(Icons.mail_outline)),
-          const SizedBox(
-            height: 15,
-          ),
-          AppDropDownMenu(),
-          //TeriaqTextField(label: 'Gender', hint: "Gender", controller: _gender),
+          Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TeriaqTextField(
+                    label: 'Full Name',
+                    hint: "Full Name",
+                    validator: (value) {
+                      if (value!.isEmpty) return 'please enter your full name';
+                    },
+                    controller: _fullName),
+                const SizedBox(
+                  height: 15,
+                ),
+                TeriaqTextField(
+                    label: 'Email',
+                    hint: "Email",
+                    icon: const Icon(Icons.mail_outline)),
+                const SizedBox(
+                  height: 15,
+                ),
+                appDropDownMenu,
+                //TeriaqTextField(label: 'Gender', hint: "Gender", controller: _gender),
 
-          const SizedBox(
-            height: 15,
-          ),
-          TeriaqTextField(
-            label: 'Date of birth',
-            hint: "Date of birth",
-            icon: const Icon(Icons.calendar_month),
-            onTap: () {
-              _selectDate(context);
-            },
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          TeriaqTextField(
-            label: 'Address',
-            hint: "Address",
-            controller: _address,
+                const SizedBox(
+                  height: 15,
+                ),
+                TeriaqTextField(
+                  label: 'Date of birth',
+                  hint: "Date of birth",
+                  validator: (value) {
+                    if (value!.isEmpty) return 'please enter your birthday';
+                  },
+                  icon: const Icon(Icons.calendar_month),
+                  controller: _dateController,
+                  onTap: () {
+                    _selectDate(context);
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                TeriaqTextField(
+                  label: 'Address',
+                  hint: "Address",
+                  validator: (value) {
+                    if (value!.isEmpty) return 'please enter your address';
+                  },
+                  controller: _address,
+                ),
+              ],
+            ),
           ),
           const SizedBox(
             height: 15,
           ),
           Center(
               child: AppButton(
-            text: 'Confirm',
-            borderradius: BorderRadius.circular(60),
-            textColor: Colors.white,
-            bottenColor: Colors.blue,
-            onPressed: () {},
-          ))
+                  text: 'Confirm',
+                  borderradius: BorderRadius.circular(60),
+                  textColor: Colors.white,
+                  bottenColor: Colors.blue,
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      User.currentUser!.address = _address.text;
+                      User.currentUser!.birthday = _dateController.text;
+                      User.currentUser!.fullName = _fullName.text;
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CongratsScreen()));
+                    }
+                  }))
         ]),
       ),
     ));
@@ -99,10 +142,12 @@ class UserProfile extends StatelessWidget {
   _selectDate(BuildContext context) async {
     final selected = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
+      initialDate: DateTime.now(),
       firstDate: DateTime(1950),
       lastDate: DateTime.now(),
     );
-    if (selected != null && selected != selectedDate) selectedDate = selected;
+    if (selected != null && selected != DateTime.now()) {
+      _dateController.text = DateFormat.yMMMd().format(selected);
+    }
   }
 }

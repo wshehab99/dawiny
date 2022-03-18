@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:find_doctor/screens/congrats_screen/congratesScreen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:find_doctor/screens/welcome/welcomescreen.dart';
 import 'package:flutter/material.dart';
+
+import '../gridpage/gridpage.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -22,9 +25,8 @@ class _SplashScreenState extends State<SplashScreen> {
         (() {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => WelcomeScreen()),
+            MaterialPageRoute(builder: (context) => GridPage()),
           );
-          // Navigator.of(context).pushNamed("WelcomeScreen");
         }),
       );
     });
@@ -37,8 +39,8 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         alignment: Alignment.center,
         child: Image.asset(
-          'assets/images/heartbeat.gif',
-          height: 150.h,
+          'assets/images/Teriaqq.png',
+          height: 300.h,
         ),
       ),
     );

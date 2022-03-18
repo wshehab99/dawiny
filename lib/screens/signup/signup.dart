@@ -110,7 +110,7 @@ class _SignUpState extends State<SignUp> {
                             return 'please enter a password more than 8 character';
                           }
                           if (value != _password.text) {
-                            return "Password are not same!";
+                            return "Password does not match!";
                           }
                         },
                         hide: true),
