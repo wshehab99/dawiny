@@ -51,14 +51,14 @@ class _AppDropDownMenuState extends State<AppDropDownMenu> {
           ),
           child: DropdownButtonFormField<String>(
             validator: (value) {
-              if (value!.isEmpty) return 'choose your gender';
+              if (value == null) return 'choose your gender';
             },
             decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
               hintText: 'Gender',
               hintStyle: const TextStyle(color: Colors.black26),
-              border: OutlineInputBorder(
+              focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(35),
                   borderSide: BorderSide(color: Colors.grey.shade200)),
               enabledBorder: OutlineInputBorder(

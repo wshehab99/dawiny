@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:find_doctor/screens/registration/registration.dart';
 import 'package:find_doctor/shared/app_button.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +58,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         MaterialStateProperty.all<Color>(Colors.blue),
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => RegistrationScreen()),
@@ -82,7 +80,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               duration: Duration(seconds: 1),
                               curve: Curves.easeInOut);
                         } else {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => RegistrationScreen()),
