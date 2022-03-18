@@ -1,4 +1,4 @@
-import 'package:find_doctor/screens/congrats_screen/congratesScreen.dart';
+
 import 'package:find_doctor/screens/profile_photo_card.dart';
 import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
 import 'package:find_doctor/shared/app_button.dart';
@@ -15,9 +15,13 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _fullName = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _address = TextEditingController();
+  final AppDropDownMenu appDropDownMenu = AppDropDownMenu(
+    choices: const ['Male', 'Femle'],
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -56,57 +60,68 @@ class _UserProfileState extends State<UserProfile> {
             height: 15,
           ),
           const Divider(),
-          TeriaqTextField(
-              label: 'Full Name', hint: "Full Name", controller: _fullName),
-          const SizedBox(
-            height: 15,
-          ),
-          TeriaqTextField(
-              label: 'Email',
-              hint: "Email",
-              icon: const Icon(Icons.mail_outline)),
-          const SizedBox(
-            height: 15,
-          ),
-          AppDropDownMenu(
-            choices: const ['Male', 'Femle'],
-          ),
-          //TeriaqTextField(label: 'Gender', hint: "Gender", controller: _gender),
+          Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TeriaqTextField(
+                    label: 'Full Name',
+                    hint: "Full Name",
+                    controller: _fullName),
+                const SizedBox(
+                  height: 15,
+                ),
+                TeriaqTextField(
+                    label: 'Email',
+                    hint: "Email",
+                    icon: const Icon(Icons.mail_outline)),
+                const SizedBox(
+                  height: 15,
+                ),
+                appDropDownMenu,
+                //TeriaqTextField(label: 'Gender', hint: "Gender", controller: _gender),
 
-          const SizedBox(
-            height: 15,
-          ),
-          TeriaqTextField(
-            label: 'Date of birth',
-            hint: "Date of birth",
-            icon: const Icon(Icons.calendar_month),
-            controller: _dateController,
-            onTap: () {
-              _selectDate(context);
-            },
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          TeriaqTextField(
-            label: 'Address',
-            hint: "Address",
-            controller: _address,
+                const SizedBox(
+                  height: 15,
+                ),
+                TeriaqTextField(
+                  label: 'Date of birth',
+                  hint: "Date of birth",
+                  icon: const Icon(Icons.calendar_month),
+                  controller: _dateController,
+                  onTap: () {
+                    _selectDate(context);
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                TeriaqTextField(
+                  label: 'Address',
+                  hint: "Address",
+                  controller: _address,
+                ),
+              ],
+            ),
           ),
           const SizedBox(
             height: 15,
           ),
           Center(
               child: AppButton(
-            text: 'Confirm',
-            borderradius: BorderRadius.circular(60),
-            textColor: Colors.white,
-            bottenColor: Colors.blue,
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CongratsScreen()));
-            },
-          ))
+
+                  text: 'Confirm',
+                  borderradius: BorderRadius.circular(60),
+                  textColor: Colors.white,
+                  bottenColor: Colors.blue,
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      User.currentUser!.address = _address.text;
+                      User.currentUser!.birthday = _dateController.text;
+                      User.currentUser!.fullName = _fullName.text;
+                    }
+                  }))
+
         ]),
       ),
     ));

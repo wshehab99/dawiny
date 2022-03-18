@@ -59,7 +59,7 @@ class RegistrationScreen extends StatelessWidget {
                   textColor: Colors.white,
                   borderradius: BorderRadius.circular(60),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => SignUp()),
                     );
@@ -74,7 +74,7 @@ class RegistrationScreen extends StatelessWidget {
                   textColor: Colors.blue,
                   borderradius: BorderRadius.circular(60),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => SignIn()),
                     );
