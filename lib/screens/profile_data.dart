@@ -1,9 +1,10 @@
-
+import 'package:find_doctor/screens/congrats_screen/congratesScreen.dart';
 import 'package:find_doctor/screens/profile_photo_card.dart';
 import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
 import 'package:find_doctor/shared/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../model/user.dart';
 import '../shared/textFieldApp.dart';
 
 // ignore: must_be_immutable
@@ -67,6 +68,9 @@ class _UserProfileState extends State<UserProfile> {
                 TeriaqTextField(
                     label: 'Full Name',
                     hint: "Full Name",
+                    validator: (value) {
+                      if (value!.isEmpty) return 'please enter your full name';
+                    },
                     controller: _fullName),
                 const SizedBox(
                   height: 15,
@@ -87,6 +91,9 @@ class _UserProfileState extends State<UserProfile> {
                 TeriaqTextField(
                   label: 'Date of birth',
                   hint: "Date of birth",
+                  validator: (value) {
+                    if (value!.isEmpty) return 'please enter your birthday';
+                  },
                   icon: const Icon(Icons.calendar_month),
                   controller: _dateController,
                   onTap: () {
@@ -99,6 +106,9 @@ class _UserProfileState extends State<UserProfile> {
                 TeriaqTextField(
                   label: 'Address',
                   hint: "Address",
+                  validator: (value) {
+                    if (value!.isEmpty) return 'please enter your address';
+                  },
                   controller: _address,
                 ),
               ],
@@ -109,7 +119,6 @@ class _UserProfileState extends State<UserProfile> {
           ),
           Center(
               child: AppButton(
-
                   text: 'Confirm',
                   borderradius: BorderRadius.circular(60),
                   textColor: Colors.white,
@@ -119,9 +128,12 @@ class _UserProfileState extends State<UserProfile> {
                       User.currentUser!.address = _address.text;
                       User.currentUser!.birthday = _dateController.text;
                       User.currentUser!.fullName = _fullName.text;
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CongratsScreen()));
                     }
                   }))
-
         ]),
       ),
     ));

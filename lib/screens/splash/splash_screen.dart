@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:find_doctor/screens/welcome/welcomescreen.dart';
 import 'package:flutter/material.dart';
 
+import '../gridpage/gridpage.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -23,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
         (() {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => WelcomeScreen()),
+            MaterialPageRoute(builder: (context) => GridPage()),
           );
         }),
       );
