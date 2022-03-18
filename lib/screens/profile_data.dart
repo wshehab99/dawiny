@@ -1,4 +1,4 @@
-import 'package:find_doctor/model/user.dart';
+
 import 'package:find_doctor/screens/profile_photo_card.dart';
 import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
 import 'package:find_doctor/shared/app_button.dart';
@@ -109,6 +109,7 @@ class _UserProfileState extends State<UserProfile> {
           ),
           Center(
               child: AppButton(
+
                   text: 'Confirm',
                   borderradius: BorderRadius.circular(60),
                   textColor: Colors.white,
@@ -120,6 +121,7 @@ class _UserProfileState extends State<UserProfile> {
                       User.currentUser!.fullName = _fullName.text;
                     }
                   }))
+
         ]),
       ),
     ));

@@ -1,4 +1,5 @@
 import 'package:find_doctor/screens/home/homescreen.dart';
+import 'package:find_doctor/screens/homepagescreen/HomePageScreen.dart';
 import 'package:find_doctor/screens/signin/continue_with.dart';
 import 'package:find_doctor/screens/signup/signup.dart';
 import 'package:flutter/material.dart';
@@ -186,12 +187,11 @@ class _SignInState extends State<SignIn> {
           user.password == User.users[i].password) {
         User.currentUser = User.users[i];
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomeScreen()));
-        break;
-      } else {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Sothing wrong')));
+            context, MaterialPageRoute(builder: (context) => HomePageScreen()));
+        return;
       }
     }
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('Sothing wrong')));
   }
 }
