@@ -23,7 +23,11 @@ class User {
         email: 'waleed@gmail.com',
         password: 'password123',
         fullName: "fullName"),
-    User(email: "Morsy@gmail.com", password: "123456789")
+    User(email: "Morsy@gmail.com", password: "123456789"),
+    User(
+        email: 'm7mdmwsy@gmail.com',
+        password: 'password123',
+        fullName: "Moahmed Mousa"),
   ];
   static User? currentUser;
 }

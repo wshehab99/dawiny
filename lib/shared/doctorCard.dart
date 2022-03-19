@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../screens/doctors/doctorDetailScreen.dart';
 import 'constant.dart';
 
 class DoctorCard extends StatelessWidget {
@@ -14,12 +15,12 @@ class DoctorCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => DetailScreen(_name, _description, _imageUrl),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailScreen(_name, _description, _imageUrl),
+          ),
+        );
       },
       child: DecoratedBox(
         decoration: BoxDecoration(
