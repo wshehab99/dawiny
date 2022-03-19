@@ -1,9 +1,9 @@
-import 'package:doctor/components/doctorsList.dart';
-import 'package:doctor/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import 'components/searchBar.dart';
+import '../../shared/constant.dart';
+import '../../shared/doctorCard.dart';
+import '../../shared/searchBar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
