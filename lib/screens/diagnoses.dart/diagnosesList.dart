@@ -1,10 +1,11 @@
 import 'package:find_doctor/shared/diagnos_item_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../doctors/doctorList.dart';
 import '../search/search_widget.dart';
 
-class DaignoList extends StatelessWidget {
-  const DaignoList({Key? key}) : super(key: key);
+class Doctorlist extends StatelessWidget {
+  const Doctorlist({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +41,23 @@ class DaignoList extends StatelessWidget {
             //   ),
             // ),
             Expanded(
-              child: ListView.separated(
-                  itemBuilder: ((context, index) => DiagnosItem(
-                        icon: DiagnosItem.specialtiesList[index]['icon'],
-                        text: DiagnosItem.specialtiesList[index]['text'],
-                      )),
-                  separatorBuilder: (context, index) => const Divider(),
-                  itemCount: DiagnosItem.specialtiesList.length),
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: ((context) => const DoctorList()),
+                    ),
+                  );
+                },
+                child: ListView.separated(
+                    itemBuilder: ((context, index) => DiagnosItem(
+                          icon: DiagnosItem.specialtiesList[index]['icon'],
+                          text: DiagnosItem.specialtiesList[index]['text'],
+                        )),
+                    separatorBuilder: (context, index) => const Divider(),
+                    itemCount: DiagnosItem.specialtiesList.length),
+              ),
             ),
           ]),
     );

@@ -5,8 +5,8 @@ import '../../shared/constant.dart';
 import '../../shared/doctorCard.dart';
 import '../../shared/searchBar.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class DoctorList extends StatelessWidget {
+  const DoctorList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

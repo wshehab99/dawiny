@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../docotrList/doctorList.dart';
 import '../../shared/constant.dart';
+import '../diagnoses.dart/diagnosesList.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({Key? key}) : super(key: key);

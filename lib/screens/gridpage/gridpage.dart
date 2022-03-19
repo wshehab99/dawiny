@@ -21,11 +21,11 @@ class GridPage extends StatelessWidget {
   // ];
 
   final List imagesGrid = [
-    "assets/images/y.jpg",
-    "assets/images/video.png",
-    "assets/images/y.jpg",
-    "assets/images/video.png",
-    "assets/images/video.png",
+    "assets/icons/heart_surgeon.png",
+    "assets/icons/heart_surgeon.png",
+    "assets/icons/heart_surgeon.png",
+    "assets/icons/heart_surgeon.png",
+    "assets/icons/heart_surgeon.png",
   ];
 
   @override
@@ -44,7 +44,7 @@ class GridPage extends StatelessWidget {
       body: InkWell(
         onTap: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const DaignoList()));
+              MaterialPageRoute(builder: (context) => const Doctorlist()));
         },
         child: GridView.count(
           padding: const EdgeInsets.all(10),
