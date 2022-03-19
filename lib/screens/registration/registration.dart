@@ -13,16 +13,6 @@ class RegistrationScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0.0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.blue),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
         body: Center(
           child: SingleChildScrollView(
             child: Column(

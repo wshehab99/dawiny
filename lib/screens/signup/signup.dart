@@ -9,7 +9,7 @@ import '../../shared/textFieldApp.dart';
 import '../signin/continue_with.dart';
 
 class SignUp extends StatefulWidget {
-  SignUp({Key? key}) : super(key: key);
+  const SignUp({Key? key}) : super(key: key);
 
   @override
   State<SignUp> createState() => _SignUpState();
@@ -23,8 +23,6 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _confirmPassword = TextEditingController();
 
   bool isCheck = false;
-
-  final CheckBoxRow _checkBoxRow = CheckBoxRow();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -142,7 +140,8 @@ class _SignUpState extends State<SignUp> {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => UserProfile()));
+                                        builder: (context) =>
+                                            const UserProfile()));
                               }
                             }
                           : null,

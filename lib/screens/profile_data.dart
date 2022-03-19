@@ -93,6 +93,7 @@ class _UserProfileState extends State<UserProfile> {
                   hint: "Date of birth",
                   validator: (value) {
                     if (value!.isEmpty) return 'please enter your birthday';
+                    return null;
                   },
                   icon: const Icon(Icons.calendar_month),
                   controller: _dateController,
@@ -131,7 +132,7 @@ class _UserProfileState extends State<UserProfile> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => CongratsScreen()));
+                              builder: (context) => const CongratsScreen()));
                     }
                   }))
         ]),

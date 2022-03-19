@@ -2,8 +2,6 @@ import 'package:find_doctor/screens/gridpage/gridpage.dart';
 import 'package:find_doctor/shared/app_button.dart';
 import 'package:flutter/material.dart';
 
-import '../homepagescreen/HomePageScreen.dart';
-
 class CongratsScreen extends StatelessWidget {
   const CongratsScreen({Key? key}) : super(key: key);
 
@@ -13,27 +11,27 @@ class CongratsScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          Spacer(),
+          const Spacer(),
           Image.asset('assets/images/teriaq.jpg'),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
-          Text(
+          const Text(
             'Congrats! ',
             style: TextStyle(
                 fontSize: 24, color: Colors.blue, fontWeight: FontWeight.bold),
           ),
-          SizedBox(
+          const SizedBox(
             height: 24,
           ),
-          Text(
+          const Text(
             'Your Account is ready to use',
             style: TextStyle(fontSize: 16),
           ),
-          SizedBox(
+          const SizedBox(
             height: 24,
           ),
-          Spacer(),
+          const Spacer(),
           Padding(
             padding: const EdgeInsets.all(10),
             child: AppButton(
