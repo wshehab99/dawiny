@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../docotrList/doctorList.dart';
 import '../../shared/constant.dart';
-import '../home/homescreen.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -56,7 +56,7 @@ class OnboardingScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomeScreen(),
+                              builder: (context) => Doctorlist(),
                             ),
                           );
                         },
