@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class GridPage extends StatelessWidget {
   GridPage({Key? key}) : super(key: key);
 
-  List<String> Names = [
+  final List<String> names = [
     'Reservation Clinics',
     'Services Request',
     'Video Call',
@@ -20,7 +20,7 @@ class GridPage extends StatelessWidget {
   //   "assets/images/video.png",
   // ];
 
-  List imagesGrid = [
+  final List imagesGrid = [
     "assets/images/y.jpg",
     "assets/images/video.png",
     "assets/images/y.jpg",
@@ -36,18 +36,18 @@ class GridPage extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Teriaq',
           style: TextStyle(fontSize: 30, color: Colors.blue),
         ),
       ),
       body: InkWell(
         onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => DaignoList()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const DaignoList()));
         },
         child: GridView.count(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           crossAxisCount: 2,
           children: List<Widget>.generate(5, (index) {
             return GridTile(
@@ -65,12 +65,12 @@ class GridPage extends StatelessWidget {
                           width: 80,
                           height: 80,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Text(
-                          Names[index],
-                          style: TextStyle(
+                          names[index],
+                          style: const TextStyle(
                               color: Colors.white,
                               fontSize: 20,
                               overflow: TextOverflow.clip),

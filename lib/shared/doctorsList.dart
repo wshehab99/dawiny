@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constant.dart';
+import 'constant.dart';
 
 class DoctorCard extends StatelessWidget {
   var _name;

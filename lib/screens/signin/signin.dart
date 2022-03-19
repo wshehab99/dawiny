@@ -1,5 +1,5 @@
-import 'package:find_doctor/screens/home/homescreen.dart';
-import 'package:find_doctor/screens/homepagescreen/HomePageScreen.dart';
+import 'package:find_doctor/screens/gridpage/gridpage.dart';
+
 import 'package:find_doctor/screens/signin/continue_with.dart';
 import 'package:find_doctor/screens/signup/signup.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +9,8 @@ import '../../shared/app_CheckBox.dart';
 import '../../shared/app_button.dart';
 import '../../shared/textFieldApp.dart';
 
-// ignore: must_be_immutable
 class SignIn extends StatefulWidget {
-  SignIn({Key? key}) : super(key: key);
+  const SignIn({Key? key}) : super(key: key);
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -162,7 +161,7 @@ class _SignInState extends State<SignIn> {
                   onPressed: () {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) {
-                      return SignUp();
+                      return const SignUp();
                     }));
                   },
                   child: const Text(
@@ -187,11 +186,11 @@ class _SignInState extends State<SignIn> {
           user.password == User.users[i].password) {
         User.currentUser = User.users[i];
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePageScreen()));
+            context, MaterialPageRoute(builder: (context) => GridPage()));
         return;
       }
     }
     ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('Sothing wrong')));
+        .showSnackBar(const SnackBar(content: Text('Sothing wrong')));
   }
 }
