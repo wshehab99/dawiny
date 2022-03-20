@@ -5,11 +5,12 @@ class GridPage extends StatelessWidget {
   GridPage({Key? key}) : super(key: key);
 
   final List<String> names = [
-    'Reservation Clinics',
-    'Services Request',
+    'Clinics Booking',
+    'Home Visit',
     'Video Call',
-    'nearst Pharmacy',
+    'Nursing Service',
     'Medical Diagnosis',
+    'Nearest Pharmacy',
   ];
 
   // List<String> MyImages = [
@@ -24,6 +25,7 @@ class GridPage extends StatelessWidget {
     "assets/images/visitClinc.png",
     "assets/images/visitClinc.png",
     "assets/images/visitClinc.png",
+    "assets/icons/heart_surgeon.png",
     "assets/icons/heart_surgeon.png",
     "assets/icons/heart_surgeon.png",
   ];
@@ -49,7 +51,7 @@ class GridPage extends StatelessWidget {
         child: GridView.count(
           padding: const EdgeInsets.all(10),
           crossAxisCount: 2,
-          children: List<Widget>.generate(5, (index) {
+          children: List<Widget>.generate(6, (index) {
             return GridTile(
               child: Card(
                   shape: RoundedRectangleBorder(
