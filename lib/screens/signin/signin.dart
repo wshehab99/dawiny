@@ -35,9 +35,10 @@ class _SignInState extends State<SignIn> {
           const SizedBox(
             height: 20,
           ),
-          const CircleAvatar(
-            radius: 80,
-            backgroundImage: AssetImage('assets/images/teriaq.PNG'),
+          Image(
+            image: AssetImage('assets/images/Dawiny-logos_white.png'),
+            height: 300,
+            width: 500,
           ),
           // Container(
           //   clipBehavior: Clip.antiAlias,
@@ -50,9 +51,7 @@ class _SignInState extends State<SignIn> {
           //     height: 160,
           //   ),
           // ),
-          const SizedBox(
-            height: 50,
-          ),
+
           Text(
             "Sign in to your account",
             style: TextStyle(
