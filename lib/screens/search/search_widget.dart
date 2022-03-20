@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SearchTextFeild extends StatelessWidget {
-  SearchTextFeild({Key? key, this.hint}) : super(key: key);
+  SearchTextFeild({Key? key, this.hint, this.onSearch}) : super(key: key);
   String? hint;
+  Function(String?)? onSearch;
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +14,7 @@ class SearchTextFeild extends StatelessWidget {
           color: Colors.grey.withOpacity(0.2),
           borderRadius: BorderRadius.circular(35)),
       child: TextField(
+        onChanged: onSearch,
         decoration: InputDecoration(
             hintText: hint,
             contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),

@@ -1,12 +1,18 @@
 import 'package:find_doctor/shared/diagnos_item_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../doctors/doctorList.dart';
+import '../doctors/doctor_list_screen.dart';
 import '../search/search_widget.dart';
 
-class Doctorlist extends StatelessWidget {
+class Doctorlist extends StatefulWidget {
   const Doctorlist({Key? key}) : super(key: key);
 
+  @override
+  State<Doctorlist> createState() => _DoctorlistState();
+}
+
+class _DoctorlistState extends State<Doctorlist> {
+  List shownList = DiagnosItem.specialtiesList;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +34,14 @@ class Doctorlist extends StatelessWidget {
             ),
             SearchTextFeild(
               hint: 'search',
+              onSearch: (value) {
+                setState(() {
+                  shownList = DiagnosItem.specialtiesList
+                      .where((element) =>
+                          element.text!.toLowerCase().contains(value!))
+                      .toList();
+                });
+              },
             ),
             // const Padding(
             //   padding: EdgeInsets.only(left: 10),
@@ -41,22 +55,23 @@ class Doctorlist extends StatelessWidget {
             //   ),
             // ),
             Expanded(
-              child: ListView.separated(
-                  itemBuilder: ((context, index) => DiagnosItem(
-                        icon: DiagnosItem.specialtiesList[index]['icon'],
-                        text: DiagnosItem.specialtiesList[index]['text'],
-                        ontap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: ((context) => DoctorList(DiagnosItem
-                                    .specialtiesList[index]['text'])),
-                              ));
-                        },
-                      )),
-                  separatorBuilder: (context, index) => const Divider(),
-                  itemCount: DiagnosItem.specialtiesList.length),
-            ),
+                child: ListView.separated(
+              itemBuilder: ((context, index) => DiagnosItem(
+                    icon: shownList[index].icon,
+                    text: shownList[index].text,
+                    ontap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: ((context) => DoctorListScreen(
+                                  dignoseName: shownList[index].text,
+                                )),
+                          ));
+                    },
+                  )),
+              separatorBuilder: (context, index) => const Divider(),
+              itemCount: shownList.length,
+            )),
           ]),
     );
   }
