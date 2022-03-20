@@ -1,9 +1,11 @@
+import 'package:find_doctor/fake_data/fake_data.dart';
 import 'package:find_doctor/screens/doctors/doctor_list_widget..dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../shared/constant.dart';
 
+import '../../shared/doctorCard.dart';
 import '../../shared/searchBar.dart';
 
 class DoctorListScreen extends StatelessWidget {
@@ -53,17 +55,6 @@ class DoctorListScreen extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
-                child: Text(
-                  '',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: kTitleTextColor,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
               Expanded(
                 child: DoctorListWidget(dignoseName: dignoseName!),
               ),
@@ -72,74 +63,79 @@ class DoctorListScreen extends StatelessWidget {
     );
   }
 
-  buildDoctorList() {
-    //   child: ListView(
-    //     children: [
-    //       DoctorCard(
-    //         'Dr. Stella Kane',
-    //         '$dignoseName - Flower Hospitals',
-    //         'assets/images/doctor1.png',
-    //         kBlueColor,
-    //       ),
-    //       SizedBox(
-    //         height: 20,
-    //       ),
-    //       DoctorCard(
-    //         'Dr. Stella Kane',
-    //         '$dignoseName - Flower Hospitals',
-    //         'assets/images/doctor1.png',
-    //         kBlueColor,
-    //       ),
-    //       SizedBox(
-    //         height: 20,
-    //       ),
-    //       DoctorCard(
-    //         'Dr. Stella Kane',
-    //         '$dignoseName - Flower Hospitals',
-    //         'assets/images/doctor1.png',
-    //         kBlueColor,
-    //       ),
-    //       SizedBox(
-    //         height: 20,
-    //       ),
-    //       DoctorCard(
-    //         'Dr. Stella Kane',
-    //         '$dignoseName - Flower Hospitals',
-    //         'assets/images/doctor1.png',
-    //         kBlueColor,
-    //       ),
-    //       SizedBox(
-    //         height: 20,
-    //       ),
-    //       DoctorCard(
-    //         'Dr. Stella Kane',
-    //         '$dignoseName - Flower Hospitals',
-    //         'assets/images/doctor1.png',
-    //         kBlueColor,
-    //       ),
-    //       SizedBox(
-    //         height: 20,
-    //       ),
-    //       DoctorCard(
-    //         'Dr. Joseph Cart',
-    //         '$dignoseName - Flower Hospitals',
-    //         'assets/images/doctor2.png',
-    //         kYellowColor,
-    //       ),
-    //       SizedBox(
-    //         height: 20,
-    //       ),
-    //       DoctorCard(
-    //         'Dr. Stephanie',
-    //         '$dignoseName - Flower Hospitals',
-    //         'assets/images/doctor3.png',
-    //         kOrangeColor,
-    //       ),
-    //       SizedBox(
-    //         height: 20,
-    //       ),
-    //     ],
-    //   ),
-    // );
-  }
+  // buildDoctorList() {
+  //   return Padding(
+  //     padding: EdgeInsets.symmetric(
+  //       horizontal: 30,
+  //     ),
+  //     child: ListView(
+  //       children: [
+  //         DoctorCard(
+  //           'Dr. Stella Kane',
+  //           'Heart Surgeon - Flower Hospitals',
+  //           'assets/images/doctor1.png',
+  //           kBlueColor,
+  //         ),
+  //         SizedBox(
+  //           height: 20,
+  //         ),
+  //         DoctorCard(
+  //           'Dr. Stella Kane',
+  //           'Heart Surgeon - Flower Hospitals',
+  //           'assets/images/doctor1.png',
+  //           kBlueColor,
+  //         ),
+  //         SizedBox(
+  //           height: 20,
+  //         ),
+  //         DoctorCard(
+  //           'Dr. Stella Kane',
+  //           'Heart Surgeon - Flower Hospitals',
+  //           'assets/images/doctor1.png',
+  //           kBlueColor,
+  //         ),
+  //         SizedBox(
+  //           height: 20,
+  //         ),
+  //         DoctorCard(
+  //           'Dr. Stella Kane',
+  //           'Heart Surgeon - Flower Hospitals',
+  //           'assets/images/doctor1.png',
+  //           kBlueColor,
+  //         ),
+  //         SizedBox(
+  //           height: 20,
+  //         ),
+  //         DoctorCard(
+  //           'Dr. Stella Kane',
+  //           'Heart Surgeon - Flower Hospitals',
+  //           'assets/images/doctor1.png',
+  //           kBlueColor,
+  //         ),
+  //         SizedBox(
+  //           height: 20,
+  //         ),
+  //         DoctorCard(
+  //           'Dr. Joseph Cart',
+  //           'Dental Surgeon - Flower Hospitals',
+  //           'assets/images/doctor2.png',
+  //           kYellowColor,
+  //         ),
+  //         SizedBox(
+  //           height: 20,
+  //         ),
+  //         DoctorCard(
+  //           'Dr. Stephanie',
+  //           'Eye Specialist - Flower Hospitals',
+  //           'assets/images/doctor3.png',
+  //           kOrangeColor,
+  //         ),
+  //         SizedBox(
+  //           height: 20,
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
 }

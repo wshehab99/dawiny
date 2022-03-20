@@ -1,11 +1,13 @@
+import 'package:find_doctor/fake_data/fake_data.dart';
 import 'package:flutter/material.dart';
 
-import '../../model/doctor.dart';
 import '../../shared/constant.dart';
 import '../../shared/doctorCard.dart';
 
 class DoctorListWidget extends StatelessWidget {
-  List<Doctror> shownList = [];
+  // List<Doctor> shownList = [
+
+  // ];
 
   String dignoseName;
 
@@ -13,9 +15,10 @@ class DoctorListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    shownList = Doctror.doctors
-        .where((element) => element.specialist == dignoseName)
-        .toList();
+    var shownList = FakeData.doctors;
+    // .where((element) =>
+    //     element.specialist!.toLowerCase().contains(dignoseName))
+    // .toList();
     return Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 30,
@@ -25,7 +28,7 @@ class DoctorListWidget extends StatelessWidget {
               return DoctorCard(
                   shownList[index].fullName,
                   "${shownList[index].specialist} - ${shownList[index].hospitalName}",
-                  "assets/images/doctor1.png",
+                  "${shownList[index].profilePhoto}",
                   kBlueColor);
             },
             separatorBuilder: (context, index) => const SizedBox(

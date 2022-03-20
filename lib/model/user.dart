@@ -4,7 +4,7 @@ class User {
   String? fullName;
   String email;
   String password;
-  Widget? profilePhoto;
+  String? profilePhoto;
   String address;
   String birthday;
   String gender;

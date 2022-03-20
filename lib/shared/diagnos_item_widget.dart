@@ -1,111 +1,92 @@
+import 'package:find_doctor/fake_data/fake_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DiagnosItem extends StatelessWidget {
-  DiagnosItem({Key? key, this.text, this.icon, this.ontap}) : super(key: key);
+  DiagnosItem({Key? key, this.specialization, this.ontap}) : super(key: key);
   Widget? icon;
-  String? text;
+  SpecializationData? specialization;
   Function()? ontap;
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: ontap,
-      leading: icon,
+      leading: Image.asset(
+        specialization!.imagePath,
+        color: Colors.blue,
+        height: 40,
+      ),
       title: Text(
-        text!,
+        '${specialization!.name}',
         style: const TextStyle(color: Colors.black),
       ),
     );
   }
 
-  static List<DiagnosItem> specialtiesList = [
-    DiagnosItem(
-      text: 'Dermatology',
-      icon: Image.asset(
-        "assets/icons/dermatology.png",
-        color: Colors.blue,
-        height: 40,
-      ),
-    ),
-    DiagnosItem(
-      text: 'Ear',
-      icon: Image.asset(
-        "assets/icons/ear.png",
-        color: Colors.blue,
-        height: 40,
-      ),
-    ),
-    DiagnosItem(
-      text: 'Ophthalmology',
-      icon: Image.asset(
-        "assets/icons/eye.png",
-        color: Colors.blue,
-        height: 40,
-      ),
-    ),
-    DiagnosItem(
-      text: 'Nephrology',
-      icon: Image.asset(
-        "assets/icons/kidney.png",
-        color: Colors.blue,
-        height: 40,
-      ),
-    ),
-    DiagnosItem(
-      text: 'Dentistry',
-      icon: Image.asset(
-        "assets/icons/dental_surgeon.png",
-        color: Colors.blue,
-        height: 40,
-      ),
-    ),
-    DiagnosItem(
-      text: 'Brain',
-      icon: Image.asset(
-        "assets/icons/brain.png",
-        color: Colors.blue,
-        height: 40,
-      ),
-    ),
-    DiagnosItem(
-      text: 'Cardiology',
-      icon: Image.asset(
-        "assets/icons/heart_surgeon.png",
-        color: Colors.blue,
-        height: 40,
-      ),
-    ),
-    DiagnosItem(
-      text: 'Neurology',
-      icon: Image.asset(
-        "assets/icons/neuron.png",
-        color: Colors.blue,
-        height: 40,
-      ),
-    ),
-    DiagnosItem(
-      text: 'Orthopedics',
-      icon: Image.asset(
-        "assets/icons/fracture.png",
-        color: Colors.blue,
-        height: 40,
-      ),
-    ),
-    DiagnosItem(
-      text: 'Pediatrics',
-      icon: Image.asset(
-        "assets/icons/child.png",
-        color: Colors.blue,
-        height: 40,
-      ),
-    ),
-    DiagnosItem(
-      text: 'Endocrinology',
-      icon: Image.asset(
-        "assets/icons/endocrine.png",
-        color: Colors.blue,
-        height: 40,
-      ),
-    ),
-  ];
+  // static List<DiagnosItem> specialtiesList = [
+  //   DiagnosItem(
+  //     specialization: Specialization.Dermatology,
+
+  //   ),
+  //   DiagnosItem(
+  //     specialization: Specialization.Ear,
+
+  //   ),
+  //   DiagnosItem(
+  //     specialization: Specialization.Ophthalmology,
+
+  //   ),
+  //   DiagnosItem(
+  //     specialization: Specialization.Nephrology,
+
+  //   ),
+  //   DiagnosItem(
+  //     specialization: Specialization.Dentistry,
+
+  //   ),
+  //   DiagnosItem(
+  //     specialization: Specialization.Brain,
+
+  //   ),
+  //   DiagnosItem(
+  //     specialization: Specialization.Cardiology,
+  //     icon: Image.asset(
+  //      ,
+  //       color: Colors.blue,
+  //       height: 40,
+  //     ),
+  //   ),
+  //   DiagnosItem(
+  //     specialization: Specialization.Neurology,
+  //     icon: Image.asset(
+  //     ,
+  //       color: Colors.blue,
+  //       height: 40,
+  //     ),
+  //   ),
+  //   DiagnosItem(
+  //     specialization: Specialization.Orthopedics,
+  //     icon: Image.asset(
+  //      ,
+  //       color: Colors.blue,
+  //       height: 40,
+  //     ),
+  //   ),
+  //   DiagnosItem(
+  //     specialization: Specialization.Pediatrics,
+  //     icon: Image.asset(
+  //       "assets/icons/child.png",
+  //       color: Colors.blue,
+  //       height: 40,
+  //     ),
+  //   ),
+  //   DiagnosItem(
+  //     specialization: Specialization.Endocrinology,
+  //     icon: Image.asset(
+  //       "assets/icons/endocrine.png",
+  //       color: Colors.blue,
+  //       height: 40,
+  //     ),
+  //   ),
+  // ];
 }
