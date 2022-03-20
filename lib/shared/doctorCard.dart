@@ -9,7 +9,9 @@ class DoctorCard extends StatelessWidget {
   var _imageUrl;
   var _bgColor;
 
-  DoctorCard(this._name, this._description, this._imageUrl, this._bgColor);
+  DoctorCard(this._name, this._description, this._imageUrl, this._bgColor,
+      {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

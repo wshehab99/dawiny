@@ -1,6 +1,5 @@
+import 'package:find_doctor/shared/constant.dart';
 import 'package:flutter/material.dart';
-
-import '../../shared/constant.dart';
 import '../home/homescreen.dart';
 
 class OnboardingScreen extends StatelessWidget {
