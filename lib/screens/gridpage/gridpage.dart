@@ -21,9 +21,9 @@ class GridPage extends StatelessWidget {
   // ];
 
   final List imagesGrid = [
-    "assets/icons/heart_surgeon.png",
-    "assets/icons/heart_surgeon.png",
-    "assets/icons/heart_surgeon.png",
+    "assets/images/visitClinc.png",
+    "assets/images/visitClinc.png",
+    "assets/images/visitClinc.png",
     "assets/icons/heart_surgeon.png",
     "assets/icons/heart_surgeon.png",
   ];
@@ -51,34 +51,36 @@ class GridPage extends StatelessWidget {
           crossAxisCount: 2,
           children: List<Widget>.generate(5, (index) {
             return GridTile(
-              child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  color: Colors.blue[300],
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          imagesGrid[index],
-                          width: 80,
-                          height: 80,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          names[index],
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              overflow: TextOverflow.clip),
-                          maxLines: 2,
-                        ),
-                      ],
+              child: Container(
+                clipBehavior: Clip.antiAlias,
+                height: 300,
+                width: 300,
+                child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
-                  )),
+                    color: Colors.blue[300],
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            imagesGrid[index],
+                            width: 130,
+                            height: 130,
+                          ),
+                          Text(
+                            names[index],
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                overflow: TextOverflow.clip),
+                            maxLines: 2,
+                          ),
+                        ],
+                      ),
+                    )),
+              ),
             );
           }),
         ),
