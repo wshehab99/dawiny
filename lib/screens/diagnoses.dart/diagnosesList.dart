@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:find_doctor/fake_data/fake_data.dart';
 import 'package:find_doctor/shared/diagnos_item_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +15,7 @@ class Doctorlist extends StatefulWidget {
 }
 
 class _DoctorlistState extends State<Doctorlist> {
-  List shownList = DiagnosItem.specialtiesList;
+  var shownList = FakeData.specializations;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,10 +39,15 @@ class _DoctorlistState extends State<Doctorlist> {
               hint: 'search',
               onSearch: (value) {
                 setState(() {
-                  shownList = DiagnosItem.specialtiesList
-                      .where((element) =>
-                          element.text!.toLowerCase().contains(value!))
-                      .toList();
+                  shownList = FakeData.specializations.where((element) {
+                    return element.name.toLowerCase().contains(value!);
+                  }).toList();
+                  //  shownList = specializations.values
+                  //     .where((element) =>
+                  //         specializationName[element.specialization]!
+                  //             .toLowerCase()
+                  //             .contains(value!))
+                  //     .toList();
                 });
               },
             ),
@@ -56,19 +64,21 @@ class _DoctorlistState extends State<Doctorlist> {
             // ),
             Expanded(
                 child: ListView.separated(
-              itemBuilder: ((context, index) => DiagnosItem(
-                    icon: shownList[index].icon,
-                    text: shownList[index].text,
-                    ontap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: ((context) => DoctorListScreen(
-                                  dignoseName: shownList[index].text,
-                                )),
-                          ));
-                    },
-                  )),
+              itemBuilder: ((context, index) {
+                var value = shownList[index];
+                return DiagnosItem(
+                  specialization: value,
+                  ontap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: ((context) =>
+                            DoctorListScreen(dignoseName: value.name)),
+                      ),
+                    );
+                  },
+                );
+              }),
               separatorBuilder: (context, index) => const Divider(),
               itemCount: shownList.length,
             )),

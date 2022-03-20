@@ -1,13 +1,14 @@
 import 'package:find_doctor/model/user.dart';
+import 'package:find_doctor/screens/profile_photo_card.dart';
 import 'package:flutter/material.dart';
 
-class Doctror extends User {
-  Doctror(
+class Doctor extends User {
+  Doctor(
       {required String email,
       required String password,
       required String fullName,
       required String this.hospitalName,
-      Widget? profilePhoto,
+      required String profilePhoto,
       this.specialist})
       : super(
           email: email,
@@ -17,44 +18,4 @@ class Doctror extends User {
         );
   String? specialist;
   String? hospitalName;
-  static List<Doctror> doctors = [
-    Doctror(
-        email: "waleed@gmail.com",
-        password: 'password123',
-        fullName: "Waleed Bin Shehab",
-        specialist: 'Brain',
-        hospitalName: 'Mansoura hospital'),
-    Doctror(
-        email: "Ahmed@gmail.com",
-        password: 'password123',
-        fullName: "Ahmed Mohamed",
-        specialist: 'Cardiology',
-        hospitalName: 'Alnaser hospital'),
-    Doctror(
-        email: "Sultan@gmail.com",
-        password: 'password123',
-        fullName: "Sultan",
-        specialist: 'Neurology',
-        hospitalName: 'MM hospital'),
-    Doctror(
-        email: "waleed@gmail.com",
-        password: 'password123',
-        fullName: "Dr. Stella Kane",
-        specialist: 'Orthopedics',
-        hospitalName: 'Alrajaa hospital'),
-    Doctror(
-      email: "waleed@gmail.com",
-      password: 'password123',
-      fullName: "Dr. Joseph Cart",
-      specialist: 'Pediatrics',
-      hospitalName: "Cure hospital",
-    ),
-    Doctror(
-      email: "waleed@gmail.com",
-      password: 'password123',
-      fullName: "Dr. Stephani",
-      specialist: 'Endocrinology',
-      hospitalName: "Cure hospital",
-    ),
-  ];
 }
