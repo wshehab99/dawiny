@@ -36,9 +36,10 @@ class _SignUpState extends State<SignUp> {
             const SizedBox(
               height: 20,
             ),
-            const CircleAvatar(
-              radius: 70,
-              backgroundImage: AssetImage('assets/images/teriaq.PNG'),
+            Image(
+              image: AssetImage('assets/images/Dawiny-logos_white.png'),
+              height: 300,
+              width: 500,
             ),
             // Container(
             //   clipBehavior: Clip.antiAlias,

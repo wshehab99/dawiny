@@ -35,7 +35,7 @@ class FakeData {
     Doctor(
       email: "Ahmed@gmail.com",
       password: 'password123',
-      fullName: "Ahmed Mohamed",
+      fullName: "Hazem Saleh",
       specialist: 'Dermatology',
       hospitalName: 'Alnaser hospital',
       profilePhoto: 'assets/images/doctor2.png',
@@ -51,7 +51,7 @@ class FakeData {
     Doctor(
       email: "waleed@gmail.com",
       password: 'password123',
-      fullName: "Dr. Stella Kane",
+      fullName: "Dr. Hazem Saleh",
       specialist: 'Dermatology',
       hospitalName: 'Alrajaa hospital',
       profilePhoto: 'assets/images/doctor2.png',

@@ -18,10 +18,12 @@ class RegistrationScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const CircleAvatar(
-                  radius: 100,
-                  backgroundImage: AssetImage('assets/images/teriaq.PNG'),
+                Image(
+                  image: AssetImage('assets/images/Dawiny-logos_white.png'),
+                  height: 500,
+                  width: 500,
                 ),
+
                 // Container(
                 //   clipBehavior: Clip.antiAlias,
                 //   child: Image(
@@ -34,10 +36,10 @@ class RegistrationScreen extends StatelessWidget {
                 //   height: 150,
                 // ),
                 const SizedBox(
-                  height: 150,
+                  height: 1,
                 ),
                 const Text(
-                  "Welacome To Teriag!",
+                  "Welcome To Dawiny!",
                   style: TextStyle(fontSize: 23, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(
