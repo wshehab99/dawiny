@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DiagnosItem extends StatelessWidget {
-  DiagnosItem({Key? key, this.text, this.icon}) : super(key: key);
+  DiagnosItem({Key? key, this.text, this.icon, this.ontap}) : super(key: key);
   Widget? icon;
   String? text;
+  Function()? ontap;
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: ontap,
       leading: icon,
       title: Text(
         text!,

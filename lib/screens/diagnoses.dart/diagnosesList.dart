@@ -41,23 +41,21 @@ class Doctorlist extends StatelessWidget {
             //   ),
             // ),
             Expanded(
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: ((context) => const DoctorList()),
-                    ),
-                  );
-                },
-                child: ListView.separated(
-                    itemBuilder: ((context, index) => DiagnosItem(
-                          icon: DiagnosItem.specialtiesList[index]['icon'],
-                          text: DiagnosItem.specialtiesList[index]['text'],
-                        )),
-                    separatorBuilder: (context, index) => const Divider(),
-                    itemCount: DiagnosItem.specialtiesList.length),
-              ),
+              child: ListView.separated(
+                  itemBuilder: ((context, index) => DiagnosItem(
+                        icon: DiagnosItem.specialtiesList[index]['icon'],
+                        text: DiagnosItem.specialtiesList[index]['text'],
+                        ontap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: ((context) => DoctorList(DiagnosItem
+                                    .specialtiesList[index]['text'])),
+                              ));
+                        },
+                      )),
+                  separatorBuilder: (context, index) => const Divider(),
+                  itemCount: DiagnosItem.specialtiesList.length),
             ),
           ]),
     );

@@ -6,8 +6,11 @@ import '../../shared/doctorCard.dart';
 import '../../shared/searchBar.dart';
 
 class DoctorList extends StatelessWidget {
-  const DoctorList({Key? key}) : super(key: key);
-
+  DoctorList(
+    this.DiagnosName, {
+    Key? key,
+  }) : super(key: key);
+  String DiagnosName;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +82,7 @@ class DoctorList extends StatelessWidget {
         children: [
           DoctorCard(
             'Dr. Stella Kane',
-            'Heart Surgeon - Flower Hospitals',
+            '${DiagnosName}- Flower Hospitals',
             'assets/images/doctor1.png',
             kBlueColor,
           ),
@@ -88,7 +91,7 @@ class DoctorList extends StatelessWidget {
           ),
           DoctorCard(
             'Dr. Stella Kane',
-            'Heart Surgeon - Flower Hospitals',
+            '${DiagnosName} - Flower Hospitals',
             'assets/images/doctor1.png',
             kBlueColor,
           ),
@@ -97,7 +100,7 @@ class DoctorList extends StatelessWidget {
           ),
           DoctorCard(
             'Dr. Stella Kane',
-            'Heart Surgeon - Flower Hospitals',
+            '${DiagnosName} - Flower Hospitals',
             'assets/images/doctor1.png',
             kBlueColor,
           ),
@@ -106,7 +109,7 @@ class DoctorList extends StatelessWidget {
           ),
           DoctorCard(
             'Dr. Stella Kane',
-            'Heart Surgeon - Flower Hospitals',
+            '${DiagnosName}- Flower Hospitals',
             'assets/images/doctor1.png',
             kBlueColor,
           ),
@@ -115,27 +118,9 @@ class DoctorList extends StatelessWidget {
           ),
           DoctorCard(
             'Dr. Stella Kane',
-            'Heart Surgeon - Flower Hospitals',
+            '${DiagnosName}- Flower Hospitals',
             'assets/images/doctor1.png',
             kBlueColor,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          DoctorCard(
-            'Dr. Joseph Cart',
-            'Dental Surgeon - Flower Hospitals',
-            'assets/images/doctor2.png',
-            kYellowColor,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          DoctorCard(
-            'Dr. Stephanie',
-            'Eye Specialist - Flower Hospitals',
-            'assets/images/doctor3.png',
-            kOrangeColor,
           ),
           SizedBox(
             height: 20,
