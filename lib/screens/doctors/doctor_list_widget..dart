@@ -8,17 +8,18 @@ class DoctorListWidget extends StatelessWidget {
   // List<Doctor> shownList = [
 
   // ];
-
+  List shownList = [];
   String dignoseName;
 
   DoctorListWidget({Key? key, required this.dignoseName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var shownList = FakeData.doctors;
-    // .where((element) =>
-    //     element.specialist!.toLowerCase().contains(dignoseName))
-    // .toList();
+    shownList = FakeData.doctors
+        .where(
+          (element) => element.specialist == dignoseName,
+        )
+        .toList();
     return Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 30,

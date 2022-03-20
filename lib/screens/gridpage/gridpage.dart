@@ -12,20 +12,12 @@ class GridPage extends StatelessWidget {
     'Medical Diagnosis',
   ];
 
-  // List<String> MyImages = [
-  //   "assets/images/video.png",
-  //   "assets/images/video.png",
-  //   "assets/images/video.png",
-  //   "assets/images/video.png",
-  //   "assets/images/video.png",
-  // ];
-
   final List imagesGrid = [
     "assets/images/visitClinc.png",
-    "assets/images/visitClinc.png",
-    "assets/images/visitClinc.png",
-    "assets/icons/heart_surgeon.png",
-    "assets/icons/heart_surgeon.png",
+    "assets/images/nursing_home.png",
+    "assets/images/online_doctor.png",
+    "assets/images/pharmacy.png",
+    "assets/images/appointment.png",
   ];
 
   @override
@@ -52,8 +44,9 @@ class GridPage extends StatelessWidget {
           children: List<Widget>.generate(5, (index) {
             return GridTile(
               child: Card(
+                  elevation: 5,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+                    borderRadius: BorderRadius.circular(25.0),
                   ),
                   color: Colors.blue[300],
                   child: Center(
@@ -68,9 +61,9 @@ class GridPage extends StatelessWidget {
                         Text(
                           names[index],
                           style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              overflow: TextOverflow.clip),
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
                           maxLines: 2,
                         ),
                       ],
