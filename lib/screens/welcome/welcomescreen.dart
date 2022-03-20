@@ -32,17 +32,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               InroScreen(
                   desc:
                       'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of it over 2000 years old.',
-                  img: 'doctor.jpg',
+                  img: 'doctorw2.png',
                   title: 'Find Doctor'),
               InroScreen(
                   desc:
                       'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of it over 2000 years old.',
-                  img: 'nuers1.jpg',
-                  title: 'Find Nuers'),
+                  img: 'doctorW.jpg',
+                  title: 'Find Nurse'),
               InroScreen(
                   desc:
                       'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of it over 2000 years old.',
-                  img: 'video.jpg',
+                  img: 'videoCon.png',
                   title: 'video consulting'),
             ],
           ),
