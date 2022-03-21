@@ -47,30 +47,26 @@ class _SignUpState extends State<SignUp> {
                         color: Colors.black54)
                   ]),
               child: Column(
-                children: const [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 50,
-                    child: Image(
-                      image: AssetImage('assets/Dawiny-logos_white.png'),
-                      height: double.infinity,
-                      fit: BoxFit.fitHeight,
-                    ),
-                  ),
-                  SizedBox(
+                children: [
+                  const SizedBox(
                     height: 30,
                   ),
-                  Text(
+                  Image(
+                    image: const AssetImage("assets/images/dawiny_logo.png"),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
                     "Sign up for free",
                     style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                 ],
@@ -80,7 +76,7 @@ class _SignUpState extends State<SignUp> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     TeriaqTextField(
@@ -198,7 +194,7 @@ class _SignUpState extends State<SignUp> {
                     onPressed: () {
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
-                        return SignIn();
+                        return const SignIn();
                       }));
                     },
                     child: const Text(

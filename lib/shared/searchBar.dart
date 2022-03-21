@@ -1,10 +1,11 @@
-import 'package:find_doctor/shared/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SearchBar extends StatelessWidget {
-  const SearchBar({Key? key}) : super(key: key);
+import 'constant.dart';
 
+class SearchBar extends StatelessWidget {
+  SearchBar({Key? key, this.onSearch}) : super(key: key);
+  void Function(String?)? onSearch;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -12,7 +13,7 @@ class SearchBar extends StatelessWidget {
         Container(
           width: MediaQuery.of(context).size.width * 0.7,
           height: MediaQuery.of(context).size.height * 0.06,
-          padding: EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 30),
           decoration: BoxDecoration(
             color: kSearchBackgroundColor,
             borderRadius: BorderRadius.circular(30),
@@ -20,7 +21,8 @@ class SearchBar extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 15),
             child: TextField(
-              decoration: InputDecoration.collapsed(
+              onChanged: onSearch,
+              decoration: const InputDecoration.collapsed(
                 hintText: 'Search for doctors',
               ),
             ),

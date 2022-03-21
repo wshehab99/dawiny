@@ -39,7 +39,7 @@ class GridPage extends StatelessWidget {
       // ),
       body: Column(children: [
         Container(
-          height: 150,
+          height: 120,
           width: double.infinity,
           child: const Center(
             child: Text(
@@ -53,8 +53,8 @@ class GridPage extends StatelessWidget {
           decoration: const BoxDecoration(
             color: Colors.blueAccent,
             borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(100),
-                bottomLeft: Radius.circular(100)),
+                bottomRight: Radius.circular(60),
+                bottomLeft: Radius.circular(60)),
             boxShadow: [
               BoxShadow(
                   blurRadius: 15, offset: Offset(0, 5), color: Colors.black54)
@@ -79,7 +79,7 @@ class GridPage extends StatelessWidget {
                 return Card(
                     elevation: 3,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25.0),
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
                     color: Colors.blue[200],
                     child: Center(
