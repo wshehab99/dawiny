@@ -12,7 +12,19 @@ class CongratsScreen extends StatelessWidget {
       body: Column(
         children: [
           const Spacer(),
-          Image.asset('assets/images/teriaq.jpg'),
+          CircleAvatar(
+            backgroundColor: Colors.blue,
+            radius: 100,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Image(
+                image: AssetImage(
+                  'assets/images/Dawiny logo - 2.png',
+                ),
+                fit: BoxFit.fitWidth,
+              ),
+            ),
+          ),
           const SizedBox(
             height: 15,
           ),

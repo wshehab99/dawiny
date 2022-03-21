@@ -49,16 +49,21 @@ class _SignUpState extends State<SignUp> {
               child: Column(
                 children: const [
                   SizedBox(
-                    height: 20,
+                    height: 40,
                   ),
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 50,
-                    child: Image(
-                      image: AssetImage('assets/Dawiny-logos_white.png'),
-                      height: double.infinity,
-                      fit: BoxFit.fitHeight,
-                    ),
+                  // CircleAvatar(
+                  //   backgroundColor: Colors.white,
+                  //   radius: 50,
+                  //   child: Image(
+                  //     image: AssetImage('assets/Dawiny-logos_white.png'),
+                  //     height: double.infinity,
+                  //     fit: BoxFit.fitHeight,
+                  //   ),
+                  // ),
+                  Image(
+                    image: AssetImage('assets/images/Dawiny logo - 2.png'),
+                    width: 220,
+                    height: 100,
                   ),
                   SizedBox(
                     height: 30,

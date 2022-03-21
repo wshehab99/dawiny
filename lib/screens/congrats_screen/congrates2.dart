@@ -1,5 +1,6 @@
 import 'package:find_doctor/shared/constant.dart';
 import 'package:flutter/material.dart';
+import '../gridpage/gridpage.dart';
 import '../home/homescreen.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -55,7 +56,7 @@ class OnboardingScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomeScreen(),
+                              builder: (context) => GridPage(),
                             ),
                           );
                         },
