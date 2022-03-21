@@ -35,7 +35,7 @@ class FakeData {
     Doctor(
       email: "Ahmed@gmail.com",
       password: 'password123',
-      fullName: "Hazem Saleh",
+      fullName: "Mohamed Mousa",
       specialist: 'Dermatology',
       hospitalName: 'Alnaser hospital',
       profilePhoto: 'assets/images/doctor2.png',

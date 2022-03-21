@@ -19,14 +19,33 @@ class RegistrationScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.3,
+
+
+                  height: 100,
                 ),
-                Image(
-                  image: const AssetImage(
-                    'assets/images/dawiny_logo.png',
+                CircleAvatar(
+                  backgroundColor: Colors.blue,
+                  radius: 100,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Image(
+                      image: AssetImage(
+                        'assets/images/Dawiny logo - 2.png',
+                      ),
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  fit: BoxFit.cover,
+                ),
+                // Image(
+                //   image: AssetImage(
+
+                //   ),
+                //   width: 250,
+                //   height: 100,
+                //   fit: BoxFit.cover,
+                // ),
+                SizedBox(
+                  height: 180,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.1,

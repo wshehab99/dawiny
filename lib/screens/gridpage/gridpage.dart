@@ -41,14 +41,26 @@ class GridPage extends StatelessWidget {
         Container(
           height: 120,
           width: double.infinity,
-          child: const Center(
-            child: Text(
-              'Dawiny',
-              style: TextStyle(
-                  fontSize: 36,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
+          child: Center(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 50,
+                ),
+                Image(
+                  image: AssetImage('assets/images/Dawiny logo - 2.png'),
+                  width: 170,
+                  height: 80,
+                ),
+              ],
             ),
+            // child: Text(
+            //   'Dawiny',
+            //   style: TextStyle(
+            //       fontSize: 36,
+            //       color: Colors.white,
+            //       fontWeight: FontWeight.bold),
+            // ),
           ),
           decoration: const BoxDecoration(
             color: Colors.blueAccent,

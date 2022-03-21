@@ -28,6 +28,11 @@ class User {
         email: 'm7mdmwsy@gmail.com',
         password: 'password123',
         fullName: "Moahmed Mousa"),
+    User(
+      email: "morsy12@gmail.com",
+      password: "password123",
+      fullName: "morsy hashish",
+    ),
   ];
   static User? currentUser;
 }

@@ -33,10 +33,12 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.9,
+
+        child: Container(
+          height: 100.h,
           child: Image.asset(
-            'assets/images/dawiny_logo.png',
+            'assets/images/Dawiny logo - Copy.png',
+
             fit: BoxFit.cover,
           ),
         ),

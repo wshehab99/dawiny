@@ -47,14 +47,25 @@ class _SignUpState extends State<SignUp> {
                         color: Colors.black54)
                   ]),
               child: Column(
-                children: [
-                  const SizedBox(
-                    height: 30,
+
+                children: const [
+                  SizedBox(
+                    height: 40,
                   ),
+                  // CircleAvatar(
+                  //   backgroundColor: Colors.white,
+                  //   radius: 50,
+                  //   child: Image(
+                  //     image: AssetImage('assets/Dawiny-logos_white.png'),
+                  //     height: double.infinity,
+                  //     fit: BoxFit.fitHeight,
+                  //   ),
+                  // ),
                   Image(
-                    image: const AssetImage("assets/images/dawiny_logo.png"),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    color: Colors.white,
+                    image: AssetImage('assets/images/Dawiny logo - 2.png'),
+                    width: 220,
+                    height: 100,
+
                   ),
                   const SizedBox(
                     height: 20,
