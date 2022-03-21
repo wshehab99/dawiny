@@ -47,6 +47,7 @@ class _SignUpState extends State<SignUp> {
                         color: Colors.black54)
                   ]),
               child: Column(
+
                 children: const [
                   SizedBox(
                     height: 40,
@@ -64,18 +65,19 @@ class _SignUpState extends State<SignUp> {
                     image: AssetImage('assets/images/Dawiny logo - 2.png'),
                     width: 220,
                     height: 100,
+
                   ),
-                  SizedBox(
-                    height: 30,
+                  const SizedBox(
+                    height: 20,
                   ),
-                  Text(
+                  const Text(
                     "Sign up for free",
                     style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                 ],
@@ -85,7 +87,7 @@ class _SignUpState extends State<SignUp> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     TeriaqTextField(
@@ -203,7 +205,7 @@ class _SignUpState extends State<SignUp> {
                     onPressed: () {
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
-                        return SignIn();
+                        return const SignIn();
                       }));
                     },
                     child: const Text(

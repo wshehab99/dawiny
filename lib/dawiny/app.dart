@@ -3,8 +3,8 @@ import 'package:find_doctor/screens/welcome/welcomescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Teriaq extends StatelessWidget {
-  const Teriaq({Key? key}) : super(key: key);
+class Dawiny extends StatelessWidget {
+  const Dawiny({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class Teriaq extends StatelessWidget {
               primarySwatch: Colors.blue,
             ),
             home: const SplashScreen(),
-            routes: {"WelcomeScreen": (context) => WelcomeScreen()},
+            routes: {"WelcomeScreen": (context) => const WelcomeScreen()},
           );
         });
   }

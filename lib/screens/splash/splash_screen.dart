@@ -1,7 +1,6 @@
 import 'dart:async';
-import 'package:find_doctor/screens/congrats_screen/congratesScreen.dart';
+
 import 'package:find_doctor/screens/welcome/welcomescreen.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -22,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
         (() {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => WelcomeScreen()),
+            MaterialPageRoute(builder: (context) => const WelcomeScreen()),
           );
         }),
       );
@@ -34,10 +33,12 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
+
         child: Container(
           height: 100.h,
           child: Image.asset(
             'assets/images/Dawiny logo - Copy.png',
+
             fit: BoxFit.cover,
           ),
         ),

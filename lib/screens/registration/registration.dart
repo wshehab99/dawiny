@@ -19,6 +19,8 @@ class RegistrationScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
+
+
                   height: 100,
                 ),
                 CircleAvatar(
@@ -45,27 +47,15 @@ class RegistrationScreen extends StatelessWidget {
                 SizedBox(
                   height: 180,
                 ),
-
-                // Container(
-                //   clipBehavior: Clip.antiAlias,
-                //   child: Image(
-                //     image: AssetImage('assets/images/teriaq.PNG'),
-                //   ),
-                //   decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.circular(80),
-                //     color: Colors.white,
-                //   ),
-                //   height: 150,
-                // ),
-                const SizedBox(
-                  height: 1,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.1,
                 ),
                 const Text(
                   "Welcome To Dawiny!",
                   style: TextStyle(fontSize: 23, fontWeight: FontWeight.w500),
                 ),
-                const SizedBox(
-                  height: 50,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.1,
                 ),
                 AppButton(
                   text: "Sign Up",
@@ -75,7 +65,7 @@ class RegistrationScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => SignUp()),
+                      MaterialPageRoute(builder: (context) => const SignUp()),
                     );
                   },
                 ),
@@ -90,7 +80,7 @@ class RegistrationScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => SignIn()),
+                      MaterialPageRoute(builder: (context) => const SignIn()),
                     );
                   },
                 ),

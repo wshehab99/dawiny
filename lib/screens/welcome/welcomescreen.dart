@@ -46,7 +46,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   title: 'video consulting'),
             ],
           ),
-          Container(
+          SizedBox(
             width: ScreenUtil().screenWidth,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -61,50 +61,46 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => RegistrationScreen()),
+                          builder: (context) => const RegistrationScreen()),
                     );
                   },
-                  child: Text(
+                  child: const Text(
                     'skip',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0, bottom: 15),
-                  child: Container(
-                    child: AppButton(
-                      text: curentPage < 2 ? 'Next' : 'Done',
-                      onPressed: () {
-                        if (curentPage < 2) {
-                          _controller.nextPage(
-                              duration: Duration(seconds: 1),
-                              curve: Curves.easeInOut);
-                        } else {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegistrationScreen()),
-                          );
-                        }
-                      },
-                      bottenColor: Colors.blue,
-                      textColor: Colors.white,
-                      borderradius: BorderRadius.circular(60),
-                    ),
+                  child: AppButton(
+                    text: curentPage < 2 ? 'Next' : 'Done',
+                    onPressed: () {
+                      if (curentPage < 2) {
+                        _controller.nextPage(
+                            duration: const Duration(seconds: 1),
+                            curve: Curves.easeInOut);
+                      } else {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const RegistrationScreen()),
+                        );
+                      }
+                    },
+                    bottenColor: Colors.blue,
+                    textColor: Colors.white,
+                    borderradius: BorderRadius.circular(60),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 25),
-                  child: Container(
-                    child: SmoothPageIndicator(
-                      controller: _controller,
-                      count: 3,
-                      effect: SlideEffect(
-                        dotColor: Color.fromARGB(134, 158, 158, 158),
-                        activeDotColor: Color.fromARGB(255, 88, 139, 206),
-                        dotWidth: 10.0,
-                        dotHeight: 10.0,
-                      ),
+                  child: SmoothPageIndicator(
+                    controller: _controller,
+                    count: 3,
+                    effect: const SlideEffect(
+                      dotColor: Color.fromARGB(134, 158, 158, 158),
+                      activeDotColor: Color.fromARGB(255, 88, 139, 206),
+                      dotWidth: 10.0,
+                      dotHeight: 10.0,
                     ),
                   ),
                 ),

@@ -46,6 +46,7 @@ class _SignInState extends State<SignIn> {
                       color: Colors.black54)
                 ]),
             child: Column(
+
               children: const [
                 SizedBox(
                   height: 70,
@@ -63,18 +64,19 @@ class _SignInState extends State<SignIn> {
                   image: AssetImage('assets/images/Dawiny logo - 2.png'),
                   width: 220,
                   height: 100,
+
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                Text(
+                const Text(
                   "Sign in to your account",
                   style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
               ],

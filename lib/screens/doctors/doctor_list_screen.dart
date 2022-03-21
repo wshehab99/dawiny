@@ -2,14 +2,31 @@ import 'package:find_doctor/screens/doctors/doctor_list_widget..dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../fake_data/fake_data.dart';
 import '../../shared/constant.dart';
 
 import '../../shared/searchBar.dart';
 
-class DoctorListScreen extends StatelessWidget {
+class DoctorListScreen extends StatefulWidget {
   DoctorListScreen({Key? key, this.dignoseName}) : super(key: key);
-
   String? dignoseName;
+
+  @override
+  State<DoctorListScreen> createState() => _DoctorListScreenState();
+}
+
+class _DoctorListScreenState extends State<DoctorListScreen> {
+  List shownList = [];
+  @override
+  void initState() {
+    shownList = FakeData.doctors
+        .where(
+          (element) => element.specialist == widget.dignoseName,
+        )
+        .toList();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +55,7 @@ class DoctorListScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Text(
-                  'Find Your Desired\n$dignoseName Doctor',
+                  'Find Your Desired\n${widget.dignoseName} Doctor',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 32,
@@ -49,15 +66,30 @@ class DoctorListScreen extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
-                child: SearchBar(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: SearchBar(
+                  onSearch: (value) {
+                    setState(() {
+                      shownList = FakeData.doctors
+                          .where(
+                            (element) =>
+                                (element.specialist == widget.dignoseName &&
+                                    element.fullName!
+                                        .toLowerCase()
+                                        .contains(value!)),
+                          )
+                          .toList();
+                    });
+                  },
+                ),
               ),
               const SizedBox(
                 height: 20,
               ),
               Expanded(
-                child: DoctorListWidget(dignoseName: dignoseName!),
+                child: DoctorListWidget(
+                    dignoseName: widget.dignoseName!, shownList: shownList),
               ),
             ],
           )),
