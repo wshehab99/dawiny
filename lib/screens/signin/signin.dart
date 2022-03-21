@@ -48,16 +48,21 @@ class _SignInState extends State<SignIn> {
             child: Column(
               children: const [
                 SizedBox(
-                  height: 30,
+                  height: 70,
                 ),
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 100,
-                  child: Image(
-                    image: AssetImage('assets/Dawiny-logos_white.png'),
-                    height: double.infinity,
-                    fit: BoxFit.fitHeight,
-                  ),
+                // CircleAvatar(
+                //   backgroundColor: Colors.white,
+                //   radius: 100,
+                //   child: Image(
+                //     image: AssetImage( 'assets/images/Dawiny logo - 2.png'),
+                //     height: double.infinity,
+                //     fit: BoxFit.fitHeight,
+                //   ),
+                // ),
+                Image(
+                  image: AssetImage('assets/images/Dawiny logo - 2.png'),
+                  width: 220,
+                  height: 100,
                 ),
                 SizedBox(
                   height: 30,

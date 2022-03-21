@@ -1,3 +1,4 @@
+import 'package:find_doctor/screens/congrats_screen/congrates2.dart';
 import 'package:find_doctor/screens/congrats_screen/congratesScreen.dart';
 import 'package:find_doctor/screens/profile_photo_card.dart';
 import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
@@ -40,8 +41,12 @@ class _UserProfileState extends State<UserProfile> {
                 width: 10,
               ),
               CircleAvatar(
-                backgroundImage: AssetImage(
-                  'assets/images/teriaq.PNG',
+                child: Image(
+                  image: AssetImage(
+                    'assets/images/Dawiny logo - 2.png',
+                  ),
+                  width: 40,
+                  height: 40,
                 ),
               ),
               SizedBox(
@@ -132,7 +137,7 @@ class _UserProfileState extends State<UserProfile> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const CongratsScreen()));
+                              builder: (context) => const OnboardingScreen()));
                     }
                   }))
         ]),
