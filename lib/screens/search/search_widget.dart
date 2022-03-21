@@ -11,16 +11,16 @@ class SearchTextFeild extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 10),
       height: 45,
       decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.2),
-          borderRadius: BorderRadius.circular(35)),
+          color: Colors.white70, borderRadius: BorderRadius.circular(35)),
       child: TextField(
         onChanged: onSearch,
         decoration: InputDecoration(
             hintText: hint,
+            hintStyle: TextStyle(color: Colors.black),
             contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             suffixIcon: Icon(
               Icons.search,
-              color: Colors.grey,
+              color: Colors.black,
             ),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(35),
