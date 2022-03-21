@@ -19,9 +19,10 @@ class RegistrationScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image(
-                  image: AssetImage('assets/images/Dawiny-logos_white.png'),
+                  image: AssetImage('assets/Dawiny-logos_white.png'),
                   height: 500,
                   width: 500,
+                  fit: BoxFit.cover,
                 ),
 
                 // Container(

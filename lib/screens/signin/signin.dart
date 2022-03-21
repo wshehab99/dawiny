@@ -32,35 +32,48 @@ class _SignInState extends State<SignIn> {
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(children: [
-          const SizedBox(
-            height: 20,
-          ),
-          Image(
-            image: AssetImage('assets/images/Dawiny-logos_white.png'),
-            height: 300,
-            width: 500,
-          ),
-          // Container(
-          //   clipBehavior: Clip.antiAlias,
-          //   decoration: BoxDecoration(
-          //     borderRadius: BorderRadius.circular(80),
-          //     color: Colors.white,
-          //   ),
-          //   child: Image(
-          //     image: AssetImage('assets/images/teriaq.PNG'),
-          //     height: 160,
-          //   ),
-          // ),
-
-          Text(
-            "Sign in to your account",
-            style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Colors.black.withOpacity(0.7)),
-          ),
-          const SizedBox(
-            height: 30,
+          Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height * 0.41,
+            decoration: const BoxDecoration(
+                color: Colors.blueAccent,
+                borderRadius:
+                    BorderRadius.only(bottomLeft: Radius.circular(180)),
+                boxShadow: [
+                  BoxShadow(
+                      offset: Offset(0, 5),
+                      blurRadius: 10,
+                      color: Colors.black54)
+                ]),
+            child: Column(
+              children: const [
+                SizedBox(
+                  height: 30,
+                ),
+                CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 100,
+                  child: Image(
+                    image: AssetImage('assets/Dawiny-logos_white.png'),
+                    height: double.infinity,
+                    fit: BoxFit.fitHeight,
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  "Sign in to your account",
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
           ),
           Form(
               key: _formKey,
@@ -126,7 +139,6 @@ class _SignInState extends State<SignIn> {
           const SizedBox(
             height: 10,
           ),
-
           const Text(
             'Or continue with',
             style:
@@ -148,7 +160,6 @@ class _SignInState extends State<SignIn> {
           const SizedBox(
             height: 20,
           ),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

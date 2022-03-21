@@ -33,44 +33,55 @@ class _SignUpState extends State<SignUp> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Image(
-              image: AssetImage('assets/images/Dawiny-logos_white.png'),
-              height: 300,
-              width: 500,
-            ),
-            // Container(
-            //   clipBehavior: Clip.antiAlias,
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(200),
-            //     color: Colors.white,
-            //   ),
-            //   child: Image(
-            //     image: AssetImage('assets/images/teriaq.PNG'),
-            //     height: 100.h,
-            //   ),
-            // ),
-            SizedBox(
-              height: 40.h,
-            ),
-            Text(
-              "Sign up for free",
-              style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black.withOpacity(0.7)),
-            ),
-            SizedBox(
-              height: 30.h,
+            Container(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 0.29,
+              decoration: const BoxDecoration(
+                  color: Colors.blueAccent,
+                  borderRadius:
+                      BorderRadius.only(bottomLeft: Radius.circular(200)),
+                  boxShadow: [
+                    BoxShadow(
+                        offset: Offset(0, 5),
+                        blurRadius: 10,
+                        color: Colors.black54)
+                  ]),
+              child: Column(
+                children: const [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 50,
+                    child: Image(
+                      image: AssetImage('assets/Dawiny-logos_white.png'),
+                      height: double.infinity,
+                      fit: BoxFit.fitHeight,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    "Sign up for free",
+                    style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
             ),
             Form(
                 key: _formKey,
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 10.h,
+                      height: 20,
                     ),
                     TeriaqTextField(
                       label: 'Email',
@@ -150,7 +161,7 @@ class _SignUpState extends State<SignUp> {
                   ],
                 )),
             const SizedBox(
-              height: 15,
+              height: 10,
             ),
             const Text(
               'Or continue with',
