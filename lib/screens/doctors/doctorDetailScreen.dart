@@ -146,7 +146,7 @@ class DetailScreen extends StatelessWidget {
                         height: 10,
                       ),
                       Text(
-                        'Dr. ${_name} is the top most heart surgeon in Flower\nHospital. She has done over 100 successful sugeries\nwithin past 3 years. She has achieved several\nawards for her wonderful contribution in her own\nfield. She’s available for private consultation for\ngiven schedules.',
+                        'Dr. ${_name} is the top most heart surgeon in Flower\nHospital. he has done over 100 successful sugeries\nwithin past 3 years. he has achieved several\nawards for her wonderful contribution in hes own\nfield. he’s available for private consultation for\ngiven schedules.',
                         style: TextStyle(
                           height: 1.6,
                           color: kTitleTextColor.withOpacity(0.7),

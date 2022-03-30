@@ -19,8 +19,6 @@ class RegistrationScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-
-
                   height: 100,
                 ),
                 CircleAvatar(
@@ -44,9 +42,7 @@ class RegistrationScreen extends StatelessWidget {
                 //   height: 100,
                 //   fit: BoxFit.cover,
                 // ),
-                SizedBox(
-                  height: 180,
-                ),
+                SizedBox(height: 80),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.1,
                 ),
