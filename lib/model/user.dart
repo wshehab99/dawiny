@@ -33,6 +33,11 @@ class User {
       password: "password123",
       fullName: "morsy hashish",
     ),
+    User(
+      email: "dawiny@gmail.com",
+      password: "Dawiny123",
+      fullName: "Dawiny",
+    ),
   ];
   static User? currentUser;
 }

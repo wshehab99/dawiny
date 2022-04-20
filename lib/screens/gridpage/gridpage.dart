@@ -50,7 +50,6 @@ class GridPage extends StatelessWidget {
                 Image(
                   image: AssetImage('assets/images/Dawiny logo - 2.png'),
                   width: 170,
-                  height: 80,
                 ),
               ],
             ),

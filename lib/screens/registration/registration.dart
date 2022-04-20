@@ -18,7 +18,9 @@ class RegistrationScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+
                 const SizedBox(
+
                   height: 100,
                 ),
                 const CircleAvatar(
@@ -34,6 +36,7 @@ class RegistrationScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 const SizedBox(
                   height: 180,
                 ),

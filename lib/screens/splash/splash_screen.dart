@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.white,
       body: Center(
         child: Container(
-          height: 100.h,
+          height: 100,
           child: Image.asset(
             'assets/images/Dawiny logo - Copy.png',
             fit: BoxFit.cover,
