@@ -4,7 +4,9 @@ class InroScreen extends StatelessWidget {
   final String title;
   final String desc;
   final String img;
-  InroScreen({required this.title, required this.desc, required this.img});
+  const InroScreen(
+      {Key? key, required this.title, required this.desc, required this.img})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +30,8 @@ class InroScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "$title",
-                    style: TextStyle(
+                    title,
+                    style: const TextStyle(
                         fontSize: 30,
                         color: Color(0xFF518DFF),
                         fontWeight: FontWeight.w900),
@@ -38,9 +40,10 @@ class InroScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.all(x),
                   child: Text(
-                    '$desc',
+                    desc,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                    style: const TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.w500),
                   ),
                 ),
               ],
@@ -49,7 +52,7 @@ class InroScreen extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.43,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(35),
-              color: Color.fromARGB(249, 255, 255, 255),
+              color: const Color.fromARGB(249, 255, 255, 255),
             ),
           ),
         ),
