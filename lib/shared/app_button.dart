@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class AppButton extends StatelessWidget {
   BorderRadius borderradius = BorderRadius.circular(60);
   void Function()? onPressed;

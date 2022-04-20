@@ -1,7 +1,13 @@
+import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/splash/splash_screen.dart';
 import 'package:find_doctor/screens/welcome/welcomescreen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../bloc/app_cubit.dart';
+import '../bloc/app_states.dart';
 
 class Dawiny extends StatelessWidget {
   const Dawiny({Key? key}) : super(key: key);
@@ -9,7 +15,7 @@ class Dawiny extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: Size(360, 690),
+        designSize: const Size(360, 690),
         minTextAdapt: true,
         splitScreenMode: true,
         builder: () {
@@ -19,7 +25,10 @@ class Dawiny extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: const SplashScreen(),
+            home: BlocProvider(
+              create: (context) => AppCubit(InitialAppState()),
+              child: const WelcomeScreen(),
+            ),
             routes: {"WelcomeScreen": (context) => const WelcomeScreen()},
           );
         });

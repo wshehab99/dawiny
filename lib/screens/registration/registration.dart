@@ -18,16 +18,14 @@ class RegistrationScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-
-
+                const SizedBox(
                   height: 100,
                 ),
-                CircleAvatar(
+                const CircleAvatar(
                   backgroundColor: Colors.blue,
                   radius: 100,
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: EdgeInsets.all(10.0),
                     child: Image(
                       image: AssetImage(
                         'assets/images/Dawiny logo - 2.png',
@@ -36,15 +34,7 @@ class RegistrationScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                // Image(
-                //   image: AssetImage(
-
-                //   ),
-                //   width: 250,
-                //   height: 100,
-                //   fit: BoxFit.cover,
-                // ),
-                SizedBox(
+                const SizedBox(
                   height: 180,
                 ),
                 SizedBox(
@@ -65,7 +55,7 @@ class RegistrationScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => const SignUp()),
+                      MaterialPageRoute(builder: (context) => SignUp()),
                     );
                   },
                 ),
@@ -73,17 +63,14 @@ class RegistrationScreen extends StatelessWidget {
                   height: 30,
                 ),
                 AppButton(
-                  text: "Sign in",
-                  bottenColor: const Color.fromARGB(255, 245, 244, 244),
-                  textColor: Colors.blue,
-                  borderradius: BorderRadius.circular(60),
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const SignIn()),
-                    );
-                  },
-                ),
+                    text: "Sign in",
+                    bottenColor: const Color.fromARGB(255, 245, 244, 244),
+                    textColor: Colors.blue,
+                    borderradius: BorderRadius.circular(60),
+                    onPressed: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => SignIn()));
+                    }),
               ],
             ),
           ),
