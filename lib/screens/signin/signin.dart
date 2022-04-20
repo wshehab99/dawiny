@@ -1,5 +1,7 @@
+import 'package:find_doctor/bloc/app_cubit.dart';
+import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/gridpage/gridpage.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:find_doctor/screens/signin/continue_with.dart';
 import 'package:find_doctor/screens/signup/signup.dart';
 import 'package:flutter/material.dart';
@@ -9,185 +11,179 @@ import '../../shared/app_CheckBox.dart';
 import '../../shared/app_button.dart';
 import '../../shared/textFieldApp.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
+class SignIn extends StatelessWidget {
+  SignIn({
+    Key? key,
+  }) : super(key: key);
 
-  @override
-  State<SignIn> createState() => _SignInState();
-}
-
-class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
-  bool isCheck = false;
-  CheckBoxRow checkBoxRow = CheckBoxRow();
-
   final TextEditingController _email = TextEditingController();
 
   final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-          child: SingleChildScrollView(
-        child: Column(children: [
-          Container(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.41,
-            decoration: const BoxDecoration(
-                color: Colors.blueAccent,
-                borderRadius:
-                    BorderRadius.only(bottomLeft: Radius.circular(180)),
-                boxShadow: [
-                  BoxShadow(
-                      offset: Offset(0, 5),
-                      blurRadius: 10,
-                      color: Colors.black54)
-                ]),
-            child: Column(
-              children: const [
-                SizedBox(
-                  height: 70,
-                ),
-                // CircleAvatar(
-                //   backgroundColor: Colors.white,
-                //   radius: 100,
-                //   child: Image(
-                //     image: AssetImage( 'assets/images/Dawiny logo - 2.png'),
-                //     height: double.infinity,
-                //     fit: BoxFit.fitHeight,
-                //   ),
-                // ),
-                Image(
-                  image: AssetImage('assets/images/Dawiny logo - 2.png'),
-                  width: 220,
-                  height: 100,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                const Text(
-                  "Sign in to your account",
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-              ],
-            ),
-          ),
-          Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  TeriaqTextField(
-                    label: 'Email',
-                    hint: 'Email',
-                    controller: _email,
-                    validator: (value) {
-                      if (value!.isEmpty ||
-                          !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-                              .hasMatch(value)) {
-                        return 'Please enter a valid email';
-                      }
-                    },
+
+    return BlocProvider(
+        create: (context) => AppCubit(InitialAppState()),
+        child: BlocConsumer<AppCubit, AppStates>(
+          listener: ((context, state) {}),
+          builder: (context, state) {
+            return Scaffold(
+              backgroundColor: Colors.white,
+              body: SafeArea(
+                  child: SingleChildScrollView(
+                child: Column(children: [
+                  Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * 0.41,
+                    decoration: const BoxDecoration(
+                        color: Colors.blueAccent,
+                        borderRadius:
+                            BorderRadius.only(bottomLeft: Radius.circular(180)),
+                        boxShadow: [
+                          BoxShadow(
+                              offset: Offset(0, 5),
+                              blurRadius: 10,
+                              color: Colors.black54)
+                        ]),
+                    child: Column(
+                      children: const [
+                        SizedBox(
+                          height: 70,
+                        ),
+                        Image(
+                          image:
+                              AssetImage('assets/images/Dawiny logo - 2.png'),
+                          width: 220,
+                          height: 100,
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          "Sign in to your account",
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
+
                   ),
-                  const SizedBox(
-                    height: 20,
+                  Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          TeriaqTextField(
+                            label: 'Email',
+                            hint: 'Email',
+                            controller: _email,
+                            validator: (value) {
+                              if (value!.isEmpty ||
+                                  !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                                      .hasMatch(value)) {
+                                return 'Please enter a valid email';
+                              }
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TeriaqTextField(
+                              controller: _password,
+                              label: 'Password',
+                              hint: 'Password',
+                              validator: (value) {
+                                if (value!.isEmpty || value.length < 8) {
+                                  return 'please enter a password more than 8 character';
+                                }
+                                return null;
+                              },
+                              hide: true),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          CheckBoxRow(
+                            isCheked: AppCubit.get(context).remeberMeValue,
+                            onPress: (value) {
+                              AppCubit.get(context).remeberMe(value!);
+                            },
+                          ),
+                          AppButton(
+                              text: 'Sign in',
+                              bottenColor: Colors.blue,
+                              textColor: Colors.white,
+                              borderradius: BorderRadius.circular(20),
+                              onPressed: AppCubit.get(context).remeberMeValue
+                                  ? () {
+                                      if (_formKey.currentState!.validate()) {
+                                        _checkuser(context);
+                                      }
+                                    }
+                                  : null),
+                        ],
+                      )),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Forget the password?',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  TeriaqTextField(
-                      controller: _password,
-                      label: 'Password',
-                      hint: 'Password',
-                      validator: (value) {
-                        if (value!.isEmpty || value.length < 8) {
-                          return 'please enter a password more than 8 character';
-                        }
-                      },
-                      hide: true),
                   const SizedBox(
                     height: 10,
                   ),
-                  CheckBoxRow(
-                    isCheked: isCheck,
-                    onPress: (value) {
-                      setState(() {
-                        isCheck = value!;
-                      });
-                    },
+                  const Text(
+                    'Or continue with',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w800, color: Colors.black54),
                   ),
-                  AppButton(
-                      text: 'Sign in',
-                      bottenColor: Colors.blue,
-                      textColor: Colors.white,
-                      borderradius: BorderRadius.circular(20),
-                      onPressed: isCheck
-                          ? () {
-                              if (_formKey.currentState!.validate()) {
-                                _checkuser(context);
-                              }
-                            }
-                          : null),
-                ],
+                  ContinueWith(
+                      firstElementIcon: Icon(
+                        Icons.facebook,
+                        size: 30,
+                        color: Colors.blue[800],
+                      ),
+                      firstElementText: "Facebook",
+                      secondElementIcon: const Image(
+                        image: AssetImage('assets/images/google.jpg'),
+                        width: 30,
+                        height: 30,
+                      ),
+                      secondElementText: "Google"),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Dont have an account?',
+                        style: TextStyle(color: Colors.black54),
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return SignUp();
+                            }));
+                          },
+                          child: const Text(
+                            'Sign Up',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ))
+                    ],
+                  )
+                ]),
               )),
-          TextButton(
-            onPressed: () {},
-            child: const Text(
-              'Forget the password?',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          const Text(
-            'Or continue with',
-            style:
-                TextStyle(fontWeight: FontWeight.w800, color: Colors.black54),
-          ),
-          ContinueWith(
-              firstElementIcon: Icon(
-                Icons.facebook,
-                size: 30,
-                color: Colors.blue[800],
-              ),
-              firstElementText: "Facebook",
-              secondElementIcon: const Image(
-                image: AssetImage('assets/images/google.jpg'),
-                width: 30,
-                height: 30,
-              ),
-              secondElementText: "Google"),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Dont have an account?',
-                style: TextStyle(color: Colors.black54),
-              ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) {
-                      return const SignUp();
-                    }));
-                  },
-                  child: const Text(
-                    'Sign Up',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ))
-            ],
-          )
-        ]),
-      )),
-    );
+            );
+          },
+        ));
   }
 
 //check if the email and password are in the list
