@@ -1,7 +1,6 @@
 import 'package:find_doctor/shared/constant.dart';
 import 'package:flutter/material.dart';
 import '../gridpage/gridpage.dart';
-import '../home/homescreen.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({Key? key}) : super(key: key);

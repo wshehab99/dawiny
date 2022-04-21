@@ -28,22 +28,13 @@ class GridPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      //   title: const Text(
-      //     'Dawiny',
-      //     style: TextStyle(fontSize: 30, color: Colors.blue),
-      //   ),
-      // ),
       body: Column(children: [
         Container(
           height: 120,
           width: double.infinity,
           child: Center(
             child: Column(
-              children: [
+              children: const [
                 SizedBox(
                   height: 50,
                 ),
@@ -53,13 +44,6 @@ class GridPage extends StatelessWidget {
                 ),
               ],
             ),
-            // child: Text(
-            //   'Dawiny',
-            //   style: TextStyle(
-            //       fontSize: 36,
-            //       color: Colors.white,
-            //       fontWeight: FontWeight.bold),
-            // ),
           ),
           decoration: const BoxDecoration(
             color: Colors.blueAccent,

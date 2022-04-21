@@ -1,5 +1,4 @@
 import 'package:find_doctor/bloc/app_states.dart';
-import 'package:find_doctor/screens/splash/splash_screen.dart';
 import 'package:find_doctor/screens/welcome/welcomescreen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';

@@ -161,7 +161,7 @@ class SignUp extends StatelessWidget {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const UserProfile()));
+                                                    UserProfile()));
                                       }
                                     }
                                   : null,
