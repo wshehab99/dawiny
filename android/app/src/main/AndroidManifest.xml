@@ -4,6 +4,9 @@
         android:label="find_doctor"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyABfpeNNydhT7GAcR8mW-zFXidEYc2_dyI"/>
+        
         <activity
             android:name=".MainActivity"
             android:exported="true"
