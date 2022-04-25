@@ -21,7 +21,8 @@ class AppButton extends StatelessWidget {
     return Container(
       clipBehavior: Clip.antiAlias,
       width: MediaQuery.of(context).size.width * 0.9,
-      height: 45,
+      height: 50,
+      padding: const EdgeInsets.only(bottom: 5),
       decoration: BoxDecoration(
         borderRadius: borderradius,
       ),

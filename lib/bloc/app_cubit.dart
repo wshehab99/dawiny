@@ -18,7 +18,38 @@ class AppCubit extends Cubit<AppStates> {
   int curentPage = 0;
   String? dropdownValue;
   List<SpecializationData> shownList = FakeData.specializations;
+  bool nursingListContinue = false;
+  DateTime initialDate = DateTime.now();
   List shownDctors = [];
+  String symptomText =
+      'Itching,Skin Rash,Nodal Skin Eruptions,Continuous Sneezing,Shivering,Chills,Joint Pain,Stomach Pain,Acidity,Ulcers On Tongue,Muscle Wasting,Vomiting,Burning Micturition,Spotting  urination,Fatigue,Weight Gain,Anxiety,Cold Hands And Feets,Mood Swings,Weight Loss,Restlessness,Lethargy,Patches In Throat,Irregular Sugar Level,Cough,High Fever,Sunken Eyes,Breathlessness,Sweating,Dehydration,Indigestion,Headache,Yellowish Skin,Dark Urine,Nausea,Loss Of Appetite,Pain Behind The Eyes,Back Pain,Constipation,Abdominal Pain,Diarrhoea,Mild Fever,Yellow Urine,Yellowing Of Eyes,Acute Liver Failure,Fluid Overload,Swelling Of Stomach,Swelled Lymph Nodes,Malaise,Blurred And Distorted Vision,Phlegm,Throat Irritation,Redness Of Eyes,Sinus Pressure,Runny Nose,Congestion,Chest Pain,Weakness In Limbs,Fast Heart Rate,Pain During Bowel Movements,Pain In Anal Region,Bloody Stool,Irritation In Anus,Neck Pain,Dizziness,Cramps,Bruising,Obesity,Swollen Legs,Swollen Blood Vessels,Puffy Face And Eyes,Enlarged Thyroid,Brittle Nails,Swollen Extremeties,Excessive Hunger,Extra Marital Contacts,Drying And Tingling Lips,Slurred Speech,Knee Pain,Hip Joint Pain,Muscle Weakness,Stiff Neck,Swelling Joints,Movement Stiffness,Spinning Movements,Loss Of Balance,Unsteadiness,Weakness Of One Body Side,Loss Of Smell,Bladder Discomfort,Foul Smell Of urine,Continuous Feel Of Urine,Passage Of Gases,Internal Itching,Toxic Look (typhos),Depression,Irritability,Muscle Pain,Altered Sensorium,Red Spots Over Body,Belly Pain,Abnormal Menstruation,Dischromic  Patches,Watering From Eyes,Increased Appetite,Polyuria,Family History,Mucoid Sputum,Rusty Sputum,Lack Of Concentration,Visual Disturbances,Receiving Blood Transfusion,Receiving Unsterile Injections,Coma,Stomach Bleeding,Distention Of Abdomen,History Of Alcohol Consumption,Fluid Overload.1,Blood In Sputum,Prominent Veins On Calf,Palpitations,Painful Walking,Pus Filled Pimples,Blackheads,Scurring,Skin Peeling,Silver Like Dusting,Small Dents In Nails,Inflammatory Nails,Blister,Red Sore Around Nose,Yellow Crust Ooze,Prognosis,';
+  static List symptomList = [];
+  static List<Map<String, dynamic>> nursingTsks = [
+    {
+      "title": 'Injection / Home IV therapy',
+      "description":
+          'Intravenous injection (IV). The nurse injects a drug or solution directly into the blod via the vein.',
+      "value": false,
+    },
+    {
+      "title": 'Muscle Injection',
+      "description":
+          'Intramuscular injection (IM), the nurse injects a drug directly into the muscle.',
+      "value": false,
+    },
+    {
+      "title": 'Tracheostomy care',
+      "description": 'The nurse provides tracheostomy care and mangement.',
+      "value": false,
+    },
+    {
+      "title": 'Urinary Catheter Insertion & Removal',
+      "description":
+          'The nurse performs one/all of the following procedures : intubation, replacment or removal of the urinary catheter.',
+      "value": false,
+    },
+  ];
+
   void changePage(int value) {
     curentPage = value;
     emit(ChangeWelcomePage());
@@ -52,8 +83,36 @@ class AppCubit extends Cubit<AppStates> {
     return shownDctors;
   }
 
-  void changDropdownValue(String value) {
+  void changeDropdownValue(String value) {
     dropdownValue = value;
-    emit(state);
+    emit(ChangeDropdownValue());
+  }
+
+  void changeNurseValue(bool value, int index) {
+    nursingTsks[index].update("value", (value1) => value);
+    nursingTsks.elementAt(index);
+    emit(ChangeNurseCheckBoxValue());
+  }
+
+  void changeNurseListBouttonValue() {
+    //print(nursingTsks);
+    var x = nursingTsks.indexWhere((element) => element['value'] == true);
+
+    if (x != -1) {
+      nursingListContinue = true;
+    } else {
+      nursingListContinue = false;
+    }
+    emit(ChangeNurseListButtonValue());
+  }
+
+  void loadingSymptom() {
+    symptomList = symptomText.split(",");
+    emit(LoadingSymptom());
+  }
+
+  void changeDate(DateTime date) {
+    initialDate = date;
+    emit(ChangeSelectedDate());
   }
 }

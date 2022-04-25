@@ -47,6 +47,7 @@ dependencies:
 dev_dependencies:
   bloc: ^8.0.3
   flutter_bloc: ^8.0.1
+  date_picker_timeline: ^1.2.3
   flutter_test:
     sdk: flutter
 

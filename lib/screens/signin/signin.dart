@@ -23,7 +23,6 @@ class SignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider(
         create: (context) => AppCubit(InitialAppState()),
         child: BlocConsumer<AppCubit, AppStates>(
@@ -33,6 +32,8 @@ class SignIn extends StatelessWidget {
               backgroundColor: Colors.white,
               body: SafeArea(
                   child: SingleChildScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
                 child: Column(children: [
                   Container(
                     width: double.infinity,
@@ -73,7 +74,6 @@ class SignIn extends StatelessWidget {
                         ),
                       ],
                     ),
-
                   ),
                   Form(
                       key: _formKey,

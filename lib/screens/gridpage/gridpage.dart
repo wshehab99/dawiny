@@ -1,4 +1,5 @@
 import 'package:find_doctor/screens/diagnoses.dart/diagnosesList.dart';
+import 'package:find_doctor/screens/nursing_task/nursing_tasks_screen.dart';
 import 'package:flutter/material.dart';
 
 class GridPage extends StatelessWidget {
@@ -62,8 +63,10 @@ class GridPage extends StatelessWidget {
         Expanded(
           child: InkWell(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Doctorlist()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const NursingTasksScreen()));
             },
             child: GridView.count(
               mainAxisSpacing: 15,
