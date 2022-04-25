@@ -7,8 +7,8 @@ import '../doctors/doctor_list_screen.dart';
 import '../search/search_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Doctorlist extends StatelessWidget {
-  const Doctorlist({Key? key}) : super(key: key);
+class DiagnosesList extends StatelessWidget {
+  const DiagnosesList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

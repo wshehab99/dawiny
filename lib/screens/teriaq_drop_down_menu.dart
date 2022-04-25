@@ -75,7 +75,7 @@ class AppDropDownMenu extends StatelessWidget {
                   value: dropdownValue,
                   elevation: 3,
                   onChanged: (String? newValue) {
-                    cubit.changDropdownValue(newValue!);
+                    cubit.changeDropdownValue(newValue!);
                     dropdownValue = cubit.dropdownValue;
                   },
                   items: choices!.map<DropdownMenuItem<String>>((String value) {

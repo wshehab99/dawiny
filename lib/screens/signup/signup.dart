@@ -36,6 +36,8 @@ class SignUp extends StatelessWidget {
               backgroundColor: Colors.white,
               body: SafeArea(
                 child: SingleChildScrollView(
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
                   child: Column(children: [
                     Container(
                       width: double.infinity,

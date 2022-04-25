@@ -1,4 +1,5 @@
 import 'package:find_doctor/screens/diagnoses.dart/diagnosesList.dart';
+import 'package:find_doctor/screens/nursing_task/nursing_tasks_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/getLocation.dart';
@@ -67,9 +68,9 @@ class GridPage extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const GetLocation(
-                            title: "",
-                          )));
+
+                      builder: (context) => const NursingTasksScreen()));
+
             },
             child: GridView.count(
               mainAxisSpacing: 15,
