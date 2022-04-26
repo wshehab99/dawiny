@@ -26,6 +26,7 @@ class GetLocation extends StatelessWidget {
             appBar: AppBar(
               title: Text(title),
             ),
+
             body: cubit.initialPosition == null
                 ? Container()
                 : GoogleMap(
@@ -50,6 +51,7 @@ class GetLocation extends StatelessWidget {
       create: (context) {
         return AppCubit(InitialAppState());
       },
+
     );
   }
 }

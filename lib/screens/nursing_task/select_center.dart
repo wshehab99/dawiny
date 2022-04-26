@@ -35,7 +35,7 @@ class SelectCenterScreen extends StatelessWidget {
                           },
                         ),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.calendar_month_outlined,
                         size: 40,
                         color: Colors.blue,

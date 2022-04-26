@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:gproject/diagnose_screen.dart';
+
+import '../diagnoses.dart/diagnosesList.dart';
 
 class VideoCallScreen extends StatelessWidget {
   const VideoCallScreen({Key? key}) : super(key: key);
@@ -30,47 +30,43 @@ class VideoCallScreen extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DiagnoseScreen(),
+                      builder: (context) => const DiagnosesList(),
                     ));
               },
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Container(
+                  padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
-                    color: Color(0xff0170CC),
+                    color: const Color(0xff0170CC),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 50,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "احجز مكالمة مع دكتور متخصص",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Icon(
-                              Icons.phone_missed,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      ),
+                      Row(
+                        children: const [
+                          Text(
+                            "احجز مكالمة مع دكتور متخصص",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Icon(
+                            Icons.phone_missed,
+                            color: Colors.white,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -80,41 +76,37 @@ class VideoCallScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: Container(
+                    padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       color: Color(0xff0170CC),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                          ),
-                          SizedBox(
-                            width: 150,
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                "احجز مكالمة كرونا",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Icon(
-                                Icons.coronavirus_sharp,
-                                color: Colors.white,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        ),
+                        Row(
+                          children: const [
+                            Text(
+                              "احجز مكالمة كرونا",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Icon(
+                              Icons.coronavirus_sharp,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
