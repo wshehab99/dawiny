@@ -1,5 +1,5 @@
 import 'package:find_doctor/screens/diagnoses.dart/diagnosesList.dart';
-import 'package:find_doctor/screens/nursing_task/nursing_tasks_screen.dart';
+import 'package:find_doctor/screens/videocallscreen/video_call_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/getLocation.dart';
@@ -63,22 +63,46 @@ class GridPage extends StatelessWidget {
           height: 10,
         ),
         Expanded(
-          child: InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-
-                      builder: (context) => const NursingTasksScreen()));
-
-            },
-            child: GridView.count(
-              mainAxisSpacing: 15,
-              crossAxisSpacing: 10,
-              padding: const EdgeInsets.all(10),
-              crossAxisCount: 2,
-              children: List<Widget>.generate(6, (index) {
-                return Card(
+          child: GridView.count(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            mainAxisSpacing: 15,
+            crossAxisSpacing: 10,
+            padding: const EdgeInsets.all(10),
+            crossAxisCount: 2,
+            children: List<Widget>.generate(6, (index) {
+              return InkWell(
+                onTap: () {
+                  if (index == 0) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DiagnosesList()));
+                  } else if (index == 1) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const GetLocation(
+                                  title: '',
+                                )));
+                  } else if (index == 2) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const VideoCallScreen()));
+                  } else if (index == 3) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const GetLocation(
+                                  title: ' ',
+                                )));
+                  } else if (index == 4) {
+                    print('لسا');
+                  } else {
+                    print('لسا');
+                  }
+                },
+                child: Card(
                     elevation: 3,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
@@ -104,9 +128,9 @@ class GridPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ));
-              }),
-            ),
+                    )),
+              );
+            }),
           ),
         )
       ]),
