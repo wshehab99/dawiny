@@ -69,7 +69,12 @@ class GridPage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
 
-                      builder: (context) => const NursingTasksScreen()));
+                      builder: (context) => GetLocation(
+                            title: "",
+                          )));
+
+
+               
 
             },
             child: GridView.count(
