@@ -15,7 +15,7 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   LatLng? initialPosition;
-  Location location = new Location();
+  Location location = Location();
   bool isPasswordShown = false;
   bool remeberMeValue = false;
   PageController controller = PageController();
@@ -69,7 +69,6 @@ class AppCubit extends Cubit<AppStates> {
     emit(ShowUnShowPassword());
   }
 
-
   Future<void> getLocation() async {
     bool _serviceEnabled = await location.serviceEnabled();
     PermissionStatus _permissionGranted = await location.hasPermission();
@@ -90,6 +89,8 @@ class AppCubit extends Cubit<AppStates> {
           LatLng(_locationData.latitude!, _locationData.longitude!);
       emit(GetLocation());
     }
+  }
+
   void searchOnSpecializations(String value) {
     shownList = FakeData.specializations.where((element) {
       return element.name.toLowerCase().contains(value);
@@ -139,6 +140,5 @@ class AppCubit extends Cubit<AppStates> {
   void changeDate(DateTime date) {
     initialDate = date;
     emit(ChangeSelectedDate());
-
   }
 }

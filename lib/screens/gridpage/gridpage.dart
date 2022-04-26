@@ -81,7 +81,7 @@ class GridPage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const GetLocation(
+                            builder: (context) => GetLocation(
                                   title: '',
                                 )));
                   } else if (index == 2) {
@@ -93,7 +93,7 @@ class GridPage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const GetLocation(
+                            builder: (context) => GetLocation(
                                   title: ' ',
                                 )));
                   } else if (index == 4) {
@@ -103,7 +103,6 @@ class GridPage extends StatelessWidget {
                   }
                 },
                 child: Card(
-
                     elevation: 3,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
