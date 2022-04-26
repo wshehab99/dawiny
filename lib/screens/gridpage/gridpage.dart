@@ -103,6 +103,7 @@ class GridPage extends StatelessWidget {
                   }
                 },
                 child: Card(
+
                     elevation: 3,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
