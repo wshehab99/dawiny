@@ -1,0 +1,69 @@
+// // ignore_for_file: prefer_const_constructors_in_immutables
+
+// import 'package:find_doctor/homescreen.dart';
+// import 'package:flutter/material.dart';
+// import 'package:introduction_screen/introduction_screen.dart';
+
+// class WelcomeScreen extends StatefulWidget {
+//   WelcomeScreen({Key? key}) : super(key: key);
+
+//   @override
+//   State<WelcomeScreen> createState() => _WelcomeScreenState();
+// }
+
+// class _WelcomeScreenState extends State<WelcomeScreen> {
+//   bool fristOpen = true;
+
+//   _onIntroEnd(context) async {
+//     Navigator.of(context)
+//         .push(MaterialPageRoute(builder: (context) => HomeScreen()));
+//   }
+
+//   _buildImage(String imageName, [double width = 350]) {
+//     return Image.asset(
+//       'assets/images/$imageName',
+//       width: width,
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//         child: IntroductionScreen(
+//       pages: [
+//         PageViewModel(
+//           title: "Title of first page",
+//           body:
+//               "Here you can write the description of the page, to explain someting...",
+//           image: buildImage('assets/images/doctor1.jpg'),
+//         ),
+//       ],
+//       done: Text(
+//         'Skip',
+//         style: TextStyle(fontWeight: FontWeight.w900, color: Colors.red[300]),
+//       ),
+//       onDone: () {},
+//     ));
+//   }
+
+//   Widget buildImage(String path) => Center(
+//         child: Image.asset(
+//           path,
+//           width: 350,
+//         ),
+//       );
+// }
+
+
+
+
+
+
+ButtonStyle(
+        
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: borderradius,
+          ),
+        ),
+      ),
