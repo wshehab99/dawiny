@@ -83,7 +83,7 @@ class GridPage extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const GetLocation(
+                      builder: (context) => GetLocation(
                             title: "",
                           )));
             },
