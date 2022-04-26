@@ -1,5 +1,4 @@
 import 'package:find_doctor/screens/congrats_screen/congrates2.dart';
-import 'package:find_doctor/screens/congrats_screen/congratesScreen.dart';
 import 'package:find_doctor/screens/profile_photo_card.dart';
 import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
 import 'package:find_doctor/shared/app_button.dart';
@@ -8,15 +7,9 @@ import 'package:intl/intl.dart';
 import '../model/user.dart';
 import '../shared/textFieldApp.dart';
 
-// ignore: must_be_immutable
-class UserProfile extends StatefulWidget {
-  const UserProfile({Key? key}) : super(key: key);
+class UserProfile extends StatelessWidget {
+  UserProfile({Key? key}) : super(key: key);
 
-  @override
-  State<UserProfile> createState() => _UserProfileState();
-}
-
-class _UserProfileState extends State<UserProfile> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _fullName = TextEditingController();
   final TextEditingController _dateController = TextEditingController();

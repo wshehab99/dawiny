@@ -36,6 +36,8 @@ class SignUp extends StatelessWidget {
               backgroundColor: Colors.white,
               body: SafeArea(
                 child: SingleChildScrollView(
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
                   child: Column(children: [
                     Container(
                       width: double.infinity,
@@ -161,7 +163,7 @@ class SignUp extends StatelessWidget {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const UserProfile()));
+                                                    UserProfile()));
                                       }
                                     }
                                   : null,

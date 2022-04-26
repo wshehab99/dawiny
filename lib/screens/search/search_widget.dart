@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class SearchTextFeild extends StatelessWidget {
   SearchTextFeild({Key? key, this.hint, this.onSearch}) : super(key: key);
   String? hint;
@@ -8,7 +9,7 @@ class SearchTextFeild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       height: 45,
       decoration: BoxDecoration(
           color: Colors.white70, borderRadius: BorderRadius.circular(35)),
@@ -16,18 +17,19 @@ class SearchTextFeild extends StatelessWidget {
         onChanged: onSearch,
         decoration: InputDecoration(
             hintText: hint,
-            hintStyle: TextStyle(color: Colors.black),
-            contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            suffixIcon: Icon(
+            hintStyle: const TextStyle(color: Colors.black),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            suffixIcon: const Icon(
               Icons.search,
               color: Colors.black,
             ),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(35),
-                borderSide: BorderSide(color: Colors.transparent)),
+                borderSide: const BorderSide(color: Colors.transparent)),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(35),
-                borderSide: BorderSide(color: Colors.transparent))),
+                borderSide: const BorderSide(color: Colors.transparent))),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:find_doctor/screens/diagnoses.dart/diagnosesList.dart';
+import 'package:find_doctor/screens/nursing_task/nursing_tasks_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/getLocation.dart';
@@ -30,22 +31,13 @@ class GridPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      //   title: const Text(
-      //     'Dawiny',
-      //     style: TextStyle(fontSize: 30, color: Colors.blue),
-      //   ),
-      // ),
       body: Column(children: [
         Container(
           height: 120,
           width: double.infinity,
           child: Center(
             child: Column(
-              children: [
+              children: const [
                 SizedBox(
                   height: 50,
                 ),
@@ -55,13 +47,6 @@ class GridPage extends StatelessWidget {
                 ),
               ],
             ),
-            // child: Text(
-            //   'Dawiny',
-            //   style: TextStyle(
-            //       fontSize: 36,
-            //       color: Colors.white,
-            //       fontWeight: FontWeight.bold),
-            // ),
           ),
           decoration: const BoxDecoration(
             color: Colors.blueAccent,
@@ -83,9 +68,14 @@ class GridPage extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
+
                       builder: (context) => GetLocation(
                             title: "",
                           )));
+
+
+               
+
             },
             child: GridView.count(
               mainAxisSpacing: 15,
