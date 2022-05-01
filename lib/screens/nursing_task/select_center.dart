@@ -1,5 +1,6 @@
 import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
+import 'package:find_doctor/screens/nursing_task/ceners_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
@@ -44,6 +45,16 @@ class SelectCenterScreen extends StatelessWidget {
                   ),
                 ),
                 const Divider(),
+                Expanded(
+                  child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, index) {
+                        return CenterList(
+                            centerName: "centerName",
+                            centerAddress: "centerAddress");
+                      },
+                      itemCount: 5),
+                ),
               ],
             ),
           );

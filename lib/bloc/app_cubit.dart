@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +12,7 @@ class AppCubit extends Cubit<AppStates> {
     return BlocProvider.of(context);
   }
 
-  LatLng? initialPosition;
+  static LatLng? initialPosition;
   Location location = Location();
   bool isPasswordShown = false;
   bool remeberMeValue = false;
@@ -53,7 +51,40 @@ class AppCubit extends Cubit<AppStates> {
       "value": false,
     },
   ];
-
+  List availableTimes = [
+    {
+      'time': const TimeOfDay(hour: 9, minute: 30),
+      'isSelected': false,
+    },
+    {
+      'time': const TimeOfDay(hour: 10, minute: 00),
+      'isSelected': false,
+    },
+    {
+      'time': const TimeOfDay(hour: 10, minute: 30),
+      'isSelected': false,
+    },
+    {
+      'time': const TimeOfDay(hour: 11, minute: 00),
+      'isSelected': false,
+    },
+    {
+      'time': const TimeOfDay(hour: 11, minute: 30),
+      'isSelected': false,
+    },
+    {
+      'time': const TimeOfDay(hour: 12, minute: 00),
+      'isSelected': false,
+    },
+    {
+      'time': const TimeOfDay(hour: 12, minute: 30),
+      'isSelected': false,
+    },
+    {
+      'time': const TimeOfDay(hour: 01, minute: 00),
+      'isSelected': false,
+    },
+  ];
   void changePage(int value) {
     curentPage = value;
     emit(ChangeWelcomePage());
@@ -69,7 +100,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(ShowUnShowPassword());
   }
 
-  Future<void> getLocation() async {
+  Future<void> getLocation({value}) async {
     bool _serviceEnabled = await location.serviceEnabled();
     PermissionStatus _permissionGranted = await location.hasPermission();
     LocationData _locationData;
@@ -85,8 +116,14 @@ class AppCubit extends Cubit<AppStates> {
       // var cntrl = await _controller.future;
       // cntrl.animateCamera(CameraUpdate.newLatLng(
       //     LatLng(_locationData.latitude!, _locationData.longitude!)));
-      initialPosition =
-          LatLng(_locationData.latitude!, _locationData.longitude!);
+      if (value == null) {
+        initialPosition =
+            LatLng(_locationData.latitude!, _locationData.longitude!);
+      } else {
+        location.onLocationChanged.listen((LocationData currentLocation) {
+          initialPosition = value;
+        });
+      }
       emit(GetLocation());
     }
   }
@@ -140,5 +177,16 @@ class AppCubit extends Cubit<AppStates> {
   void changeDate(DateTime date) {
     initialDate = date;
     emit(ChangeSelectedDate());
+  }
+
+  void selectTime(int index) {
+    for (int i = 0; i < availableTimes.length; i++) {
+      if (availableTimes[i]['isSelected'] == true) {
+        availableTimes[i]['isSelected'] == false;
+        break;
+      }
+    }
+    availableTimes[index]['isSelected'] = !availableTimes[index]['isSelected'];
+    emit(ChangeNurseCheckBoxValue());
   }
 }
