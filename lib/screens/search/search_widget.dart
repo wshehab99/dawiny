@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class SearchTextFeild extends StatelessWidget {
-  SearchTextFeild({Key? key, this.hint, this.onSearch}) : super(key: key);
+  SearchTextFeild({Key? key, this.hint, this.onSearch, this.controller})
+      : super(key: key);
   String? hint;
+  TextEditingController? controller;
   Function(String?)? onSearch;
 
   @override
@@ -14,6 +16,7 @@ class SearchTextFeild extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white70, borderRadius: BorderRadius.circular(35)),
       child: TextField(
+        controller: controller,
         onChanged: onSearch,
         decoration: InputDecoration(
             hintText: hint,
