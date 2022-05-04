@@ -18,7 +18,7 @@ class AppCubit extends Cubit<AppStates> {
   bool remeberMeValue = false;
   PageController controller = PageController();
   int curentPage = 0;
-  String? dropdownValue;
+  static String? dropdownValue;
   List<SpecializationData> shownList = FakeData.specializations;
   bool nursingListContinue = false;
   DateTime initialDate = DateTime.now();
