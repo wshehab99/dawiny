@@ -50,7 +50,8 @@ class SymptomsScreen extends StatelessWidget {
                               },
                               child: Center(
                                 child: Container(
-                                  padding: const EdgeInsets.all(15),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
                                   decoration: BoxDecoration(
                                       color: Colors.blue,
                                       borderRadius: BorderRadius.circular(25)),
@@ -61,11 +62,12 @@ class SymptomsScreen extends StatelessWidget {
                           },
                           gridDelegate:
                               const SliverGridDelegateWithMaxCrossAxisExtent(
-                                  mainAxisExtent: 80,
+                                  mainAxisExtent: 60,
                                   maxCrossAxisExtent: 135,
+                                  crossAxisSpacing: 0,
                                   //  crossAxisSpacing: 5,
                                   mainAxisSpacing: 5,
-                                  childAspectRatio: 0.66),
+                                  childAspectRatio: 0.40),
                         ),
                       )
                     : Expanded(
@@ -91,6 +93,10 @@ class SymptomsScreen extends StatelessWidget {
                           },
                         ),
                       ),
+                ElevatedButton(
+                    onPressed:
+                        cubit.selectedSymptoms.length >= 3 ? () {} : null,
+                    child: const Text("Continue")),
               ],
             );
           },
