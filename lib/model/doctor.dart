@@ -9,6 +9,7 @@ class Doctor extends User {
       required String fullName,
       required String this.hospitalName,
       required String profilePhoto,
+      this.videocall,
       this.specialist})
       : super(
           email: email,
@@ -18,4 +19,5 @@ class Doctor extends User {
         );
   String? specialist;
   String? hospitalName;
+  bool? videocall;
 }
