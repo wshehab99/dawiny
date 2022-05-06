@@ -105,6 +105,7 @@ class SignUp extends StatelessWidget {
                                         .hasMatch(value)) {
                                   return 'Please enter a valid email';
                                 }
+                                return null;
                               },
                             ),
                             const SizedBox(
@@ -118,6 +119,7 @@ class SignUp extends StatelessWidget {
                                   if (value!.isEmpty || value.length < 8) {
                                     return 'please enter a password more than 8 character';
                                   }
+                                  return null;
                                 },
                                 hide: true),
                             const SizedBox(
@@ -134,6 +136,7 @@ class SignUp extends StatelessWidget {
                                   if (value != _password.text) {
                                     return "Password does not match!";
                                   }
+                                  return null;
                                 },
                                 hide: true),
                             const SizedBox(

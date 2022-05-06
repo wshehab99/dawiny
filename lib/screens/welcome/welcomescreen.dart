@@ -1,6 +1,7 @@
 import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/choose_user_screen/choose_user_screen.dart';
+import 'package:find_doctor/screens/registration/registration.dart';
 import 'package:find_doctor/shared/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,7 +61,8 @@ class WelcomeScreen extends StatelessWidget {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ChooseUserScreen()),
+                                builder: (context) =>
+                                    const RegistrationScreen()),
                           );
                         },
                         child: const Text(
@@ -81,7 +83,8 @@ class WelcomeScreen extends StatelessWidget {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ChooseUserScreen()),
+                                    builder: (context) =>
+                                        const RegistrationScreen()),
                               );
                             }
                           },
