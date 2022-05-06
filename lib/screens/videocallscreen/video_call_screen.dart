@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../diagnoses.dart/diagnosesList.dart';
+import '../../shared/diagnosesList.dart';
 
 class VideoCallScreen extends StatelessWidget {
   const VideoCallScreen({Key? key}) : super(key: key);

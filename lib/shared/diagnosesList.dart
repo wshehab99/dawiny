@@ -3,8 +3,8 @@ import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/shared/diagnos_item_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../doctors/doctor_list_screen.dart';
-import '../search/search_widget.dart';
+import '../screens/doctors/doctor_list_screen.dart';
+import '../screens/search/search_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DiagnosesList extends StatelessWidget {
@@ -86,13 +86,14 @@ class DiagnosesList extends StatelessWidget {
                       return DiagnosItem(
                         specialization: value,
                         ontap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: ((context) =>
-                                  DoctorListScreen(dignoseName: value.name)),
-                            ),
-                          );
+                          Navigator.pop(context, value);
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: ((context) =>
+                          //         DoctorListScreen(dignoseName: value.name)),
+                          //   ),
+                          // );
                         },
                       );
                     }),

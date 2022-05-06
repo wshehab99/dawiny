@@ -1,4 +1,6 @@
-import 'package:find_doctor/screens/diagnoses.dart/diagnosesList.dart';
+import 'package:find_doctor/screens/clinick_booking/clinic_booking.dart';
+import 'package:find_doctor/shared/diagnosesList.dart';
+import 'package:find_doctor/screens/doctor_home_visit/bookDoctorHomeVisit.dart';
 import 'package:find_doctor/screens/videocallscreen/video_call_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -76,14 +78,12 @@ class GridPage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const DiagnosesList()));
+                            builder: (context) => ClinicBooking()));
                   } else if (index == 1) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => GetLocation(
-                                  title: '',
-                                )));
+                            builder: (context) => BookDoctorHomeVisit()));
                   } else if (index == 2) {
                     Navigator.push(
                         context,
