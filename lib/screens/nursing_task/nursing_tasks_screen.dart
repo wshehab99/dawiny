@@ -62,7 +62,8 @@ class NursingTasksScreen extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SelectCenterScreen()));
+                                builder: (context) =>
+                                    const SelectCenterScreen()));
                       }
                     : null,
               ),

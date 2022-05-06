@@ -8,8 +8,8 @@ class ChangeRemeberMeValue extends AppStates {}
 
 class ShowUnShowPassword extends AppStates {}
 
-
 class GetLocation extends AppStates {}
+
 class SpecializationsSearch extends AppStates {}
 
 class DoctrosSearch extends AppStates {}

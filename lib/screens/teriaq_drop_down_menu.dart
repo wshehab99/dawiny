@@ -4,10 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppDropDownMenu extends StatelessWidget {
-  AppDropDownMenu({Key? key, this.dropdownValue, this.choices})
+  AppDropDownMenu(
+      {Key? key,
+      this.dropdownValue,
+      this.choices,
+      this.label,
+      this.validator,
+      this.hint})
       : super(key: key);
   String? dropdownValue;
   List<String>? choices;
+  String? validator;
+  String? label;
+  String? hint;
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +29,18 @@ class AppDropDownMenu extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(mainAxisAlignment: MainAxisAlignment.start, children: const [
-                SizedBox(
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                const SizedBox(
                   width: 30,
                 ),
                 Text(
-                  "Gender ",
-                  style: TextStyle(
+                  label ?? "Gender ",
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,
                   ),
                 ),
-                Text(
+                const Text(
                   '*',
                   style:
                       TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
@@ -55,13 +64,14 @@ class AppDropDownMenu extends StatelessWidget {
                   ],
                 ),
                 child: DropdownButtonFormField<String>(
+                  hint: Text(hint ?? "Gender"),
                   validator: (value) {
-                    if (value == null) return 'choose your gender';
+                    if (value == null) return validator ?? 'choose your gender';
+                    return null;
                   },
                   decoration: InputDecoration(
                     contentPadding:
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                    hintText: 'Gender',
                     hintStyle: const TextStyle(color: Colors.black26),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(35),
@@ -76,7 +86,8 @@ class AppDropDownMenu extends StatelessWidget {
                   elevation: 3,
                   onChanged: (String? newValue) {
                     cubit.changeDropdownValue(newValue!);
-                    dropdownValue = cubit.dropdownValue;
+
+                    dropdownValue = AppCubit.dropdownValue;
                   },
                   items: choices!.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(

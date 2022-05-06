@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,13 +12,13 @@ class AppCubit extends Cubit<AppStates> {
     return BlocProvider.of(context);
   }
 
-  LatLng? initialPosition;
+  static LatLng? initialPosition;
   Location location = Location();
   bool isPasswordShown = false;
   bool remeberMeValue = false;
   PageController controller = PageController();
   int curentPage = 0;
-  String? dropdownValue;
+  static String? dropdownValue;
   List<SpecializationData> shownList = FakeData.specializations;
   bool nursingListContinue = false;
   DateTime initialDate = DateTime.now();
@@ -28,6 +26,8 @@ class AppCubit extends Cubit<AppStates> {
   String symptomText =
       'Itching,Skin Rash,Nodal Skin Eruptions,Continuous Sneezing,Shivering,Chills,Joint Pain,Stomach Pain,Acidity,Ulcers On Tongue,Muscle Wasting,Vomiting,Burning Micturition,Spotting  urination,Fatigue,Weight Gain,Anxiety,Cold Hands And Feets,Mood Swings,Weight Loss,Restlessness,Lethargy,Patches In Throat,Irregular Sugar Level,Cough,High Fever,Sunken Eyes,Breathlessness,Sweating,Dehydration,Indigestion,Headache,Yellowish Skin,Dark Urine,Nausea,Loss Of Appetite,Pain Behind The Eyes,Back Pain,Constipation,Abdominal Pain,Diarrhoea,Mild Fever,Yellow Urine,Yellowing Of Eyes,Acute Liver Failure,Fluid Overload,Swelling Of Stomach,Swelled Lymph Nodes,Malaise,Blurred And Distorted Vision,Phlegm,Throat Irritation,Redness Of Eyes,Sinus Pressure,Runny Nose,Congestion,Chest Pain,Weakness In Limbs,Fast Heart Rate,Pain During Bowel Movements,Pain In Anal Region,Bloody Stool,Irritation In Anus,Neck Pain,Dizziness,Cramps,Bruising,Obesity,Swollen Legs,Swollen Blood Vessels,Puffy Face And Eyes,Enlarged Thyroid,Brittle Nails,Swollen Extremeties,Excessive Hunger,Extra Marital Contacts,Drying And Tingling Lips,Slurred Speech,Knee Pain,Hip Joint Pain,Muscle Weakness,Stiff Neck,Swelling Joints,Movement Stiffness,Spinning Movements,Loss Of Balance,Unsteadiness,Weakness Of One Body Side,Loss Of Smell,Bladder Discomfort,Foul Smell Of urine,Continuous Feel Of Urine,Passage Of Gases,Internal Itching,Toxic Look (typhos),Depression,Irritability,Muscle Pain,Altered Sensorium,Red Spots Over Body,Belly Pain,Abnormal Menstruation,Dischromic  Patches,Watering From Eyes,Increased Appetite,Polyuria,Family History,Mucoid Sputum,Rusty Sputum,Lack Of Concentration,Visual Disturbances,Receiving Blood Transfusion,Receiving Unsterile Injections,Coma,Stomach Bleeding,Distention Of Abdomen,History Of Alcohol Consumption,Fluid Overload.1,Blood In Sputum,Prominent Veins On Calf,Palpitations,Painful Walking,Pus Filled Pimples,Blackheads,Scurring,Skin Peeling,Silver Like Dusting,Small Dents In Nails,Inflammatory Nails,Blister,Red Sore Around Nose,Yellow Crust Ooze,Prognosis,';
   static List symptomList = [];
+  List selectedSymptoms = [];
+  List veiwedSymptoms = [];
   static List<Map<String, dynamic>> nursingTsks = [
     {
       "title": 'Injection / Home IV therapy',
@@ -53,7 +53,40 @@ class AppCubit extends Cubit<AppStates> {
       "value": false,
     },
   ];
-
+  List availableTimes = [
+    {
+      'time': const TimeOfDay(hour: 9, minute: 30),
+      'isSelected': false,
+    },
+    {
+      'time': const TimeOfDay(hour: 10, minute: 00),
+      'isSelected': false,
+    },
+    {
+      'time': const TimeOfDay(hour: 10, minute: 30),
+      'isSelected': false,
+    },
+    {
+      'time': const TimeOfDay(hour: 11, minute: 00),
+      'isSelected': false,
+    },
+    {
+      'time': const TimeOfDay(hour: 11, minute: 30),
+      'isSelected': false,
+    },
+    {
+      'time': const TimeOfDay(hour: 12, minute: 00),
+      'isSelected': false,
+    },
+    {
+      'time': const TimeOfDay(hour: 12, minute: 30),
+      'isSelected': false,
+    },
+    {
+      'time': const TimeOfDay(hour: 01, minute: 00),
+      'isSelected': false,
+    },
+  ];
   void changePage(int value) {
     curentPage = value;
     emit(ChangeWelcomePage());
@@ -69,7 +102,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(ShowUnShowPassword());
   }
 
-  Future<void> getLocation() async {
+  Future<void> getLocation({value}) async {
     bool _serviceEnabled = await location.serviceEnabled();
     PermissionStatus _permissionGranted = await location.hasPermission();
     LocationData _locationData;
@@ -85,8 +118,14 @@ class AppCubit extends Cubit<AppStates> {
       // var cntrl = await _controller.future;
       // cntrl.animateCamera(CameraUpdate.newLatLng(
       //     LatLng(_locationData.latitude!, _locationData.longitude!)));
-      initialPosition =
-          LatLng(_locationData.latitude!, _locationData.longitude!);
+      if (value == null) {
+        initialPosition =
+            LatLng(_locationData.latitude!, _locationData.longitude!);
+      } else {
+        location.onLocationChanged.listen((LocationData currentLocation) {
+          initialPosition = value;
+        });
+      }
       emit(GetLocation());
     }
   }
@@ -98,7 +137,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(SpecializationsSearch());
   }
 
-  List searchAboutDoctor(String dignoseName, String value) {
+  List searchAboutDoctor(String dignoseName, String value, bool? video) {
     shownDctors = FakeData.doctors
         .where(
           (element) => (element.specialist == dignoseName &&
@@ -140,5 +179,40 @@ class AppCubit extends Cubit<AppStates> {
   void changeDate(DateTime date) {
     initialDate = date;
     emit(ChangeSelectedDate());
+  }
+
+  void selectTime(int index) {
+    for (int i = 0; i < availableTimes.length; i++) {
+      if (availableTimes[i]['isSelected'] == true) {
+        availableTimes[i]['isSelected'] == false;
+        break;
+      }
+    }
+    availableTimes[index]['isSelected'] = !availableTimes[index]['isSelected'];
+    emit(ChangeNurseCheckBoxValue());
+  }
+
+  void selectSymptoms(int index) {
+    if (selectedSymptoms.contains(veiwedSymptoms[index])) {
+    } else {
+      selectedSymptoms.add(veiwedSymptoms[index]);
+    }
+    emit(LoadingSymptom());
+  }
+
+  void searchOnSymptoms({String? value}) {
+    if (value!.isEmpty) {
+      veiwedSymptoms = [];
+    } else {
+      veiwedSymptoms = symptomList
+          .where((element) => element.toString().contains(value))
+          .toList();
+    }
+    emit(LoadingSymptom());
+  }
+
+  void deleteSymptom(int index) {
+    selectedSymptoms.removeAt(index);
+    emit(LoadingSymptom());
   }
 }

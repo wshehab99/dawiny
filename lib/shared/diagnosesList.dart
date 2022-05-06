@@ -8,8 +8,9 @@ import '../screens/search/search_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DiagnosesList extends StatelessWidget {
-  const DiagnosesList({Key? key}) : super(key: key);
+  DiagnosesList({Key? key, this.vidoecall}) : super(key: key);
 
+  bool? vidoecall;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

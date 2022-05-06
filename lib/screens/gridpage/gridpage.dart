@@ -1,10 +1,12 @@
-import 'package:find_doctor/screens/clinick_booking/clinic_booking.dart';
-import 'package:find_doctor/shared/diagnosesList.dart';
-import 'package:find_doctor/screens/doctor_home_visit/bookDoctorHomeVisit.dart';
+import 'package:find_doctor/screens/symptoms_screen/symptoms_screen.dart';
+
 import 'package:find_doctor/screens/videocallscreen/video_call_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../shared/diagnosesList.dart';
 import '../../shared/getLocation.dart';
+import '../clinick_booking/clinic_booking.dart';
+import '../doctor_home_visit/bookDoctorHomeVisit.dart';
 
 class GridPage extends StatelessWidget {
   GridPage({Key? key}) : super(key: key);
@@ -79,6 +81,9 @@ class GridPage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ClinicBooking()));
+
+                    builder:
+                    (context) => DiagnosesList();
                   } else if (index == 1) {
                     Navigator.push(
                         context,
@@ -97,7 +102,10 @@ class GridPage extends StatelessWidget {
                                   title: ' ',
                                 )));
                   } else if (index == 4) {
-                    print('لسا');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SymptomsScreen()));
                   } else {
                     print('لسا');
                   }

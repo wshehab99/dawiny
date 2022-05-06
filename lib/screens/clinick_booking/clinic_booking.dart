@@ -16,7 +16,7 @@ class _ClinicBookingState extends State<ClinicBooking> {
   Future<void> getSp() async {
     sp = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const DiagnosesList()),
+      MaterialPageRoute(builder: (context) => DiagnosesList()),
     );
     Navigator.pushReplacement(
       context,
