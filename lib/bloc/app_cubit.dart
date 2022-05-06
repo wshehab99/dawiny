@@ -137,7 +137,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(SpecializationsSearch());
   }
 
-  List searchAboutDoctor(String dignoseName, String value) {
+  List searchAboutDoctor(String dignoseName, String value, bool? video) {
     shownDctors = FakeData.doctors
         .where(
           (element) => (element.specialist == dignoseName &&
