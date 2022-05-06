@@ -77,7 +77,7 @@ class GridPage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const DiagnosesList()));
+                            builder: (context) => DiagnosesList()));
                   } else if (index == 1) {
                     Navigator.push(
                         context,

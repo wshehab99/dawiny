@@ -11,7 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ignore: must_be_immutable
 class DoctorListScreen extends StatelessWidget {
-  DoctorListScreen({Key? key, this.dignoseName}) : super(key: key);
+  DoctorListScreen({Key? key, this.dignoseName, this.videocall})
+      : super(key: key);
+  bool? videocall;
   String? dignoseName;
   List shownList = [];
   String value1 = '';
@@ -23,7 +25,7 @@ class DoctorListScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
-          shownList = cubit.searchAboutDoctor(dignoseName!, value1);
+          shownList = cubit.searchAboutDoctor(dignoseName!, value1, videocall);
           return Scaffold(
             backgroundColor: kBackgroundColor,
             body: SafeArea(
@@ -66,8 +68,8 @@ class DoctorListScreen extends StatelessWidget {
                       child: SearchBar(
                         onSearch: (value) {
                           value1 = value!;
-                          shownList =
-                              cubit.searchAboutDoctor(dignoseName!, value);
+                          shownList = cubit.searchAboutDoctor(
+                              dignoseName!, value, videocall);
                         },
                       ),
                     ),

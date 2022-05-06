@@ -61,8 +61,10 @@ class WelcomeScreen extends StatelessWidget {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
+
                                 builder: (context) =>
                                     const RegistrationScreen()),
+
                           );
                         },
                         child: const Text(
@@ -83,8 +85,10 @@ class WelcomeScreen extends StatelessWidget {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
+
                                     builder: (context) =>
                                         const RegistrationScreen()),
+
                               );
                             }
                           },

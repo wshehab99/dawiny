@@ -25,6 +25,7 @@ class SpecializationData {
 class FakeData {
   static List<Doctor> doctors = [
     Doctor(
+      videocall: true,
       email: "waleed@gmail.com",
       password: 'password123',
       fullName: "Waleed Bin Shehab",
@@ -33,6 +34,7 @@ class FakeData {
       profilePhoto: 'assets/images/doctor2.png',
     ),
     Doctor(
+      videocall: true,
       email: "Ahmed@gmail.com",
       password: 'password123',
       fullName: "Dr.Mohamed Mousa",
@@ -41,6 +43,7 @@ class FakeData {
       profilePhoto: 'assets/images/doctor2.png',
     ),
     Doctor(
+      videocall: true,
       email: "Ahmed@gmail.com",
       password: 'password123',
       fullName: "Dr.Mohamed Ahmed",
@@ -49,6 +52,7 @@ class FakeData {
       profilePhoto: 'assets/images/doctor2.png',
     ),
     Doctor(
+      videocall: true,
       email: "Ahmed@gmail.com",
       password: 'password123',
       fullName: "Dr.Mohamed Amr",
@@ -57,6 +61,7 @@ class FakeData {
       profilePhoto: 'assets/images/doctor2.png',
     ),
     Doctor(
+      videocall: true,
       email: "Sultan@gmail.com",
       password: 'password123',
       fullName: "Dr.Sultan",
@@ -65,6 +70,7 @@ class FakeData {
       profilePhoto: 'assets/images/doctor2.png',
     ),
     Doctor(
+      videocall: true,
       email: "waleed@gmail.com",
       password: 'password123',
       fullName: "Dr. Hazem Saleh",
@@ -73,6 +79,7 @@ class FakeData {
       profilePhoto: 'assets/images/doctor2.png',
     ),
     Doctor(
+      videocall: true,
       email: "Ahmed@gmail.com",
       password: 'password123',
       fullName: "Dr.Mohamed Ayman",
@@ -81,6 +88,7 @@ class FakeData {
       profilePhoto: 'assets/images/doctor2.png',
     ),
     Doctor(
+      videocall: true,
       email: "waleed@gmail.com",
       password: 'password123',
       fullName: "Dr.Morsy Ahmed",
@@ -89,6 +97,7 @@ class FakeData {
       profilePhoto: 'assets/images/doctor2.png',
     ),
     Doctor(
+      videocall: true,
       email: "waleed@gmail.com",
       password: 'password123',
       fullName: "Dr.Amr Mohamed",
@@ -97,6 +106,7 @@ class FakeData {
       profilePhoto: 'assets/images/doctor2.png',
     ),
     Doctor(
+      videocall: true,
       email: "waleed@gmail.com",
       password: 'password123',
       fullName: "Dr.Ahmed Mousa",
@@ -105,6 +115,7 @@ class FakeData {
       profilePhoto: 'assets/images/doctor2.png',
     ),
     Doctor(
+      videocall: true,
       email: "waleed@gmail.com",
       password: 'password123',
       fullName: "Dr.Ibrhim Abdellatif",
@@ -113,6 +124,7 @@ class FakeData {
       profilePhoto: 'assets/images/doctor2.png',
     ),
     Doctor(
+      videocall: true,
       email: "waleed@gmail.com",
       password: 'password123',
       fullName: "Dr.Morsy ramadan",
@@ -121,6 +133,7 @@ class FakeData {
       profilePhoto: 'assets/images/doctor2.png',
     ),
     Doctor(
+      videocall: true,
       email: "waleed@gmail.com",
       password: 'password123',
       fullName: "Dr.Sabry waleed",
@@ -129,6 +142,7 @@ class FakeData {
       profilePhoto: 'assets/images/doctor2.png',
     ),
     Doctor(
+      videocall: true,
       email: "waleed@gmail.com",
       password: 'password123',
       fullName: "Dr. Ahmed Amr",
