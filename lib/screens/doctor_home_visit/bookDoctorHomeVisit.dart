@@ -1,3 +1,4 @@
+import 'package:find_doctor/shared/getLocation.dart';
 import 'package:find_doctor/shared/textFieldApp.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,8 @@ class BookDoctorHomeVisit extends StatefulWidget {
 
 class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
   SpecializationData? sp;
+
+  String? locationAddress = ' ';
   @override
   var size, height, width;
 
@@ -32,6 +35,9 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Container(
               child: Column(children: [
+                SizedBox(
+                  height: 15,
+                ),
                 Image(
                   image: AssetImage("assets/images/Dawiny logo - 2.png"),
                   height: height * .07,
@@ -75,7 +81,7 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
                   color: Colors.blueGrey,
                 ),
               ]),
-              height: height * .423,
+              height: height * .5,
               width: width,
               decoration: const BoxDecoration(
                 color: Colors.blueAccent,
@@ -118,6 +124,7 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
                           MaterialPageRoute(
                               builder: (context) => DiagnosesList()),
                         );
+                        setState(() {});
                       },
                       child: Text("Chooes Diagnos")),
                   sp == null
@@ -131,8 +138,23 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
                               Text("${sp?.name}")
                             ],
                           )),
+                  // SizedBox(
+                  //   height: 55,
+                  // ),
                   ElevatedButton(
-                      onPressed: () {}, child: Text('Chooes Location'))
+                      onPressed: () async {
+                        locationAddress = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => GetLocation(
+                                    title: "",
+                                  )),
+                        );
+                        setState(() {});
+                      },
+                      child: Text('Chooes Location')),
+
+                  Text(locationAddress!)
                 ],
               ),
             ),

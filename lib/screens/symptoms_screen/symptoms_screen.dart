@@ -10,7 +10,6 @@ class SymptomsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white70,
       appBar: AppBar(
         title: const Text("Medical Diagnosis"),
         centerTitle: true,
@@ -23,11 +22,39 @@ class SymptomsScreen extends StatelessWidget {
             AppCubit cubit = AppCubit.get(context);
             cubit.loadingSymptom();
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(
+                  height: 30,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text(
+                    'Add Your Sympotoms',
+                    style: TextStyle(
+                        fontSize: 25,
+                        color: Color(0xff1171C8),
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: Text(
+                    'Add as many symptoms as you can for the most accurate results',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.blueGrey,
+                    ),
+                  ),
+                ),
                 const SizedBox(
                   height: 15,
                 ),
                 SearchTextFeild(
+                  searchTextFeildColor: Colors.grey[300],
                   controller: controller,
                   hint: "Search, e.g. headache",
                   onSearch: (value) {
@@ -39,36 +66,79 @@ class SymptomsScreen extends StatelessWidget {
                 ),
                 cubit.veiwedSymptoms.isEmpty
                     ? Expanded(
-                        child: GridView.builder(
-                          keyboardDismissBehavior:
-                              ScrollViewKeyboardDismissBehavior.onDrag,
-                          itemCount: cubit.selectedSymptoms.length,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                cubit.deleteSymptom(index);
-                              },
-                              child: Center(
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10),
-                                  decoration: BoxDecoration(
-                                      color: Colors.blue,
-                                      borderRadius: BorderRadius.circular(25)),
-                                  child: Text(cubit.selectedSymptoms[index]),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Wrap(
+                            alignment: WrapAlignment.start,
+                            children: List.generate(
+                                cubit.selectedSymptoms.length, (index) {
+                              return Container(
+                                margin: EdgeInsets.all(2.0),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 4.0),
+                                decoration: BoxDecoration(
+                                    color: Color(0xFF1171C8),
+                                    borderRadius: BorderRadius.circular(16.0)),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      cubit.selectedSymptoms[index],
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          color: Color(0xff0D5496),
+                                          borderRadius:
+                                              BorderRadius.circular(16.0)),
+                                      child: InkWell(
+                                          onTap: () {
+                                            cubit.deleteSymptom(index);
+                                          },
+                                          child: Icon(
+                                            Icons.close,
+                                            color: Colors.white,
+                                          )),
+                                    )
+                                  ],
                                 ),
-                              ),
-                            );
-                          },
-                          gridDelegate:
-                              const SliverGridDelegateWithMaxCrossAxisExtent(
-                                  mainAxisExtent: 60,
-                                  maxCrossAxisExtent: 135,
-                                  crossAxisSpacing: 0,
-                                  //  crossAxisSpacing: 5,
-                                  mainAxisSpacing: 5,
-                                  childAspectRatio: 0.40),
+                              );
+                            }),
+                          ),
                         ),
+                        // child: GridView.builder(
+                        //   keyboardDismissBehavior:
+                        //       ScrollViewKeyboardDismissBehavior.onDrag,
+                        //   itemCount: cubit.selectedSymptoms.length,
+                        //   itemBuilder: (context, index) {
+                        //     return InkWell(
+                        //       onTap: () {
+                        //         cubit.deleteSymptom(index);
+                        //       },
+                        //       child: Center(
+                        //         child: Container(
+                        //           padding: const EdgeInsets.symmetric(
+                        //               horizontal: 20, vertical: 10),
+                        //           decoration: BoxDecoration(
+                        //               color: Colors.blue,
+                        //               borderRadius: BorderRadius.circular(25)),
+                        //           child: Text(cubit.selectedSymptoms[index]),
+                        //         ),
+                        //       ),
+                        //     );
+                        //   },
+                        //   gridDelegate:
+                        //       const SliverGridDelegateWithMaxCrossAxisExtent(
+                        //           mainAxisExtent: 60,
+                        //           maxCrossAxisExtent: 135,
+                        //           crossAxisSpacing: 0,
+                        //           //  crossAxisSpacing: 5,
+                        //           mainAxisSpacing: 5,
+                        //           childAspectRatio: 0.40),
+                        // ),
                       )
                     : Expanded(
                         flex: 4,
@@ -85,18 +155,28 @@ class SymptomsScreen extends StatelessWidget {
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(15),
-                                decoration:
-                                    const BoxDecoration(color: Colors.blue),
-                                child: Text(cubit.veiwedSymptoms[index]),
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 226, 226, 226)),
+                                child: Text(
+                                  cubit.veiwedSymptoms[index],
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
                               ),
                             );
                           },
                         ),
                       ),
-                ElevatedButton(
-                    onPressed:
-                        cubit.selectedSymptoms.length >= 3 ? () {} : null,
-                    child: const Text("Continue")),
+                Center(
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Color(0xFF1171C8))),
+                      onPressed:
+                          cubit.selectedSymptoms.length >= 3 ? () {} : null,
+                      child: const Text("Continue")),
+                ),
               ],
             );
           },
