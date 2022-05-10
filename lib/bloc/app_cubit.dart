@@ -141,6 +141,7 @@ class AppCubit extends Cubit<AppStates> {
     shownDctors = FakeData.doctors
         .where(
           (element) => (element.specialist == dignoseName &&
+              (video == null ? true : element.videocall == true) &&
               element.fullName!.toLowerCase().contains(value)),
         )
         .toList();

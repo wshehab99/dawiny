@@ -1,4 +1,3 @@
-import 'package:find_doctor/screens/videocalldetails/videocalldetails.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/diagnosesList.dart';
@@ -14,15 +13,15 @@ class VideoCallScreen extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 50, left: 10, right: 10),
-              child: Container(
+              child: SizedBox(
                   height: 120,
                   width: double.infinity,
                   child: Image.asset("assets/images/dawiny_logo.png")),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text(
+            const Text(
               "مستقبل الرعاية الصحية",
               style: TextStyle(color: Color(0xff0170CC), fontSize: 25),
             ),
@@ -31,7 +30,8 @@ class VideoCallScreen extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => VideoCallDetails(),
+                      builder: (context) =>
+                          const DiagnosesList(vidoecall: true),
                     ));
               },
               child: Padding(
@@ -79,7 +79,7 @@ class VideoCallScreen extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
-                      color: Color(0xff0170CC),
+                      color: const Color(0xff0170CC),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Row(
@@ -116,10 +116,10 @@ class VideoCallScreen extends StatelessWidget {
                     left: 10,
                     child: Container(
                       width: 60,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color(0xffD71922),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           "مجانا",
                           style: TextStyle(color: Colors.white),

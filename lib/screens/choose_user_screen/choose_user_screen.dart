@@ -26,9 +26,6 @@ class ChooseUserScreen extends StatelessWidget {
                   if ther is a value here we will not go to this screen we will go to the grid page directly after splash screen
                   that we will have the value of the user and email annd password so we make the user sign in implicity
                   the only thing the user will see is cireular progress indecator
-
-
-
                   */
                 }
               },

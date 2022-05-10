@@ -13,15 +13,13 @@ class RegistrationScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Center(
-          child: SingleChildScrollView(
+        body: SingleChildScrollView(
+          child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
-                const SizedBox(
-
-                  height: 100,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 9,
                 ),
                 const CircleAvatar(
                   backgroundColor: Colors.blue,
@@ -36,19 +34,15 @@ class RegistrationScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                const SizedBox(
-                  height: 180,
-                ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.1,
+                  height: MediaQuery.of(context).size.height * 0.15,
                 ),
                 const Text(
                   "Welcome To Dawiny!",
                   style: TextStyle(fontSize: 23, fontWeight: FontWeight.w500),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.1,
+                  height: MediaQuery.of(context).size.height * 0.15,
                 ),
                 AppButton(
                   text: "Sign Up",
