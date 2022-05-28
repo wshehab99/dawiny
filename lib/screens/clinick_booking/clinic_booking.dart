@@ -29,7 +29,7 @@ class _ClinicBookingState extends State<ClinicBooking> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) => getSp());
+    WidgetsBinding.instance.addPostFrameCallback((_) => getSp());
   }
 
   @override
