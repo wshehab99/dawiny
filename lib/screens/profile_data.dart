@@ -54,7 +54,7 @@ class UserProfile extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          const ProfilePhotoCard(),
+          ProfilePhotoCard(),
           const SizedBox(
             height: 15,
           ),

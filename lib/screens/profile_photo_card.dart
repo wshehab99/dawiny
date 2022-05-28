@@ -1,49 +1,117 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-class ProfilePhotoCard extends StatelessWidget {
-  const ProfilePhotoCard({Key? key, this.userImage}) : super(key: key);
-  final userImage;
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+class ProfilePhotoCard extends StatefulWidget {
+  ProfilePhotoCard({Key? key}) : super(key: key);
+
+  @override
+  State<ProfilePhotoCard> createState() => _ProfilePhotoCardState();
+}
+
+class _ProfilePhotoCardState extends State<ProfilePhotoCard> {
+  XFile? userImage;
+
+  final ImagePicker _picker = ImagePicker();
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 120,
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-              blurRadius: 20,
-              color: Colors.grey.shade200,
-              offset: const Offset(0, 15),
-              spreadRadius: 10)
-        ],
-      ),
-      child: Card(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-            side: BorderSide(
-              color: Colors.blue.shade100.withOpacity(0.15),
-            )),
-        elevation: 0,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            CircleAvatar(
-              maxRadius: 30,
-              backgroundColor: Colors.blue[50],
-              child: userImage == null
-                  ? const Icon(Icons.cloud_upload_rounded)
-                  : Image(
-                      image: AssetImage(userImage),
-                      width: 40,
-                    ),
-            ),
-            Text(
-              "Upload Photo Profile",
-              style: TextStyle(
-                  color: Colors.blue[600], fontWeight: FontWeight.w600),
-            )
+    return Center(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(100),
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 50,
+                color: Colors.grey.shade200,
+                offset: const Offset(0, 15),
+                spreadRadius: 10)
           ],
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: InkWell(
+            onTap: (() async {
+              return showDialog(
+                  context: context,
+                  builder: (builder) {
+                    return AlertDialog(
+                      title: Text("choose from"),
+                      actions: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            ElevatedButton(
+                                onPressed: () async {
+                                  var s = await _picker.pickImage(
+                                      source: ImageSource.gallery);
+                                  if (s != null) {
+                                    userImage = s;
+                                  }
+                                  Navigator.pop(context);
+                                  setState(() {});
+                                },
+                                child: Text("gallery")),
+                            ElevatedButton(
+                                onPressed: () async {
+                                  var s = await _picker.pickImage(
+                                      source: ImageSource.camera);
+                                  if (s != null) {
+                                    userImage = s;
+                                  }
+                                  Navigator.pop(context);
+                                  setState(() {});
+                                },
+                                child: Text("camera")),
+                          ],
+                        ),
+                      ],
+                    );
+                  });
+            }),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                InkWell(
+                  child: Column(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.width * .3,
+                        width: MediaQuery.of(context).size.width * .3,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: userImage == null
+                            ? const Icon(Icons.cloud_upload_rounded)
+                            : Image.file(
+                                File(userImage!.path),
+                                fit: BoxFit.cover,
+                              ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      userImage == null
+                          ? Text(
+                              "Upload Photo Profile",
+                              style: TextStyle(
+                                  color: Colors.blue[600],
+                                  fontWeight: FontWeight.w600),
+                            )
+                          : Text(
+                              "Change Photo",
+                              style: TextStyle(
+                                  color: Colors.blue[600],
+                                  fontWeight: FontWeight.w600),
+                            ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
