@@ -16,7 +16,9 @@ class Dawiny extends StatelessWidget {
         designSize: const Size(360, 690),
         minTextAdapt: true,
         splitScreenMode: true,
+
         builder: (value) {
+ 
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',

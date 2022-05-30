@@ -11,7 +11,7 @@ class VideoCallDetails extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text(
+        title: const Text(
           "Appointments",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
@@ -19,7 +19,7 @@ class VideoCallDetails extends StatelessWidget {
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Container(
               width: double.infinity,
               height: 120,
@@ -37,7 +37,7 @@ class VideoCallDetails extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: const [
                         Text(
                           "$doctorName",
                           style: TextStyle(
@@ -56,12 +56,12 @@ class VideoCallDetails extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 60,
                   ),
                   IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.video_call,
                         size: 40,
                         color: Colors.blue,
@@ -83,7 +83,7 @@ class VideoCallDetails extends StatelessWidget {
                 children: [
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
+                    children: const [
                       Icon(
                         Icons.people_alt,
                         color: Colors.blue,
@@ -102,7 +102,7 @@ class VideoCallDetails extends StatelessWidget {
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
+                    children: const [
                       Icon(
                         Icons.person,
                         color: Colors.blue,
@@ -121,7 +121,7 @@ class VideoCallDetails extends StatelessWidget {
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
+                    children: const [
                       Icon(
                         Icons.reviews,
                         color: Colors.blue,
@@ -142,7 +142,7 @@ class VideoCallDetails extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           ElevatedButton(
@@ -151,8 +151,8 @@ class VideoCallDetails extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20))),
               onPressed: () {},
-              child: Padding(
-                padding: const EdgeInsets.all(20),
+              child: const Padding(
+                padding: EdgeInsets.all(20),
                 child: Text(
                   "Video Call Now",
                   style: TextStyle(fontSize: 20),

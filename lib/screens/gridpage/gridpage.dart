@@ -1,9 +1,12 @@
-import 'package:find_doctor/screens/diagnoses.dart/diagnosesList.dart';
 import 'package:find_doctor/screens/symptoms_screen/symptoms_screen.dart';
+
 import 'package:find_doctor/screens/videocallscreen/video_call_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../shared/diagnosesList.dart';
 import '../../shared/getLocation.dart';
+import '../clinick_booking/clinic_booking.dart';
+import '../doctor_home_visit/bookDoctorHomeVisit.dart';
 
 class GridPage extends StatelessWidget {
   GridPage({Key? key}) : super(key: key);
@@ -77,14 +80,15 @@ class GridPage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DiagnosesList()));
+                            builder: (context) => ClinicBooking()));
+
+                    builder:
+                    (context) => DiagnosesList();
                   } else if (index == 1) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => GetLocation(
-                                  title: '',
-                                )));
+                            builder: (context) => BookDoctorHomeVisit()));
                   } else if (index == 2) {
                     Navigator.push(
                         context,

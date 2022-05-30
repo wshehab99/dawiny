@@ -1,19 +1,4 @@
 import 'package:find_doctor/model/doctor.dart';
-import 'package:flutter/material.dart';
-
-// enum Specialization {
-//   Dermatology,
-//   Ear,
-//   Ophthalmology,
-//   Nephrology,
-//   Dentistry,
-//   Brain,
-//   Cardiology,
-//   Neurology,
-//   Orthopedics,
-//   Pediatrics,
-//   Endocrinology,
-// }
 
 class SpecializationData {
   SpecializationData(this.name, this.imagePath);
@@ -25,7 +10,7 @@ class SpecializationData {
 class FakeData {
   static List<Doctor> doctors = [
     Doctor(
-      videocall: true,
+      videocall: false,
       email: "waleed@gmail.com",
       password: 'password123',
       fullName: "Waleed Bin Shehab",
