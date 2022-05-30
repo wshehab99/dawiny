@@ -1,9 +1,11 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-
 import '../fake_data/fake_data.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -87,6 +89,7 @@ class AppCubit extends Cubit<AppStates> {
       'isSelected': false,
     },
   ];
+  var apiMlModel = Uri.parse("https://dawinyml.herokuapp.com/ml");
   void changePage(int value) {
     curentPage = value;
     emit(ChangeWelcomePage());
@@ -174,7 +177,6 @@ class AppCubit extends Cubit<AppStates> {
 
   void loadingSymptom() {
     symptomList = symptomText.split(",");
-    emit(LoadingSymptom());
   }
 
   void changeDate(DateTime date) {
@@ -215,5 +217,26 @@ class AppCubit extends Cubit<AppStates> {
   void deleteSymptom(int index) {
     selectedSymptoms.removeAt(index);
     emit(LoadingSymptom());
+  }
+
+  Future<String> medicalDiagnosis() async {
+    emit(LoadingState());
+
+    var dio = Dio();
+    print(jsonEncode({"symptoms": selectedSymptoms}));
+    final response = await dio.post("https://dawinyml.herokuapp.com/ml",
+        data: jsonEncode({"symptoms": selectedSymptoms}));
+    if (response.statusCode == 200) {
+      emit(DoneState());
+      return response.data['disease'];
+    } else {
+      emit(ErrorgState());
+
+      return "";
+    }
+  }
+
+  void backToNormalState() {
+    emit(InitialAppState());
   }
 }

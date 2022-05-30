@@ -4,7 +4,7 @@ import 'package:find_doctor/shared/diagnosesList.dart';
 import 'package:flutter/material.dart';
 
 class ClinicBooking extends StatefulWidget {
-  ClinicBooking({Key? key}) : super(key: key);
+  const ClinicBooking({Key? key}) : super(key: key);
 
   @override
   State<ClinicBooking> createState() => _ClinicBookingState();
@@ -16,7 +16,7 @@ class _ClinicBookingState extends State<ClinicBooking> {
   Future<void> getSp() async {
     sp = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => DiagnosesList()),
+      MaterialPageRoute(builder: (context) => const DiagnosesList()),
     );
     Navigator.pushReplacement(
       context,

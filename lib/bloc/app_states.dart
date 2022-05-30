@@ -23,3 +23,9 @@ class ChangeNurseListButtonValue extends AppStates {}
 class LoadingSymptom extends AppStates {}
 
 class ChangeSelectedDate extends AppStates {}
+
+class LoadingState extends AppStates {}
+
+class ErrorgState extends AppStates {}
+
+class DoneState extends AppStates {}
