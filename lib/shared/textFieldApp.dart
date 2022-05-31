@@ -1,6 +1,3 @@
-import 'package:flutter/services.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-
 import '../bloc/app_cubit.dart';
 import '../bloc/app_states.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +44,7 @@ class TeriaqTextField extends StatelessWidget {
                     width: 30,
                   ),
                   Text(
-                    "${label} ",
+                    "$label ",
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black54,
@@ -82,7 +79,6 @@ class TeriaqTextField extends StatelessWidget {
                   keyboardType: type,
                   onTap: onTap,
                   controller: controller,
-                  autofocus: true,
                   validator: validator,
                   obscureText: hide ? !cubit.isPasswordShown : false,
                   decoration: InputDecoration(
