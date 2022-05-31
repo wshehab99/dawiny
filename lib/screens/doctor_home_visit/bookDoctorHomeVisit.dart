@@ -1,12 +1,11 @@
 import 'package:find_doctor/shared/getLocation.dart';
-import 'package:find_doctor/shared/textFieldApp.dart';
 import 'package:flutter/material.dart';
 
 import '../../fake_data/fake_data.dart';
 import '../../shared/diagnosesList.dart';
 
 class BookDoctorHomeVisit extends StatefulWidget {
-  BookDoctorHomeVisit({Key? key}) : super(key: key);
+  const BookDoctorHomeVisit({Key? key}) : super(key: key);
 
   @override
   State<BookDoctorHomeVisit> createState() => _BookDoctorHomeVisitState();
@@ -19,6 +18,7 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
   @override
   var size, height, width;
 
+  @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
     height = size.height;
@@ -26,7 +26,7 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Book a Home Visit Doctor"),
+        title: const Text("Book a Home Visit Doctor"),
       ),
       body: SingleChildScrollView(
           child: Column(
@@ -35,23 +35,23 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Container(
               child: Column(children: [
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Image(
-                  image: AssetImage("assets/images/Dawiny logo - 2.png"),
+                  image: const AssetImage("assets/images/Dawiny logo - 2.png"),
                   height: height * .07,
                   width: width * .35,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Image(
-                  image: AssetImage("assets/images/doctorhomevisit.png"),
+                  image: const AssetImage("assets/images/doctorhomevisit.png"),
                   height: height * .15,
                   width: width * .5,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Text(
@@ -72,7 +72,7 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
                   ),
                   maxLines: 2,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Icon(
@@ -122,14 +122,14 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
                         sp = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => DiagnosesList()),
+                              builder: (context) => const DiagnosesList()),
                         );
                         setState(() {});
                       },
-                      child: Text("Chooes Diagnos")),
+                      child: const Text("Chooes Diagnos")),
                   sp == null
-                      ? Text('')
-                      : Container(
+                      ? const Text('')
+                      : SizedBox(
                           width: 300,
                           height: 50,
                           child: Row(
@@ -152,7 +152,7 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
                         );
                         setState(() {});
                       },
-                      child: Text('Chooes Location')),
+                      child: const Text('Chooes Location')),
 
                   Text(locationAddress!)
                 ],

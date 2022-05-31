@@ -1,6 +1,5 @@
 import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
-import 'package:find_doctor/screens/choose_user_screen/choose_user_screen.dart';
 import 'package:find_doctor/screens/registration/registration.dart';
 import 'package:find_doctor/shared/app_button.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../doctor_time/doctor_time_screen.dart';
 import 'widgets/intro_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -61,10 +61,8 @@ class WelcomeScreen extends StatelessWidget {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-
                                 builder: (context) =>
                                     const RegistrationScreen()),
-
                           );
                         },
                         child: const Text(
@@ -85,10 +83,7 @@ class WelcomeScreen extends StatelessWidget {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-
-                                    builder: (context) =>
-                                        const RegistrationScreen()),
-
+                                    builder: (context) => DoctorTime()),
                               );
                             }
                           },

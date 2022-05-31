@@ -40,16 +40,16 @@ class VideoCallDetails extends StatelessWidget {
                       children: [
                         Text(
                           "$doctorName",
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 15),
                         ),
-                        Text(
+                        const Text(
                           "VideoCall",
                           style: TextStyle(fontSize: 15),
                         ),
-                        Text(
+                        const Text(
                           "10:30 - 11:00 Pm",
                           style: TextStyle(fontWeight: FontWeight.w500),
                         ),
