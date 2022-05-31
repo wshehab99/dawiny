@@ -59,16 +59,29 @@ class _DoctorTimeState extends State<DoctorTime> {
                   // ).then((value) {
                   //   _Time.text = value!.format(context);
                   // });
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          content: CupertinoTimerPicker(
-                            initialTimerDuration: Duration(minutes: 30),
-                            onTimerDurationChanged: (value) {},
-                          ),
-                        );
-                      });
+                  // showDialog(
+                  //     context: context,
+                  //     builder: (BuildContext context) {
+                  //       return AlertDialog(
+                  //         content: SizedBox(
+                  //           width: 300,
+                  //           height: 300,
+                  //           child: CupertinoTimerPicker(
+                  //             mode: CupertinoTimerPickerMode.ms,
+                  //             onTimerDurationChanged: (value) {},
+                  //           ),
+                  //         ),
+                  //         actions: [
+                  //           ElevatedButton(onPressed: () {}, child: Text("OK")),
+                  //           ElevatedButton(
+                  //               onPressed: () {
+                  //                 Navigator.pop(context);
+                  //               },
+                  //               child: Text("cancel"))
+                  //         ],
+                  //       );
+                  //     }
+                  //   );
                 },
                 label: "Time",
               ),
