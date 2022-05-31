@@ -1,10 +1,9 @@
 import 'package:find_doctor/bloc/app_states.dart';
+import 'package:find_doctor/screens/doctor_time/doctor_time_screen.dart';
 import 'package:find_doctor/screens/welcome/welcomescreen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../bloc/app_cubit.dart';
 import '../bloc/app_states.dart';
 
@@ -17,7 +16,7 @@ class Dawiny extends StatelessWidget {
         designSize: const Size(360, 690),
         minTextAdapt: true,
         splitScreenMode: true,
-        builder: () {
+        builder: (value) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
@@ -26,7 +25,7 @@ class Dawiny extends StatelessWidget {
             ),
             home: BlocProvider(
               create: (context) => AppCubit(InitialAppState()),
-              child: const WelcomeScreen(),
+              child: DoctorTime(),
             ),
             routes: {"WelcomeScreen": (context) => const WelcomeScreen()},
           );

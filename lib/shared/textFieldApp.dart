@@ -1,3 +1,6 @@
+import 'package:flutter/services.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+
 import '../bloc/app_cubit.dart';
 import '../bloc/app_states.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class TeriaqTextField extends StatelessWidget {
   TeriaqTextField(
       {Key? key,
+      // this.format,
+      this.type,
       required this.label,
       required this.hint,
       this.hide = false,
@@ -15,13 +20,15 @@ class TeriaqTextField extends StatelessWidget {
       this.onTap,
       this.icon})
       : super(key: key);
-  String label;
+  String? label;
   String hint;
+  TextInputType? type;
   bool hide;
   String? Function(String?)? validator;
   TextEditingController? controller;
   void Function()? onTap;
   Widget? icon;
+  // MaskTextInputFormatter? format;
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +78,8 @@ class TeriaqTextField extends StatelessWidget {
                   ],
                 ),
                 child: TextFormField(
+                  // inputFormatters: <TextInputFormatter>[format!],
+                  keyboardType: type,
                   onTap: onTap,
                   controller: controller,
                   autofocus: true,

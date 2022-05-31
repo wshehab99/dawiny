@@ -18,7 +18,6 @@ class SignIn extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
-
   final TextEditingController _password = TextEditingController();
 
   @override
