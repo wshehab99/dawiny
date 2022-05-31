@@ -64,7 +64,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.16.0"
-
   cross_file:
     dependency: transitive
     description:
