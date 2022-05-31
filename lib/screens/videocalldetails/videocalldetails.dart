@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class VideoCallDetails extends StatelessWidget {
-  const VideoCallDetails({Key? key}) : super(key: key);
+  VideoCallDetails({Key? key, this.doctorName, this.imageDoctor})
+      : super(key: key);
 
+  String? doctorName;
+  String? imageDoctor;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +29,7 @@ class VideoCallDetails extends StatelessWidget {
               child: Row(
                 children: [
                   Image.asset(
-                    "assets/images/doctorW.jpg",
+                    "$imageDoctor",
                     width: 110,
                   ),
                   Padding(
@@ -36,7 +39,7 @@ class VideoCallDetails extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
                         Text(
-                          "Dr.Mohamed ali",
+                          "$doctorName",
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
