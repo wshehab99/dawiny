@@ -31,9 +31,37 @@ class GridPage extends StatelessWidget {
       'image': "assets/images/pharmacy.png",
     },
   ];
+  var scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
+      drawer: Drawer(
+        child: Column(
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: Text(
+                "Morsy HashisH",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ),
+              accountEmail: Text("morsyhashish123@gmail.com"),
+              currentAccountPicture: CircleAvatar(
+                  backgroundImage: AssetImage("assets/images/photo.jpg")),
+              otherAccountsPictures: [
+                CircleAvatar(
+                    backgroundImage: AssetImage("assets/images/photo.jpg")),
+              ],
+            ),
+            ListTile(
+              title: Text("Logout"),
+              leading: Icon(Icons.logout),
+            ),
+          ],
+        ),
+      ),
       backgroundColor: Colors.white,
       body: Column(children: [
         Container(
@@ -41,13 +69,30 @@ class GridPage extends StatelessWidget {
           width: double.infinity,
           child: Center(
             child: Column(
-              children: const [
-                SizedBox(
-                  height: 50,
-                ),
-                Image(
-                  image: AssetImage('assets/images/Dawiny logo - 2.png'),
-                  width: 170,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          scaffoldKey.currentState?.openDrawer();
+                        },
+                        icon: Icon(
+                          Icons.menu,
+                          color: Colors.white,
+                          size: 25,
+                        )),
+                    SizedBox(
+                      width: 50,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 40),
+                      child: Image(
+                        image: AssetImage('assets/images/Dawiny logo - 2.png'),
+                        width: 170,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
