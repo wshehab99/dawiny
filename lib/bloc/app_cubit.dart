@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:flutter/material.dart';
@@ -244,28 +244,37 @@ class AppCubit extends Cubit<AppStates> {
     emit(LoadingState());
     var dio = Dio();
     final response = await dio.post(
-      "https://dawiny.herokuapp.com/auth/login",
-      options: Options(headers: {
-        "authorization": accessToken,
-      }),
+      "https://dawiny.herokuapp.com/api/auth/login",
       data: jsonEncode({
         "email": email,
         "password": password,
         "role": role,
       }),
     );
+    print(response.data);
+
     if (response.statusCode == 200) {
+      accessToken = response.data['access'];
+      refreshToken = response.data['refresh'];
+      final pref = await SharedPreferences.getInstance();
+      await pref.setString('access', accessToken!);
+      await pref.setString('refresh', refreshToken!);
       emit(DoneState());
-      return response.data['disease'];
-    } else {
-      errorMsg = response.statusMessage;
+    } else if (response.statusCode == 404) {
+      print(response.data['error']);
+      errorMsg = response.data['error'];
       emit(ErrorgState());
-      return "";
+    } else {
+      errorMsg = response.data['error'];
+      emit(ErrorgState());
     }
   }
 
   Future requestOnServer(String email, String password, String role) async {
     emit(LoadingState());
+    final pref = await SharedPreferences.getInstance();
+    accessToken = pref.getString("access");
+    refreshToken = pref.getString("refresh");
     var dio = Dio();
     final response = await dio.post(
       "https://dawiny.herokuapp.com/auth/login",
@@ -286,6 +295,7 @@ class AppCubit extends Cubit<AppStates> {
       if (result == -1) {
         //make user login again
       } else {
+        await pref.setString("access", result.toString());
         accessToken = result as String?;
         logIn(email, password, role);
       }
@@ -298,7 +308,8 @@ class AppCubit extends Cubit<AppStates> {
 
   Future refreshAccessToken() async {
     var dio = Dio();
-    final rr = await dio.post("https://dawiny.herokuapp.com/auth/login",
+
+    final rr = await dio.post("https://dawiny.herokuapp.com/api/auth/token",
         options: Options(
           headers: {},
         ),
@@ -315,13 +326,16 @@ class AppCubit extends Cubit<AppStates> {
   Future logout() async {
     emit(LoadingState());
     var dio = Dio();
-    final response = await dio.delete("https://dawiny.herokuapp.com/auth/login",
-        options: Options(
-          headers: {},
-        ),
-        data: jsonEncode({
-          "refresh": refreshToken,
-        }));
+    final response =
+        await dio.delete("https://dawiny.herokuapp.com/api/auth/logout",
+            options: Options(
+              headers: {
+                'authorization': accessToken,
+              },
+            ),
+            data: jsonEncode({
+              "refresh": refreshToken,
+            }));
     emit(DoneState());
   }
 }
