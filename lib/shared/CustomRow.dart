@@ -1,7 +1,3 @@
-import 'dart:async';
-import 'dart:ffi';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'textFieldApp.dart';
 
@@ -137,7 +133,8 @@ class _CustomRowState extends State<CustomRow> {
             children: [
               Text(
                 "${widget.day}",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               Checkbox(
                 checkColor: Colors.white,
@@ -152,20 +149,20 @@ class _CustomRowState extends State<CustomRow> {
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Container(
+            SizedBox(
               width: 195,
               height: 100,
               child: Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     TeriaqTextField(
@@ -178,14 +175,14 @@ class _CustomRowState extends State<CustomRow> {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: 195,
               height: 100,
               child: Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     TeriaqTextField(

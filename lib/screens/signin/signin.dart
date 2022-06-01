@@ -27,6 +27,7 @@ class SignIn extends StatelessWidget {
         child: BlocConsumer<AppCubit, AppStates>(
           listener: ((context, state) {}),
           builder: (context, state) {
+            AppCubit cubit = AppCubit.get(context);
             return Scaffold(
               backgroundColor: Colors.white,
               body: SafeArea(
@@ -88,6 +89,7 @@ class SignIn extends StatelessWidget {
                                       .hasMatch(value)) {
                                 return 'Please enter a valid email';
                               }
+                              return null;
                             },
                           ),
                           const SizedBox(
@@ -108,9 +110,9 @@ class SignIn extends StatelessWidget {
                             height: 10,
                           ),
                           CheckBoxRow(
-                            isCheked: AppCubit.get(context).remeberMeValue,
+                            isCheked: cubit.remeberMeValue,
                             onPress: (value) {
-                              AppCubit.get(context).remeberMe(value!);
+                              cubit.remeberMe(value!);
                             },
                           ),
                           AppButton(
@@ -118,10 +120,41 @@ class SignIn extends StatelessWidget {
                               bottenColor: Colors.blue,
                               textColor: Colors.white,
                               borderradius: BorderRadius.circular(20),
-                              onPressed: AppCubit.get(context).remeberMeValue
+                              onPressed: cubit.remeberMeValue
                                   ? () {
                                       if (_formKey.currentState!.validate()) {
-                                        _checkuser(context);
+                                        // doctor at the begning ------ later will be dynamic
+                                        cubit.logIn(_email.text, _password.text,
+                                            "doctor");
+                                        if (state is DoneState) {
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      GridPage()));
+                                        } else if (state is ErrorgState) {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                    content:
+                                                        Text(cubit.errorMsg!),
+                                                  ));
+                                        } else if (state is LoadingState) {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) =>
+                                                  const AlertDialog(
+                                                      insetPadding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 120),
+                                                      content: SizedBox(
+                                                        height: 120,
+                                                        child: Center(
+                                                            child:
+                                                                CircularProgressIndicator()),
+                                                      )));
+                                        }
+                                        // _checkuser(context);
                                       }
                                     }
                                   : null),
