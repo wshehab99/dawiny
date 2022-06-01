@@ -49,6 +49,7 @@ class _DoctorTimeState extends State<DoctorTime> {
                 controller: _time,
                 type: const TextInputType.numberWithOptions(decimal: false),
                 onTap: () {
+
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {
