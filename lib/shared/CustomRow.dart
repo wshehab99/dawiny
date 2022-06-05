@@ -1,19 +1,17 @@
-import 'dart:async';
-import 'dart:ffi';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'textFieldApp.dart';
 
 class CustomRow extends StatefulWidget {
-  CustomRow({Key? key, this.day}) : super(key: key);
+  CustomRow({Key? key, this.day, required this.from, required this.to})
+      : super(key: key);
   String? day;
+  final TextEditingController from;
+  final TextEditingController to;
   @override
   State<CustomRow> createState() => _CustomRowState();
 }
 
 class _CustomRowState extends State<CustomRow> {
-  final TextEditingController _Time = TextEditingController();
   bool isChecked = false;
 
   //  final Map<String, dynamic> DAYS = {
@@ -137,7 +135,8 @@ class _CustomRowState extends State<CustomRow> {
             children: [
               Text(
                 "${widget.day}",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               Checkbox(
                 checkColor: Colors.white,
@@ -152,57 +151,56 @@ class _CustomRowState extends State<CustomRow> {
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Container(
-              width: 195,
-              height: 100,
-              child: Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 5,
-                    ),
-                    TeriaqTextField(
-                      hint: "Time",
-                      label: "From",
-                      controller: _Time,
-                      onTap: () {},
-                    ),
-                  ],
-                ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TeriaqTextField(
+                    hint: "Time",
+                    label: "From",
+                    controller: widget.from,
+                    onTap: () {
+                      Future<TimeOfDay?> selectedTime = showTimePicker(
+                        initialTime: TimeOfDay.now(),
+                        context: context,
+                      ).then((value) {
+                        widget.from.text = value!.format(context);
+                      });
+                    },
+                  ),
+                ],
               ),
             ),
-            Container(
-              width: 195,
-              height: 100,
-              child: Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 5,
-                    ),
-                    TeriaqTextField(
-                      hint: "Time",
-                      label: "To",
-                      controller: _Time,
-                      onTap: () {
-                        // Future<TimeOfDay?> selectedTime = showTimePicker(
-                        //   initialTime: TimeOfDay.now(),
-                        //   context: context,
-                        // ).then((value) {
-                        //   _Time.text = value!.format(context);
-                        // });
-                      },
-                    ),
-                  ],
-                ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TeriaqTextField(
+                    hint: "Time",
+                    label: "To",
+                    controller: widget.to,
+                    onTap: () {
+                      Future<TimeOfDay?> selectedTime = showTimePicker(
+                        initialTime: TimeOfDay.now(),
+                        context: context,
+                      ).then((value) {
+                        widget.to.text = value!.format(context);
+                      });
+                    },
+                  ),
+                ],
               ),
             ),
           ],

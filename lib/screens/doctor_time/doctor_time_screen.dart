@@ -1,11 +1,17 @@
 import 'package:find_doctor/shared/CustomRow.dart';
-import 'package:find_doctor/shared/app_CheckBox.dart';
 import 'package:find_doctor/shared/textFieldApp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-// import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-// import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+
+class WorkDay {
+  final String day;
+  final TextEditingController from = TextEditingController();
+  final TextEditingController to = TextEditingController();
+
+  WorkDay({
+    required this.day,
+  });
+}
 
 class DoctorTime extends StatefulWidget {
   DoctorTime({
@@ -25,17 +31,17 @@ class _DoctorTimeState extends State<DoctorTime> {
   // final MaskTextInputFormatter _timeMaskFormatter =
   //     MaskTextInputFormatter(mask: '##:##:##', filter: {"#": RegExp(r'[0-9]')});
 
-  final TextEditingController _Time = TextEditingController();
+  final TextEditingController _time = TextEditingController();
   String? dayName;
 
-  List days = [
-    "Satrday",
-    "Sunday",
-    "Monday",
-    "Tuseday",
-    "wensday",
-    "Tharsday",
-    "Friday",
+  List<WorkDay> days = [
+    WorkDay(day: "Satrday"),
+    WorkDay(day: "Sunday"),
+    WorkDay(day: "Monday"),
+    WorkDay(day: "Tuseday"),
+    WorkDay(day: "wensday"),
+    WorkDay(day: "Tharsday"),
+    WorkDay(day: "Friday"),
   ];
 
   @override
@@ -50,55 +56,59 @@ class _DoctorTimeState extends State<DoctorTime> {
               padding: const EdgeInsets.only(top: 10),
               child: TeriaqTextField(
                 hint: "Time by minutes",
-                controller: _Time,
-                type: TextInputType.numberWithOptions(decimal: false),
+                controller: _time,
+                type: const TextInputType.numberWithOptions(decimal: false),
                 onTap: () {
-                  // Future<TimeOfDay?> selectedTime = showTimePicker(
-                  //   initialTime: TimeOfDay.now(),
-                  //   context: context,
-                  // ).then((value) {
-                  //   _Time.text = value!.format(context);
-                  // });
-                  // showDialog(
-                  //     context: context,
-                  //     builder: (BuildContext context) {
-                  //       return AlertDialog(
-                  //         content: SizedBox(
-                  //           width: 300,
-                  //           height: 300,
-                  //           child: CupertinoTimerPicker(
-                  //             mode: CupertinoTimerPickerMode.ms,
-                  //             onTimerDurationChanged: (value) {},
-                  //           ),
-                  //         ),
-                  //         actions: [
-                  //           ElevatedButton(onPressed: () {}, child: Text("OK")),
-                  //           ElevatedButton(
-                  //               onPressed: () {
-                  //                 Navigator.pop(context);
-                  //               },
-                  //               child: Text("cancel"))
-                  //         ],
-                  //       );
-                  //     }
-                  //   );
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          content: SizedBox(
+                            width: 300,
+                            height: 300,
+                            child: CupertinoTimerPicker(
+                              mode: CupertinoTimerPickerMode.ms,
+                              onTimerDurationChanged: (value) {},
+                            ),
+                          ),
+                          actions: [
+                            ElevatedButton(
+                                onPressed: () {}, child: const Text("Ok")),
+                            ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text("Cancel")),
+                          ],
+                        );
+                      });
                 },
                 label: "Time",
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Expanded(
               child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: days.length,
-                  itemBuilder: (BuildContext, index) {
+                  itemBuilder: (context, index) {
                     return CustomRow(
-                      day: days[index],
+                      day: days[index].day,
+                      from: days[index].from,
+                      to: days[index].to,
                     );
                   }),
             ),
+            Center(
+              child: ElevatedButton(
+                  onPressed: () {
+                    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>${days[0].from.text}");
+                    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>${days[1].from.text}");
+                  },
+                  child: Text('Submit')),
+            )
           ],
         ),
       ),

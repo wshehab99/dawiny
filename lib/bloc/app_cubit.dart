@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:flutter/material.dart';
@@ -91,6 +91,9 @@ class AppCubit extends Cubit<AppStates> {
     },
   ];
   var apiMlModel = Uri.parse("https://dawinyml.herokuapp.com/ml");
+  String? errorMsg;
+  String? accessToken;
+  String? refreshToken;
   void changePage(int value) {
     curentPage = value;
     emit(ChangeWelcomePage());
@@ -119,9 +122,6 @@ class AppCubit extends Cubit<AppStates> {
     }
     if (_serviceEnabled && _permissionGranted == PermissionStatus.granted) {
       _locationData = await location.getLocation();
-      // var cntrl = await _controller.future;
-      // cntrl.animateCamera(CameraUpdate.newLatLng(
-      //     LatLng(_locationData.latitude!, _locationData.longitude!)));
       if (value == null) {
         initialPosition =
             LatLng(_locationData.latitude!, _locationData.longitude!);
@@ -224,14 +224,13 @@ class AppCubit extends Cubit<AppStates> {
     emit(LoadingState());
 
     var dio = Dio();
-    print(jsonEncode({"symptoms": selectedSymptoms}));
-    final response = await dio.post("https://dawinyml.herokuapp.com/ml",
+    final response = await dio.post("https://dawinyml.herokuapp.com/api/ml",
         data: jsonEncode({"symptoms": selectedSymptoms}));
     if (response.statusCode == 200) {
       emit(DoneState());
       return response.data['disease'];
     } else {
-      emit(ErrorgState());
+      emit(ErrorState());
 
       return "";
     }
@@ -241,9 +240,6 @@ class AppCubit extends Cubit<AppStates> {
     emit(InitialAppState());
   }
 
-  String? errorMsg;
-  String? accessToken;
-  String? refreshToken;
 
   Future signup(
     String email,
@@ -287,4 +283,143 @@ class AppCubit extends Cubit<AppStates> {
       emit(ErrorgState());
     }
   }
+
+  Future logIn(String email, String password, String role) async {
+    emit(LoadingState());
+    try {
+      final pref = await SharedPreferences.getInstance();
+      var dio = Dio();
+      final response = await dio.post(
+        "https://dawiny.herokuapp.com/api/auth/login",
+        data: jsonEncode({
+          "email": email,
+          "password": password,
+          "role": role,
+        }),
+      );
+      print(response.data);
+
+      if (response.statusCode == 200) {
+        accessToken = response.data['access'];
+        refreshToken = response.data['refresh'];
+
+        await pref.setString('access', accessToken!);
+        await pref.setString('refresh', refreshToken!);
+        emit(DoneState());
+      } else if (response.statusCode == 404) {
+        print(response.data['error']);
+        errorMsg = response.data['error'];
+        emit(ErrorState());
+      } else {
+        errorMsg = response.data['error'];
+        emit(ErrorState());
+      }
+    } catch (er) {
+      print(er);
+      emit(ErrorState());
+    }
+  }
+
+  Future requestOnServer(String email, String password, String role) async {
+    emit(LoadingState());
+    final pref = await SharedPreferences.getInstance();
+    accessToken = pref.getString("access");
+    refreshToken = pref.getString("refresh");
+    var dio = Dio();
+    final response = await dio.post(
+      "https://dawiny.herokuapp.com/auth/login",
+      options: Options(headers: {
+        "authorization": accessToken,
+      }),
+      data: jsonEncode({
+        "email": email,
+        "password": password,
+        "role": role,
+      }),
+    );
+    if (response.statusCode == 200) {
+      emit(DoneState());
+      return response.data['disease'];
+    } else if (response.statusCode! == 401) {
+      var result = refreshAccessToken();
+      if (result == -1) {
+        //make user login again
+      } else {
+        await pref.setString("access", result.toString());
+        accessToken = result as String?;
+        logIn(email, password, role);
+      }
+    } else {
+      errorMsg = response.statusMessage;
+      emit(ErrorState());
+      return "";
+    }
+  }
+
+  Future refreshAccessToken() async {
+    var dio = Dio();
+
+    final rr = await dio.post("https://dawiny.herokuapp.com/api/auth/token",
+        options: Options(
+          headers: {},
+        ),
+        data: jsonEncode({
+          "refresh": refreshToken,
+        }));
+    if (rr.statusCode == 200) {
+      return rr.data['access'];
+    } else {
+      return -1;
+    }
+  }
+
+  Future logout() async {
+    emit(LoadingState());
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    accessToken = pref.getString('access');
+    var dio = Dio();
+    final response =
+        await dio.delete("https://dawiny.herokuapp.com/api/auth/logout",
+            options: Options(
+              headers: {
+                'authorization': accessToken,
+              },
+            ),
+            data: jsonEncode({
+              "refresh": refreshToken,
+            }));
+
+    if (response.statusCode == 200) {
+      emit(DoneState());
+    } else if (response.statusCode! == 401) {
+      var result = refreshAccessToken();
+      if (result == -1) {
+        //make user login again
+      } else {
+        await pref.setString("access", result.toString());
+        accessToken = result as String?;
+        logout();
+      }
+    } else {
+      errorMsg = response.statusMessage;
+      emit(ErrorState());
+    }
+  }
+}
+
+void avalibaleDates({required Map dates, required int interval}) {
+  List available = [];
+  dates.forEach((key, value) {
+    int start = value['start'];
+    for (int i = 0; i < value['end']; i++) {
+      var end = start + interval;
+      available.add({key: start});
+      start = end;
+      if (start >= value['end']) {
+        break;
+      }
+    }
+  });
+  print(available);
+ main
 }

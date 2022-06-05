@@ -1,5 +1,4 @@
 import 'package:find_doctor/bloc/app_states.dart';
-import 'package:find_doctor/screens/doctor_time/doctor_time_screen.dart';
 import 'package:find_doctor/screens/welcome/welcomescreen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +24,7 @@ class Dawiny extends StatelessWidget {
             ),
             home: BlocProvider(
               create: (context) => AppCubit(InitialAppState()),
-              child: WelcomeScreen(),
+              child: const WelcomeScreen(),
             ),
             routes: {"WelcomeScreen": (context) => const WelcomeScreen()},
           );
