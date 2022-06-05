@@ -1,8 +1,10 @@
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/model/user.dart';
+import 'package:find_doctor/screens/gridpage/gridpage.dart';
 import 'package:find_doctor/screens/profile_data.dart';
 import 'package:find_doctor/screens/signin/signin.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../bloc/app_cubit.dart';
 import '../../shared/app_CheckBox.dart';
@@ -19,6 +21,14 @@ class SignUp extends StatelessWidget {
   final TextEditingController _password = TextEditingController();
 
   final TextEditingController _confirmPassword = TextEditingController();
+
+  final TextEditingController _fullName = TextEditingController();
+
+  final TextEditingController _dateController = TextEditingController();
+
+  final TextEditingController _address = TextEditingController();
+
+  final TextEditingController _datetime = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -96,6 +106,46 @@ class SignUp extends StatelessWidget {
                               height: 20,
                             ),
                             TeriaqTextField(
+                                label: 'Full Name',
+                                hint: "Full Name",
+                                validator: (value) {
+                                  if (value!.isEmpty)
+                                    return 'please enter your full name';
+                                },
+                                controller: _fullName),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            TeriaqTextField(
+                              label: 'Date of birth',
+                              hint: "Date of birth",
+                              validator: (value) {
+                                if (value!.isEmpty)
+                                  return 'please enter your birthday';
+                                return null;
+                              },
+                              icon: const Icon(Icons.calendar_month),
+                              controller: _dateController,
+                              onTap: () {
+                                _selectDate(context);
+                              },
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            TeriaqTextField(
+                              label: 'Address',
+                              hint: "Address",
+                              validator: (value) {
+                                if (value!.isEmpty)
+                                  return 'please enter your address';
+                              },
+                              controller: _address,
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            TeriaqTextField(
                               label: 'Email',
                               hint: 'Email',
                               controller: _email,
@@ -156,17 +206,42 @@ class SignUp extends StatelessWidget {
                               onPressed: cubit.remeberMeValue
                                   ? () {
                                       if (_formKey.currentState!.validate()) {
-                                        //create new user
-                                        User.currentUser = User(
-                                            email: _email.text,
-                                            password: _password.text);
-
-                                        User.users.add(User.currentUser!);
-                                        Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    UserProfile()));
+                                        // create new user
+                                        cubit.signup(
+                                            _email.text,
+                                            _password.text,
+                                            _fullName.text,
+                                            "doctor",
+                                            _address.text,
+                                            _datetime.text);
+                                        if (state is DoneState) {
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      GridPage()));
+                                        } else if (state is ErrorgState) {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                    content:
+                                                        Text(cubit.errorMsg!),
+                                                  ));
+                                        } else if (state is LoadingState) {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) =>
+                                                  const AlertDialog(
+                                                      insetPadding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 120),
+                                                      content: SizedBox(
+                                                        height: 120,
+                                                        child: Center(
+                                                            child:
+                                                                CircularProgressIndicator()),
+                                                      )));
+                                        }
                                       }
                                     }
                                   : null,
@@ -226,5 +301,17 @@ class SignUp extends StatelessWidget {
             );
           }),
         ));
+  }
+
+  _selectDate(BuildContext context) async {
+    final selected = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1950),
+      lastDate: DateTime.now(),
+    );
+    if (selected != null && selected != DateTime.now()) {
+      _dateController.text = DateFormat.yMMMd().format(selected);
+    }
   }
 }
