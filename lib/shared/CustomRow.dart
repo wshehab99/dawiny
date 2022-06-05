@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'textFieldApp.dart';
 
 class CustomRow extends StatefulWidget {
-  CustomRow({Key? key, this.day}) : super(key: key);
+  CustomRow({Key? key, this.day, required this.from, required this.to})
+      : super(key: key);
   String? day;
+  final TextEditingController from;
+  final TextEditingController to;
   @override
   State<CustomRow> createState() => _CustomRowState();
 }
 
 class _CustomRowState extends State<CustomRow> {
-  final TextEditingController _Time = TextEditingController();
   bool isChecked = false;
 
   //  final Map<String, dynamic> DAYS = {
@@ -155,51 +157,50 @@ class _CustomRowState extends State<CustomRow> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            SizedBox(
-              width: 195,
-              height: 100,
-              child: Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    TeriaqTextField(
-                      hint: "Time",
-                      label: "From",
-                      controller: _Time,
-                      onTap: () {},
-                    ),
-                  ],
-                ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TeriaqTextField(
+                    hint: "Time",
+                    label: "From",
+                    controller: widget.from,
+                    onTap: () {
+                      Future<TimeOfDay?> selectedTime = showTimePicker(
+                        initialTime: TimeOfDay.now(),
+                        context: context,
+                      ).then((value) {
+                        widget.from.text = value!.format(context);
+                      });
+                    },
+                  ),
+                ],
               ),
             ),
-            SizedBox(
-              width: 195,
-              height: 100,
-              child: Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    TeriaqTextField(
-                      hint: "Time",
-                      label: "To",
-                      controller: _Time,
-                      onTap: () {
-                        // Future<TimeOfDay?> selectedTime = showTimePicker(
-                        //   initialTime: TimeOfDay.now(),
-                        //   context: context,
-                        // ).then((value) {
-                        //   _Time.text = value!.format(context);
-                        // });
-                      },
-                    ),
-                  ],
-                ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TeriaqTextField(
+                    hint: "Time",
+                    label: "To",
+                    controller: widget.to,
+                    onTap: () {
+                      Future<TimeOfDay?> selectedTime = showTimePicker(
+                        initialTime: TimeOfDay.now(),
+                        context: context,
+                      ).then((value) {
+                        widget.to.text = value!.format(context);
+                      });
+                    },
+                  ),
+                ],
               ),
             ),
           ],
