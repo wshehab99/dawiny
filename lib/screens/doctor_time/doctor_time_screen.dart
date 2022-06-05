@@ -3,6 +3,16 @@ import 'package:find_doctor/shared/textFieldApp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+class WorkDay {
+  final String day;
+  final TextEditingController from = TextEditingController();
+  final TextEditingController to = TextEditingController();
+
+  WorkDay({
+    required this.day,
+  });
+}
+
 class DoctorTime extends StatefulWidget {
   DoctorTime({
     Key? key,
@@ -24,14 +34,14 @@ class _DoctorTimeState extends State<DoctorTime> {
   final TextEditingController _time = TextEditingController();
   String? dayName;
 
-  List days = [
-    "Satrday",
-    "Sunday",
-    "Monday",
-    "Tuseday",
-    "wensday",
-    "Tharsday",
-    "Friday",
+  List<WorkDay> days = [
+    WorkDay(day: "Satrday"),
+    WorkDay(day: "Sunday"),
+    WorkDay(day: "Monday"),
+    WorkDay(day: "Tuseday"),
+    WorkDay(day: "wensday"),
+    WorkDay(day: "Tharsday"),
+    WorkDay(day: "Friday"),
   ];
 
   @override
@@ -49,7 +59,6 @@ class _DoctorTimeState extends State<DoctorTime> {
                 controller: _time,
                 type: const TextInputType.numberWithOptions(decimal: false),
                 onTap: () {
-
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -86,10 +95,20 @@ class _DoctorTimeState extends State<DoctorTime> {
                   itemCount: days.length,
                   itemBuilder: (context, index) {
                     return CustomRow(
-                      day: days[index],
+                      day: days[index].day,
+                      from: days[index].from,
+                      to: days[index].to,
                     );
                   }),
             ),
+            Center(
+              child: ElevatedButton(
+                  onPressed: () {
+                    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>${days[0].from.text}");
+                    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>${days[1].from.text}");
+                  },
+                  child: Text('Submit')),
+            )
           ],
         ),
       ),
