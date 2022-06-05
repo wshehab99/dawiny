@@ -29,190 +29,194 @@ class SignIn extends StatelessWidget {
           builder: (context, state) {
             AppCubit cubit = AppCubit.get(context);
             return Scaffold(
-              backgroundColor: Colors.white,
+              backgroundColor: (state is ErrorState || state is LoadingState)
+                  ? Colors.grey
+                  : Colors.white,
               body: SafeArea(
-                  child: SingleChildScrollView(
-                keyboardDismissBehavior:
-                    ScrollViewKeyboardDismissBehavior.onDrag,
-                child: Column(children: [
-                  Container(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.41,
-                    decoration: const BoxDecoration(
-                        color: Colors.blueAccent,
-                        borderRadius:
-                            BorderRadius.only(bottomLeft: Radius.circular(180)),
-                        boxShadow: [
-                          BoxShadow(
-                              offset: Offset(0, 5),
-                              blurRadius: 10,
-                              color: Colors.black54)
-                        ]),
-                    child: Column(
-                      children: const [
-                        SizedBox(
-                          height: 70,
-                        ),
-                        Image(
-                          image:
-                              AssetImage('assets/images/Dawiny logo - 2.png'),
-                          width: 220,
-                          height: 100,
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Text(
-                          "Sign in to your account",
-                          style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          TeriaqTextField(
-                            label: 'Email',
-                            hint: 'Email',
-                            controller: _email,
-                            validator: (value) {
-                              if (value!.isEmpty ||
-                                  !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-                                      .hasMatch(value)) {
-                                return 'Please enter a valid email';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TeriaqTextField(
-                              controller: _password,
-                              label: 'Password',
-                              hint: 'Password',
-                              validator: (value) {
-                                if (value!.isEmpty || value.length < 8) {
-                                  return 'please enter a password more than 8 character';
-                                }
-                                return null;
-                              },
-                              hide: true),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CheckBoxRow(
-                            isCheked: cubit.remeberMeValue,
-                            onPress: (value) {
-                              cubit.remeberMe(value!);
-                            },
-                          ),
-                          AppButton(
-                              text: 'Sign in',
-                              bottenColor: Colors.blue,
-                              textColor: Colors.white,
-                              borderradius: BorderRadius.circular(20),
-                              onPressed: cubit.remeberMeValue
-                                  ? () {
-                                      if (_formKey.currentState!.validate()) {
-                                        // doctor at the begning ------ later will be dynamic
-                                        cubit.logIn(_email.text, _password.text,
-                                            "doctor");
-                                        if (state is DoneState) {
-                                          Navigator.pushReplacement(
-                                              context,
+                  child: (state is LoadingState)
+                      ? AlertDialog(
+                          insetPadding: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.width * 0.38),
+                          content: const CircularProgressIndicator(),
+                        )
+                      : (state is ErrorState)
+                          ? AlertDialog(
+                              title: const Text('Error !'),
+                              content: const Text(
+                                  "Something went wrong, please try again later"),
+                              actions: [
+                                ElevatedButton(
+                                    onPressed: cubit.backToNormalState,
+                                    child: const Text("back")),
+                              ],
+                            )
+                          : SingleChildScrollView(
+                              keyboardDismissBehavior:
+                                  ScrollViewKeyboardDismissBehavior.onDrag,
+                              child: Column(children: [
+                                Container(
+                                  width: double.infinity,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.41,
+                                  decoration: const BoxDecoration(
+                                      color: Colors.blueAccent,
+                                      borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(180)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            offset: Offset(0, 5),
+                                            blurRadius: 10,
+                                            color: Colors.black54)
+                                      ]),
+                                  child: Column(
+                                    children: const [
+                                      SizedBox(
+                                        height: 70,
+                                      ),
+                                      Image(
+                                        image: AssetImage(
+                                            'assets/images/Dawiny logo - 2.png'),
+                                        width: 220,
+                                        height: 100,
+                                      ),
+                                      SizedBox(
+                                        height: 30,
+                                      ),
+                                      Text(
+                                        "Sign in to your account",
+                                        style: TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Form(
+                                    key: _formKey,
+                                    child: Column(
+                                      children: [
+                                        TeriaqTextField(
+                                          label: 'Email',
+                                          hint: 'Email',
+                                          controller: _email,
+                                          validator: (value) {
+                                            if (value!.isEmpty ||
+                                                !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                                                    .hasMatch(value)) {
+                                              return 'Please enter a valid email';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        TeriaqTextField(
+                                            controller: _password,
+                                            label: 'Password',
+                                            hint: 'Password',
+                                            validator: (value) {
+                                              if (value!.isEmpty ||
+                                                  value.length < 8) {
+                                                return 'please enter a password more than 8 character';
+                                              }
+                                              return null;
+                                            },
+                                            hide: true),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        CheckBoxRow(
+                                          isCheked: cubit.remeberMeValue,
+                                          onPress: (value) {
+                                            cubit.remeberMe(value!);
+                                          },
+                                        ),
+                                        AppButton(
+                                            text: 'Sign in',
+                                            bottenColor: Colors.blue,
+                                            textColor: Colors.white,
+                                            borderradius:
+                                                BorderRadius.circular(20),
+                                            onPressed: cubit.remeberMeValue
+                                                ? () {
+                                                    if (_formKey.currentState!
+                                                        .validate()) {
+                                                      // doctor at the begning ------ later will be dynamic
+                                                      cubit.logIn(
+                                                          _email.text,
+                                                          _password.text,
+                                                          'doctor');
+
+                                                      // _checkuser(context);
+                                                    }
+                                                  }
+                                                : null),
+                                      ],
+                                    )),
+                                TextButton(
+                                  onPressed: () {},
+                                  child: const Text(
+                                    'Forget the password?',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                const Text(
+                                  'Or continue with',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.black54),
+                                ),
+                                ContinueWith(
+                                    firstElementIcon: Icon(
+                                      Icons.facebook,
+                                      size: 30,
+                                      color: Colors.blue[800],
+                                    ),
+                                    firstElementText: "Facebook",
+                                    secondElementIcon: const Image(
+                                      image: AssetImage(
+                                          'assets/images/google.jpg'),
+                                      width: 30,
+                                      height: 30,
+                                    ),
+                                    secondElementText: "Google"),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      'Dont have an account?',
+                                      style: TextStyle(color: Colors.black54),
+                                    ),
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pushReplacement(context,
                                               MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      GridPage()));
-                                        } else if (state is ErrorgState) {
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) => AlertDialog(
-                                                    content:
-                                                        Text(cubit.errorMsg!),
-                                                  ));
-                                        } else if (state is LoadingState) {
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) =>
-                                                  const AlertDialog(
-                                                      insetPadding:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal: 120),
-                                                      content: SizedBox(
-                                                        height: 120,
-                                                        child: Center(
-                                                            child:
-                                                                CircularProgressIndicator()),
-                                                      )));
-                                        }
-                                        // _checkuser(context);
-                                      }
-                                    }
-                                  : null),
-                        ],
-                      )),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Forget the password?',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    'Or continue with',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w800, color: Colors.black54),
-                  ),
-                  ContinueWith(
-                      firstElementIcon: Icon(
-                        Icons.facebook,
-                        size: 30,
-                        color: Colors.blue[800],
-                      ),
-                      firstElementText: "Facebook",
-                      secondElementIcon: const Image(
-                        image: AssetImage('assets/images/google.jpg'),
-                        width: 30,
-                        height: 30,
-                      ),
-                      secondElementText: "Google"),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Dont have an account?',
-                        style: TextStyle(color: Colors.black54),
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) {
-                              return SignUp();
-                            }));
-                          },
-                          child: const Text(
-                            'Sign Up',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ))
-                    ],
-                  )
-                ]),
-              )),
+                                                  builder: (context) {
+                                            return SignUp();
+                                          }));
+                                        },
+                                        child: const Text(
+                                          'Sign Up',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ))
+                                  ],
+                                )
+                              ]),
+                            )),
             );
           },
         ));

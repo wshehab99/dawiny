@@ -223,14 +223,13 @@ class AppCubit extends Cubit<AppStates> {
     emit(LoadingState());
 
     var dio = Dio();
-    print(jsonEncode({"symptoms": selectedSymptoms}));
-    final response = await dio.post("https://dawinyml.herokuapp.com/ml",
+    final response = await dio.post("https://dawinyml.herokuapp.com/api/ml",
         data: jsonEncode({"symptoms": selectedSymptoms}));
     if (response.statusCode == 200) {
       emit(DoneState());
       return response.data['disease'];
     } else {
-      emit(ErrorgState());
+      emit(ErrorState());
 
       return "";
     }
@@ -242,31 +241,37 @@ class AppCubit extends Cubit<AppStates> {
 
   Future logIn(String email, String password, String role) async {
     emit(LoadingState());
-    var dio = Dio();
-    final response = await dio.post(
-      "https://dawiny.herokuapp.com/api/auth/login",
-      data: jsonEncode({
-        "email": email,
-        "password": password,
-        "role": role,
-      }),
-    );
-    print(response.data);
-
-    if (response.statusCode == 200) {
-      accessToken = response.data['access'];
-      refreshToken = response.data['refresh'];
+    try {
       final pref = await SharedPreferences.getInstance();
-      await pref.setString('access', accessToken!);
-      await pref.setString('refresh', refreshToken!);
-      emit(DoneState());
-    } else if (response.statusCode == 404) {
-      print(response.data['error']);
-      errorMsg = response.data['error'];
-      emit(ErrorgState());
-    } else {
-      errorMsg = response.data['error'];
-      emit(ErrorgState());
+      var dio = Dio();
+      final response = await dio.post(
+        "https://dawiny.herokuapp.com/api/auth/login",
+        data: jsonEncode({
+          "email": email,
+          "password": password,
+          "role": role,
+        }),
+      );
+      print(response.data);
+
+      if (response.statusCode == 200) {
+        accessToken = response.data['access'];
+        refreshToken = response.data['refresh'];
+
+        await pref.setString('access', accessToken!);
+        await pref.setString('refresh', refreshToken!);
+        emit(DoneState());
+      } else if (response.statusCode == 404) {
+        print(response.data['error']);
+        errorMsg = response.data['error'];
+        emit(ErrorState());
+      } else {
+        errorMsg = response.data['error'];
+        emit(ErrorState());
+      }
+    } catch (er) {
+      print(er);
+      emit(ErrorState());
     }
   }
 
@@ -301,7 +306,7 @@ class AppCubit extends Cubit<AppStates> {
       }
     } else {
       errorMsg = response.statusMessage;
-      emit(ErrorgState());
+      emit(ErrorState());
       return "";
     }
   }
@@ -325,6 +330,8 @@ class AppCubit extends Cubit<AppStates> {
 
   Future logout() async {
     emit(LoadingState());
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    accessToken = pref.getString('access');
     var dio = Dio();
     final response =
         await dio.delete("https://dawiny.herokuapp.com/api/auth/logout",
@@ -336,7 +343,22 @@ class AppCubit extends Cubit<AppStates> {
             data: jsonEncode({
               "refresh": refreshToken,
             }));
-    emit(DoneState());
+
+    if (response.statusCode == 200) {
+      emit(DoneState());
+    } else if (response.statusCode! == 401) {
+      var result = refreshAccessToken();
+      if (result == -1) {
+        //make user login again
+      } else {
+        await pref.setString("access", result.toString());
+        accessToken = result as String?;
+        logout();
+      }
+    } else {
+      errorMsg = response.statusMessage;
+      emit(ErrorState());
+    }
   }
 }
 

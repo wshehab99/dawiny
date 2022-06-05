@@ -26,6 +26,6 @@ class ChangeSelectedDate extends AppStates {}
 
 class LoadingState extends AppStates {}
 
-class ErrorgState extends AppStates {}
+class ErrorState extends AppStates {}
 
 class DoneState extends AppStates {}
