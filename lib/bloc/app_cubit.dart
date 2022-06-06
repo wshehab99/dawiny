@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../fake_data/fake_data.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -238,5 +239,52 @@ class AppCubit extends Cubit<AppStates> {
 
   void backToNormalState() {
     emit(InitialAppState());
+  }
+
+  String? errorMsg;
+  String? accessToken;
+  String? refreshToken;
+
+  Future signup(
+    String email,
+    String password,
+    String fullname,
+    String role,
+    String address,
+    String DateTime,
+  ) async {
+    emit(LoadingState());
+    var dio = Dio();
+    final response = await dio.post(
+      "https://dawiny.herokuapp.com/api/auth/signup",
+      data: jsonEncode({
+        "email": email,
+        "role": role,
+        "password": password,
+        "fullname": fullname,
+        "address": address,
+        "datetime": DateTime
+      }),
+    );
+    print(response.data);
+
+    if (response.statusCode == 200) {
+      accessToken = response.data['access'];
+      refreshToken = response.data['refresh'];
+      final pref = await SharedPreferences.getInstance();
+      await pref.setString('access', accessToken!);
+      await pref.setString('refresh', refreshToken!);
+      emit(DoneState());
+    } else if (response.statusCode == 404) {
+      print(response.data['error']);
+      errorMsg = response.data['error'];
+      emit(ErrorgState());
+    } else if (response.data == 401) {
+      print(response.data["msg"]);
+      errorMsg = response.data["error"];
+    } else {
+      errorMsg = response.data['error'];
+      emit(ErrorgState());
+    }
   }
 }
