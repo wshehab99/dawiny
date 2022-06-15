@@ -220,7 +220,7 @@ class SignUp extends StatelessWidget {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       GridPage()));
-                                        } else if (state is ErrorgState) {
+                                        } else if (state is ErrorState) {
                                           showDialog(
                                               context: context,
                                               builder: (context) => AlertDialog(

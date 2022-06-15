@@ -14,92 +14,6 @@ class CustomRow extends StatefulWidget {
 class _CustomRowState extends State<CustomRow> {
   bool isChecked = false;
 
-  //  final Map<String, dynamic> DAYS = {
-  //   "satrdaty": [
-  //     {
-  //       "from" : "2:00",
-  //       "to": "3:00",
-  //       "available" : true
-  //     },
-  //     {
-  //       "from" : "3:30",
-  //       "to": "4:30",
-  //       "available" : true
-  //     },
-  //   ],
-  //    "sunday": [
-  //     {
-  //       "from" : "2:00",
-  //       "to": "3:00",
-  //       "available" : true
-  //     },
-  //     {
-  //       "from" : "3:30",
-  //       "to": "4:30",
-  //       "available" : true
-  //     },
-  //   ],
-  //    "monday": [
-  //     {
-  //       "from" : "2:00",
-  //       "to": "3:00",
-  //       "available" : true
-  //     },
-  //     {
-  //       "from" : "3:30",
-  //       "to": "4:30",
-  //       "available" : true
-  //     },
-  //   ],
-  //    "tuseday": [
-  //     {
-  //       "from" : "2:00",
-  //       "to": "3:00",
-  //       "available" : true
-  //     },
-  //     {
-  //       "from" : "3:30",
-  //       "to": "4:30",
-  //       "available" : true
-  //     },
-  //   ],
-  //    "wensday": [
-  //     {
-  //       "from" : "2:00",
-  //       "to": "3:00",
-  //       "available" : true
-  //     },
-  //     {
-  //       "from" : "3:30",
-  //       "to": "4:30",
-  //       "available" : true
-  //     },
-  //   ],
-  //    "thursday": [
-  //     {
-  //       "from" : "2:00",
-  //       "to": "3:00",
-  //       "available" : true
-  //     },
-  //     {
-  //       "from" : "3:30",
-  //       "to": "4:30",
-  //       "available" : true
-  //     },
-  //   ],
-  //    "friday": [
-  //     {
-  //       "from" : "2:00",
-  //       "to": "3:00",
-  //       "available" : true
-  //     },
-  //     {
-  //       "from" : "3:30",
-  //       "to": "4:30",
-  //       "available" : true
-  //     },
-  //   ],
-  // };
   final Map<String, dynamic> Times = {
     "Satrday": [
       {"start": "5:00pm", "end": "9:00pm"}
@@ -174,6 +88,7 @@ class _CustomRowState extends State<CustomRow> {
                         context: context,
                       ).then((value) {
                         widget.from.text = value!.format(context);
+                        return null;
                       });
                     },
                   ),
@@ -197,6 +112,7 @@ class _CustomRowState extends State<CustomRow> {
                         context: context,
                       ).then((value) {
                         widget.to.text = value!.format(context);
+                        return null;
                       });
                     },
                   ),
