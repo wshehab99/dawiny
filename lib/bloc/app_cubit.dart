@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../fake_data/fake_data.dart';
+import 'package:intl/intl.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit(AppStates initialState) : super(InitialAppState());
@@ -240,7 +240,6 @@ class AppCubit extends Cubit<AppStates> {
     emit(InitialAppState());
   }
 
-
   Future signup(
     String email,
     String password,
@@ -274,21 +273,22 @@ class AppCubit extends Cubit<AppStates> {
     } else if (response.statusCode == 404) {
       print(response.data['error']);
       errorMsg = response.data['error'];
-      emit(ErrorgState());
+      emit(ErrorState());
     } else if (response.data == 401) {
       print(response.data["msg"]);
       errorMsg = response.data["error"];
     } else {
       errorMsg = response.data['error'];
-      emit(ErrorgState());
+      emit(ErrorState());
     }
   }
 
   Future logIn(String email, String password, String role) async {
     emit(LoadingState());
+
+    final pref = await SharedPreferences.getInstance();
+    var dio = Dio();
     try {
-      final pref = await SharedPreferences.getInstance();
-      var dio = Dio();
       final response = await dio.post(
         "https://dawiny.herokuapp.com/api/auth/login",
         data: jsonEncode({
@@ -297,25 +297,25 @@ class AppCubit extends Cubit<AppStates> {
           "role": role,
         }),
       );
-      print(response.data);
 
       if (response.statusCode == 200) {
+        print(response.data);
         accessToken = response.data['access'];
         refreshToken = response.data['refresh'];
 
         await pref.setString('access', accessToken!);
         await pref.setString('refresh', refreshToken!);
         emit(DoneState());
-      } else if (response.statusCode == 404) {
-        print(response.data['error']);
-        errorMsg = response.data['error'];
-        emit(ErrorState());
-      } else {
-        errorMsg = response.data['error'];
-        emit(ErrorState());
       }
-    } catch (er) {
-      print(er);
+    } on DioError catch (ex) {
+      errorMsg = null;
+      if (ex.response!.statusCode == 404) {
+        errorMsg = ex.response!.data['msg'];
+      } else if (ex.response!.statusCode == 401) {
+        errorMsg = ex.response!.data['msg'];
+      }
+      print(ex.response);
+      print(ex.response!.statusCode);
       emit(ErrorState());
     }
   }
@@ -405,21 +405,28 @@ class AppCubit extends Cubit<AppStates> {
       emit(ErrorState());
     }
   }
-}
 
-void avalibaleDates({required Map dates, required int interval}) {
-  List available = [];
-  dates.forEach((key, value) {
-    int start = value['start'];
-    for (int i = 0; i < value['end']; i++) {
-      var end = start + interval;
-      available.add({key: start});
-      start = end;
-      if (start >= value['end']) {
-        break;
+  DateTime timeOfDayMinToInt(TimeOfDay t) {
+    return DateTime(2022, 1, 1, t.hour, t.minute);
+  }
+
+  void avalibaleDates({required Map dates, required Duration interval}) {
+    List available = [];
+    dates.forEach((key, value) {
+      var format = DateFormat.jm();
+      var st = timeOfDayMinToInt(
+          TimeOfDay.fromDateTime(format.parse(value['from'])));
+      var end =
+          timeOfDayMinToInt(TimeOfDay.fromDateTime(format.parse(value['to'])));
+
+      while (st.isBefore(end)) {
+        available.add({
+          key:
+              "${st.hour.toString().padLeft(2, "0")}:${st.minute.toString().padLeft(2, "0")}"
+        });
+        st = st.add(interval);
       }
-    }
-  });
-  print(available);
- main
+    });
+    print(available);
+  }
 }
