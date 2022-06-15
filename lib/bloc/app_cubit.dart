@@ -420,11 +420,13 @@ class AppCubit extends Cubit<AppStates> {
           timeOfDayMinToInt(TimeOfDay.fromDateTime(format.parse(value['to'])));
 
       while (st.isBefore(end)) {
+        var currentEnd = st.add(interval);
         available.add({
-          key:
-              "${st.hour.toString().padLeft(2, "0")}:${st.minute.toString().padLeft(2, "0")}"
+          "day": key,
+          "start": DateFormat.Hm().format(st),
+          "end": DateFormat.Hm().format(currentEnd),
         });
-        st = st.add(interval);
+        st = currentEnd;
       }
     });
     print(available);
