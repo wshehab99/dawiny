@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../bloc/app_cubit.dart';
 import '../bloc/app_states.dart';
+import '../screens/gridpage/gridpage.dart';
+import '../screens/videocallscreen/video_call_screen.dart';
 
 class Dawiny extends StatelessWidget {
   const Dawiny({Key? key}) : super(key: key);
@@ -25,7 +27,9 @@ class Dawiny extends StatelessWidget {
             ),
             home: BlocProvider(
               create: (context) => AppCubit(InitialAppState()),
+
               child: WelcomeScreen(),
+
             ),
             routes: {"WelcomeScreen": (context) => const WelcomeScreen()},
           );

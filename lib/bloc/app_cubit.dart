@@ -154,6 +154,32 @@ class AppCubit extends Cubit<AppStates> {
     return shownDctors;
   }
 
+  Future getDoctor() async {
+    emit(LoadingState());
+    final pref = await SharedPreferences.getInstance();
+    try {
+      var dio = Dio();
+      accessToken = pref.getString("access");
+      var response = await dio.get("https://dawiny.herokuapp.com/api/doctors",
+          options: Options(headers: {
+            "authorization": accessToken,
+          }));
+      shownDctors = response.data;
+      print(shownDctors);
+    } on DioError catch (e) {
+      if (e.response!.statusCode == 401) {
+        var result = refreshAccessToken();
+        if (result == -1) {
+        } else {
+          pref.setString("access", result.toString());
+          getDoctor();
+        }
+      } else {
+        emit(ErrorState());
+      }
+    }
+  }
+
   void changeDropdownValue(String value) {
     dropdownValue = value;
     emit(ChangeDropdownValue());
@@ -241,6 +267,9 @@ class AppCubit extends Cubit<AppStates> {
     emit(InitialAppState());
   }
 
+
+
+
   Future<AppStates> signUp(
     String email,
     String password,
@@ -263,6 +292,7 @@ class AppCubit extends Cubit<AppStates> {
           "lastName": lastName,
         }),
       );
+
 
       print(response.data);
 
@@ -295,6 +325,7 @@ class AppCubit extends Cubit<AppStates> {
     } catch (e) {
       print(e.toString());
       return ErrorState(errorMsg: 'Something wrong');
+
     }
     return ErrorState();
   }
@@ -421,6 +452,8 @@ class AppCubit extends Cubit<AppStates> {
     }
   }
 
+
+
   void avalibaleDates({required Map dates, required int interval}) {
     List available = [];
     dates.forEach((key, value) {
@@ -433,7 +466,9 @@ class AppCubit extends Cubit<AppStates> {
           break;
         }
       }
-    });
-    print(available);
-  }
+
+    }
+  });
+  print(available);
+
 }

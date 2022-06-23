@@ -61,6 +61,10 @@ class GridPage extends StatelessWidget {
               title: Text("Logout"),
               leading: Icon(Icons.logout),
             ),
+            ListTile(
+              title: Text("Setting"),
+              leading: Icon(Icons.settings),
+            ),
           ],
         ),
       ),
