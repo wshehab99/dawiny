@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 import 'package:find_doctor/bloc/app_states.dart';
@@ -240,48 +241,62 @@ class AppCubit extends Cubit<AppStates> {
     emit(InitialAppState());
   }
 
-
-  Future signup(
+  Future<AppStates> signUp(
     String email,
     String password,
-    String fullname,
+    String firstName,
+    String lastName,
     String role,
     String address,
     String DateTime,
   ) async {
     emit(LoadingState());
     var dio = Dio();
-    final response = await dio.post(
-      "https://dawiny.herokuapp.com/api/auth/signup",
-      data: jsonEncode({
-        "email": email,
-        "role": role,
-        "password": password,
-        "fullname": fullname,
-        "address": address,
-        "datetime": DateTime
-      }),
-    );
-    print(response.data);
+    Response response;
+    try {
+      response = await dio.post(
+        "https://dawiny.herokuapp.com/api/patients",
+        data: jsonEncode({
+          "email": email,
+          "password": password,
+          "firstName": firstName,
+          "lastName": lastName,
+        }),
+      );
 
-    if (response.statusCode == 200) {
-      accessToken = response.data['access'];
-      refreshToken = response.data['refresh'];
-      final pref = await SharedPreferences.getInstance();
-      await pref.setString('access', accessToken!);
-      await pref.setString('refresh', refreshToken!);
-      emit(DoneState());
-    } else if (response.statusCode == 404) {
-      print(response.data['error']);
-      errorMsg = response.data['error'];
-      emit(ErrorgState());
-    } else if (response.data == 401) {
-      print(response.data["msg"]);
-      errorMsg = response.data["error"];
-    } else {
-      errorMsg = response.data['error'];
-      emit(ErrorgState());
+      print(response.data);
+
+      if (response.statusCode == 201) {
+        print(
+            "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++morsy m4 salk");
+        accessToken = response.data['access'];
+        refreshToken = response.data['refresh'];
+        final pref = await SharedPreferences.getInstance();
+        await pref.setString('access', accessToken!);
+        await pref.setString('refresh', refreshToken!);
+
+        return DoneState();
+      }
+    } on DioError catch (e) {
+      print("Dio Error::::::::: ${e.response!.data}");
+      if (e.response!.statusCode == 404) {
+        print(e.response!.data['error']);
+        errorMsg = e.response!.data['error'];
+        return ErrorState(errorMsg: e.response!.data['msg']);
+      } else if (e.response!.statusCode == 401) {
+        print(e.response!.data["msg"]);
+        errorMsg = e.response!.data["error"];
+        return ErrorState(errorMsg: e.response!.data['msg']);
+      } else {
+        print(e.response!.data);
+        // print(e.response!.statusCode);
+        return ErrorState(errorMsg: e.response!.data['msg']);
+      }
+    } catch (e) {
+      print(e.toString());
+      return ErrorState(errorMsg: 'Something wrong');
     }
+    return ErrorState();
   }
 
   Future logIn(String email, String password, String role) async {
@@ -421,5 +436,4 @@ void avalibaleDates({required Map dates, required int interval}) {
     }
   });
   print(available);
- main
 }
