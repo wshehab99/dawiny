@@ -26,6 +26,9 @@ class ChangeSelectedDate extends AppStates {}
 
 class LoadingState extends AppStates {}
 
-class ErrorState extends AppStates {}
+class ErrorState extends AppStates {
+  ErrorState({this.errorMsg});
+  String? errorMsg;
+}
 
 class DoneState extends AppStates {}

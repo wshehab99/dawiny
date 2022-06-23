@@ -29,21 +29,17 @@ class SignIn extends StatelessWidget {
           builder: (context, state) {
             AppCubit cubit = AppCubit.get(context);
             return Scaffold(
-              backgroundColor: (state is ErrorState || state is LoadingState)
-                  ? Colors.grey
-                  : Colors.white,
+              backgroundColor:
+                  (state is ErrorState) ? Colors.grey : Colors.white,
               body: SafeArea(
                   child: (state is LoadingState)
-                      ? AlertDialog(
-                          insetPadding: EdgeInsets.symmetric(
-                              horizontal:
-                                  MediaQuery.of(context).size.width * 0.38),
-                          content: const CircularProgressIndicator(),
+                      ? const Center(
+                          child: CircularProgressIndicator(),
                         )
                       : (state is ErrorState)
                           ? AlertDialog(
                               title: const Text('Error !'),
-                              content: const Text(
+                              content: Text(cubit.errorMsg ??
                                   "Something went wrong, please try again later"),
                               actions: [
                                 ElevatedButton(
@@ -144,14 +140,26 @@ class SignIn extends StatelessWidget {
                                             borderradius:
                                                 BorderRadius.circular(20),
                                             onPressed: cubit.remeberMeValue
-                                                ? () {
+                                                ? () async {
                                                     if (_formKey.currentState!
                                                         .validate()) {
                                                       // doctor at the begning ------ later will be dynamic
-                                                      cubit.logIn(
-                                                          _email.text,
-                                                          _password.text,
-                                                          'doctor');
+                                                      await cubit
+                                                          .logIn(
+                                                              _email.text,
+                                                              _password.text,
+                                                              'doctor')
+                                                          .then((value) {
+                                                        if (state
+                                                            is DoneState) {
+                                                          Navigator.pushReplacement(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          GridPage()));
+                                                        }
+                                                      });
 
                                                       // _checkuser(context);
                                                     }

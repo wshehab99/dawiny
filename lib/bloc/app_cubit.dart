@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../fake_data/fake_data.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -266,47 +267,67 @@ class AppCubit extends Cubit<AppStates> {
     emit(InitialAppState());
   }
 
-  Future signup(
+
+
+
+  Future<AppStates> signUp(
     String email,
     String password,
-    String fullname,
+    String firstName,
+    String lastName,
     String role,
     String address,
     String DateTime,
   ) async {
     emit(LoadingState());
     var dio = Dio();
-    final response = await dio.post(
-      "https://dawiny.herokuapp.com/api/auth/signup",
-      data: jsonEncode({
-        "email": email,
-        "role": role,
-        "password": password,
-        "fullname": fullname,
-        "address": address,
-        "datetime": DateTime
-      }),
-    );
-    print(response.data);
+    Response response;
+    try {
+      response = await dio.post(
+        "https://dawiny.herokuapp.com/api/patients",
+        data: jsonEncode({
+          "email": email,
+          "password": password,
+          "firstName": firstName,
+          "lastName": lastName,
+        }),
+      );
 
-    if (response.statusCode == 200) {
-      accessToken = response.data['access'];
-      refreshToken = response.data['refresh'];
-      final pref = await SharedPreferences.getInstance();
-      await pref.setString('access', accessToken!);
-      await pref.setString('refresh', refreshToken!);
-      emit(DoneState());
-    } else if (response.statusCode == 404) {
-      print(response.data['error']);
-      errorMsg = response.data['error'];
-      emit(ErrorState());
-    } else if (response.data == 401) {
-      print(response.data["msg"]);
-      errorMsg = response.data["error"];
-    } else {
-      errorMsg = response.data['error'];
-      emit(ErrorState());
+
+      print(response.data);
+
+      if (response.statusCode == 201) {
+        print(
+            "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++morsy m4 salk");
+        accessToken = response.data['access'];
+        refreshToken = response.data['refresh'];
+        final pref = await SharedPreferences.getInstance();
+        await pref.setString('access', accessToken!);
+        await pref.setString('refresh', refreshToken!);
+
+        return DoneState();
+      }
+    } on DioError catch (e) {
+      print("Dio Error::::::::: ${e.response!.data}");
+      if (e.response!.statusCode == 404) {
+        print(e.response!.data['error']);
+        errorMsg = e.response!.data['error'];
+        return ErrorState(errorMsg: e.response!.data['msg']);
+      } else if (e.response!.statusCode == 401) {
+        print(e.response!.data["msg"]);
+        errorMsg = e.response!.data["error"];
+        return ErrorState(errorMsg: e.response!.data['msg']);
+      } else {
+        print(e.response!.data);
+        // print(e.response!.statusCode);
+        return ErrorState(errorMsg: e.response!.data['msg']);
+      }
+    } catch (e) {
+      print(e.toString());
+      return ErrorState(errorMsg: 'Something wrong');
+
     }
+    return ErrorState();
   }
 
   Future logIn(String email, String password, String role) async {
@@ -431,31 +452,23 @@ class AppCubit extends Cubit<AppStates> {
     }
   }
 
-  Future sendreq(
-      String id, String email, String firstName, String lastName) async {
-    try {
-      var dio = Dio();
-      Response DoctorData =
-          await dio.get("https://dawiny.herokuapp.com/api/doctors");
-      print(DoctorData.data);
-    } catch (e) {
-      print(e);
-    }
-  }
-}
 
-void avalibaleDates({required Map dates, required int interval}) {
-  List available = [];
-  dates.forEach((key, value) {
-    int start = value['start'];
-    for (int i = 0; i < value['end']; i++) {
-      var end = start + interval;
-      available.add({key: start});
-      start = end;
-      if (start >= value['end']) {
-        break;
+
+  void avalibaleDates({required Map dates, required int interval}) {
+    List available = [];
+    dates.forEach((key, value) {
+      int start = value['start'];
+      for (int i = 0; i < value['end']; i++) {
+        var end = start + interval;
+        available.add({key: start});
+        start = end;
+        if (start >= value['end']) {
+          break;
+        }
       }
+
     }
   });
   print(available);
+
 }
