@@ -16,17 +16,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class SignUp extends StatelessWidget {
   SignUp({Key? key}) : super(key: key);
 
-  final TextEditingController _email = TextEditingController();
+  final TextEditingController _email = TextEditingController(text: 'a@g.com');
 
-  final TextEditingController _password = TextEditingController();
+  final TextEditingController _password =
+      TextEditingController(text: 'qwer1234');
 
-  final TextEditingController _confirmPassword = TextEditingController();
+  final TextEditingController _confirmPassword =
+      TextEditingController(text: 'qwer1234');
 
-  final TextEditingController _fullName = TextEditingController();
+  final TextEditingController _fullName = TextEditingController(text: 'aa ad');
 
   final TextEditingController _dateController = TextEditingController();
 
-  final TextEditingController _address = TextEditingController();
+  final TextEditingController _address =
+      TextEditingController(text: 'adadffsdf');
 
   final TextEditingController _datetime = TextEditingController();
 
@@ -204,12 +207,13 @@ class SignUp extends StatelessWidget {
                               textColor: Colors.white,
                               bottenColor: Colors.blue,
                               onPressed: cubit.remeberMeValue
-                                  ? () {
+                                  ? () async {
                                       if (_formKey.currentState!.validate()) {
                                         // create new user
-                                        cubit.signup(
+                                        var state = await cubit.signUp(
                                             _email.text,
                                             _password.text,
+                                            _fullName.text,
                                             _fullName.text,
                                             "doctor",
                                             _address.text,
@@ -224,8 +228,8 @@ class SignUp extends StatelessWidget {
                                           showDialog(
                                               context: context,
                                               builder: (context) => AlertDialog(
-                                                    content:
-                                                        Text(cubit.errorMsg!),
+                                                    content: Text(
+                                                        state.errorMsg ?? ' '),
                                                   ));
                                         } else if (state is LoadingState) {
                                           showDialog(

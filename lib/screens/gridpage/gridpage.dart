@@ -136,8 +136,10 @@ class GridPage extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => BookDoctorHomeVisit()));
                   } else if (index == 2) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => DoctorTime()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => VideoCallScreen()));
                   } else if (index == 3) {
                     Navigator.push(
                         context,
