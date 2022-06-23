@@ -144,7 +144,7 @@ class DoctorTime extends StatelessWidget {
                             },
                           };
                           cubit.avalibaleDates(
-                              dates: dates, interval: selected!);
+                              dates: dates, interval: selected!.inSeconds);
 
                           print(
                               ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>${days[0].from.text}");
