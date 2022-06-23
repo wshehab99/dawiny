@@ -25,7 +25,7 @@ class Dawiny extends StatelessWidget {
             ),
             home: BlocProvider(
               create: (context) => AppCubit(InitialAppState()),
-              child: DoctorTime(),
+              child: WelcomeScreen(),
             ),
             routes: {"WelcomeScreen": (context) => const WelcomeScreen()},
           );

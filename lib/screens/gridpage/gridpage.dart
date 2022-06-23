@@ -8,6 +8,7 @@ import '../../shared/getLocation.dart';
 import '../clinick_booking/clinic_booking.dart';
 import '../doctor_home_visit/bookDoctorHomeVisit.dart';
 import '../doctor_time/doctor_time_screen.dart';
+import '../videocalldetails/videoCall.dart';
 
 class GridPage extends StatelessWidget {
   GridPage({Key? key}) : super(key: key);
@@ -136,10 +137,8 @@ class GridPage extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => BookDoctorHomeVisit()));
                   } else if (index == 2) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => VideoCallScreen()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => VideoCall()));
                   } else if (index == 3) {
                     Navigator.push(
                         context,
