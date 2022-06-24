@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:developer';
+import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 import 'package:find_doctor/bloc/app_states.dart';
@@ -9,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import '../fake_data/fake_data.dart';
 import 'package:intl/intl.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit(AppStates initialState) : super(InitialAppState());
@@ -241,23 +242,27 @@ class AppCubit extends Cubit<AppStates> {
     emit(InitialAppState());
   }
 
- sginupMethod
-  Future<AppStates> signUp(
-
+  Future<int> signUp(
     String email,
     String password,
     String firstName,
     String lastName,
     String role,
-    String address,
-    String DateTime,
   ) async {
     emit(LoadingState());
+
     var dio = Dio();
-    Response response;
+    String? url;
+    if (role == "doctor") {
+      url = "doctors";
+    } else if (role == "nurse") {
+      url = "nurses";
+    } else {
+      url = "patients";
+    }
     try {
-      response = await dio.post(
-        "https://dawiny.herokuapp.com/api/patients",
+      var response = await dio.post(
+        "https://dawiny.herokuapp.com/api/" + url,
         data: jsonEncode({
           "email": email,
           "password": password,
@@ -266,7 +271,6 @@ class AppCubit extends Cubit<AppStates> {
         }),
       );
 
- sginupMethod
       print(response.data);
 
       if (response.statusCode == 201) {
@@ -278,32 +282,25 @@ class AppCubit extends Cubit<AppStates> {
         await pref.setString('access', accessToken!);
         await pref.setString('refresh', refreshToken!);
 
-        return DoneState();
+        emit(DoneState());
       }
-    } on DioError catch (e) {
-      print("Dio Error::::::::: ${e.response!.data}");
-      if (e.response!.statusCode == 404) {
-        print(e.response!.data['error']);
-        errorMsg = e.response!.data['error'];
-        return ErrorState(errorMsg: e.response!.data['msg']);
-      } else if (e.response!.statusCode == 401) {
-        print(e.response!.data["msg"]);
-        errorMsg = e.response!.data["error"];
-        return ErrorState(errorMsg: e.response!.data['msg']);
+      return 1;
+    } on DioError catch (ex) {
+      errorMsg = null;
+      print("Dio Error::::::::: ${ex.response!.data}");
+      if (ex.response!.statusCode == 404) {
+        errorMsg = ex.response!.data['msg'];
+      } else if (ex.response!.statusCode == 401) {
+        errorMsg = ex.response!.data['msg'];
       } else {
-        print(e.response!.data);
-        // print(e.response!.statusCode);
-        return ErrorState(errorMsg: e.response!.data['msg']);
+        errorMsg = ex.response!.data['msg'];
       }
-    } catch (e) {
-      print(e.toString());
-      return ErrorState(errorMsg: 'Something wrong');
-
+      emit(ErrorState());
+      return 0;
     }
-    return ErrorState();
   }
 
-  Future logIn(String email, String password, String role) async {
+  Future<int> logIn(String email, String password, String role) async {
     emit(LoadingState());
 
     final pref = await SharedPreferences.getInstance();
@@ -327,6 +324,8 @@ class AppCubit extends Cubit<AppStates> {
         await pref.setString('refresh', refreshToken!);
         emit(DoneState());
       }
+      emit(DoneState());
+      return 1;
     } on DioError catch (ex) {
       errorMsg = null;
       if (ex.response!.statusCode == 404) {
@@ -337,6 +336,24 @@ class AppCubit extends Cubit<AppStates> {
       print(ex.response);
       print(ex.response!.statusCode);
       emit(ErrorState());
+      return 0;
+    }
+  }
+
+  Future refreshAccessToken() async {
+    var dio = Dio();
+
+    final rr = await dio.post("https://dawiny.herokuapp.com/api/auth/token",
+        options: Options(
+          headers: {},
+        ),
+        data: jsonEncode({
+          "refresh": refreshToken,
+        }));
+    if (rr.statusCode == 200) {
+      return rr.data['access'];
+    } else {
+      return -1;
     }
   }
 
@@ -373,23 +390,6 @@ class AppCubit extends Cubit<AppStates> {
       errorMsg = response.statusMessage;
       emit(ErrorState());
       return "";
-    }
-  }
-
-  Future refreshAccessToken() async {
-    var dio = Dio();
-
-    final rr = await dio.post("https://dawiny.herokuapp.com/api/auth/token",
-        options: Options(
-          headers: {},
-        ),
-        data: jsonEncode({
-          "refresh": refreshToken,
-        }));
-    if (rr.statusCode == 200) {
-      return rr.data['access'];
-    } else {
-      return -1;
     }
   }
 
@@ -430,7 +430,49 @@ class AppCubit extends Cubit<AppStates> {
     return DateTime(2022, 1, 1, t.hour, t.minute);
   }
 
-  void avalibaleDates({required Map dates, required Duration interval}) {
+  Future<int> updatePProfile({required Map data}) async {
+    emit(LoadingState());
+
+    var dio = Dio();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    accessToken = prefs.getString("access");
+    Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
+    String role = payload['role'];
+    print(payload);
+    print(accessToken);
+    if (role == "patient") {
+      data.update('address', (value) => data["clinicAddress"]);
+      data.remove("clinicAddress");
+    } else if (role == "nurse") {
+      data.remove("clinicAddress");
+    }
+    print(data);
+    try {
+      var response = dio.patch(
+          'https://dawiny.herokuapp.com/api/' + role + 's/' + payload['userId'],
+          data: jsonEncode(data),
+          options: Options(headers: {
+            HttpHeaders.authorizationHeader: accessToken,
+          }));
+      emit(DoneState());
+      return 1;
+    } on DioError catch (ex) {
+      print(ex.response);
+      if (ex.response!.statusCode == 400) {
+        errorMsg = ex.response!.data['msg'];
+      } else {
+        errorMsg = ex.response!.data['msg'];
+      }
+      emit(ErrorState());
+      return 0;
+    } catch (ex) {
+      errorMsg = "something went wrong";
+      emit(ErrorState());
+      return 0;
+    }
+  }
+
+  List avalibaleDates({required Map dates, required Duration interval}) {
     List available = [];
     dates.forEach((key, value) {
       var format = DateFormat.jm();
@@ -443,14 +485,12 @@ class AppCubit extends Cubit<AppStates> {
         var currentEnd = st.add(interval);
         available.add({
           "day": key,
-          "start": DateFormat.Hm().format(st),
-          "end": DateFormat.Hm().format(currentEnd),
+          "start": format.format(st),
+          "end": format.format(currentEnd),
         });
         st = currentEnd;
       }
-sginupMethod
-    }
-  });
-  print(available);
-
+    });
+    return available;
+  }
 }

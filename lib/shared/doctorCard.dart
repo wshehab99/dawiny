@@ -4,12 +4,12 @@ import '../screens/doctors/doctorDetailScreen.dart';
 import 'constant.dart';
 
 class DoctorCard extends StatelessWidget {
-  var _name;
-  var _description;
-  var _imageUrl;
-  var _bgColor;
+  final _name;
+  final _description;
+  final _imageUrl;
+  final _bgColor;
 
-  DoctorCard(this._name, this._description, this._imageUrl, this._bgColor,
+  const DoctorCard(this._name, this._description, this._imageUrl, this._bgColor,
       {Key? key})
       : super(key: key);
 
@@ -30,7 +30,7 @@ class DoctorCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: ListTile(
             leading: Image.asset(_imageUrl),
             title: Text(
