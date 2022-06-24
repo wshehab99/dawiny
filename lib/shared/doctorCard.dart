@@ -4,13 +4,13 @@ import '../screens/doctors/doctorDetailScreen.dart';
 import 'constant.dart';
 
 class DoctorCard extends StatelessWidget {
+  String? id;
   final _name;
   final _description;
-  final _imageUrl;
+
   final _bgColor;
 
-  const DoctorCard(this._name, this._description, this._imageUrl, this._bgColor,
-      {Key? key})
+  DoctorCard(this.id, this._name, this._description, this._bgColor, {Key? key})
       : super(key: key);
 
   @override
@@ -20,7 +20,11 @@ class DoctorCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailScreen(_name, _description, _imageUrl),
+            builder: (context) => DetailScreen(
+              id,
+              _name,
+              _description,
+            ),
           ),
         );
       },
@@ -32,7 +36,6 @@ class DoctorCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: ListTile(
-            leading: Image.asset(_imageUrl),
             title: Text(
               _name,
               style: TextStyle(

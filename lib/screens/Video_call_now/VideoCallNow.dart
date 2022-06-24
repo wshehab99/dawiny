@@ -1,9 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_svg/svg.dart';
 
 class VideoCallNow extends StatelessWidget {
   const VideoCallNow({Key? key}) : super(key: key);
@@ -14,13 +10,14 @@ class VideoCallNow extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
+          SizedBox(
             height: size.height * 1,
             child: Image.asset(
               "assets/images/doctorw2.png",
               fit: BoxFit.cover,
             ),
           ),
+
           Stack(children: [
             Padding(
               padding: const EdgeInsets.only(top: 500),
@@ -52,10 +49,40 @@ class VideoCallNow extends StatelessWidget {
                           backgroundColor: Colors.red,
                           shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30),
+
                           ),
                         ),
                       ),
                     ),
+
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  SizedBox(
+                    height: 55,
+                    child: ElevatedButton(
+                      child: const Icon(CupertinoIcons.fullscreen),
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  SizedBox(
+                    height: 55,
+                    child: ElevatedButton(
+                      child: const Icon(CupertinoIcons.camera),
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+
                     SizedBox(
                       width: 20,
                     ),

@@ -1,19 +1,14 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:dio/dio.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../fake_data/fake_data.dart';
 import 'package:intl/intl.dart';
 import 'package:jwt_decode/jwt_decode.dart';
-
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit(AppStates initialState) : super(InitialAppState());
@@ -32,6 +27,8 @@ class AppCubit extends Cubit<AppStates> {
   bool nursingListContinue = false;
   DateTime initialDate = DateTime.now();
   List shownDctors = [];
+  List initDctors = [];
+  Map doctor = {};
   String symptomText =
       'Itching,Skin Rash,Nodal Skin Eruptions,Continuous Sneezing,Shivering,Chills,Joint Pain,Stomach Pain,Acidity,Ulcers On Tongue,Muscle Wasting,Vomiting,Burning Micturition,Spotting  urination,Fatigue,Weight Gain,Anxiety,Cold Hands And Feets,Mood Swings,Weight Loss,Restlessness,Lethargy,Patches In Throat,Irregular Sugar Level,Cough,High Fever,Sunken Eyes,Breathlessness,Sweating,Dehydration,Indigestion,Headache,Yellowish Skin,Dark Urine,Nausea,Loss Of Appetite,Pain Behind The Eyes,Back Pain,Constipation,Abdominal Pain,Diarrhoea,Mild Fever,Yellow Urine,Yellowing Of Eyes,Acute Liver Failure,Fluid Overload,Swelling Of Stomach,Swelled Lymph Nodes,Malaise,Blurred And Distorted Vision,Phlegm,Throat Irritation,Redness Of Eyes,Sinus Pressure,Runny Nose,Congestion,Chest Pain,Weakness In Limbs,Fast Heart Rate,Pain During Bowel Movements,Pain In Anal Region,Bloody Stool,Irritation In Anus,Neck Pain,Dizziness,Cramps,Bruising,Obesity,Swollen Legs,Swollen Blood Vessels,Puffy Face And Eyes,Enlarged Thyroid,Brittle Nails,Swollen Extremeties,Excessive Hunger,Extra Marital Contacts,Drying And Tingling Lips,Slurred Speech,Knee Pain,Hip Joint Pain,Muscle Weakness,Stiff Neck,Swelling Joints,Movement Stiffness,Spinning Movements,Loss Of Balance,Unsteadiness,Weakness Of One Body Side,Loss Of Smell,Bladder Discomfort,Foul Smell Of urine,Continuous Feel Of Urine,Passage Of Gases,Internal Itching,Toxic Look (typhos),Depression,Irritability,Muscle Pain,Altered Sensorium,Red Spots Over Body,Belly Pain,Abnormal Menstruation,Dischromic  Patches,Watering From Eyes,Increased Appetite,Polyuria,Family History,Mucoid Sputum,Rusty Sputum,Lack Of Concentration,Visual Disturbances,Receiving Blood Transfusion,Receiving Unsterile Injections,Coma,Stomach Bleeding,Distention Of Abdomen,History Of Alcohol Consumption,Fluid Overload.1,Blood In Sputum,Prominent Veins On Calf,Palpitations,Painful Walking,Pus Filled Pimples,Blackheads,Scurring,Skin Peeling,Silver Like Dusting,Small Dents In Nails,Inflammatory Nails,Blister,Red Sore Around Nose,Yellow Crust Ooze,Prognosis,';
   static List symptomList = [];
@@ -148,15 +145,21 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   List searchAboutDoctor(String dignoseName, String value, bool? video) {
-    shownDctors = FakeData.doctors
+    getDoctor();
+    shownDctors = initDctors
         .where(
-          (element) => (element.specialist == dignoseName &&
-              (video == null ? true : element.videocall == true) &&
-              element.fullName!.toLowerCase().contains(value)),
+          (element) => (element['specification'] == dignoseName &&
+              (element['firstName'].toLowerCase().contains(value) ||
+                  element['lastName'].toLowerCase().contains(value))),
         )
         .toList();
     emit(DoctrosSearch());
     return shownDctors;
+  }
+
+  void changeDropdownValue(String value) {
+    dropdownValue = value;
+    emit(ChangeDropdownValue());
   }
 
   Future getDoctor() async {
@@ -169,8 +172,9 @@ class AppCubit extends Cubit<AppStates> {
           options: Options(headers: {
             "authorization": accessToken,
           }));
-      shownDctors = response.data;
-      print(shownDctors);
+      initDctors = response.data;
+      print(initDctors);
+      emit(DoneState());
     } on DioError catch (e) {
       if (e.response!.statusCode == 401) {
         var result = refreshAccessToken();
@@ -183,11 +187,6 @@ class AppCubit extends Cubit<AppStates> {
         emit(ErrorState());
       }
     }
-  }
-
-  void changeDropdownValue(String value) {
-    dropdownValue = value;
-    emit(ChangeDropdownValue());
   }
 
   void changeNurseValue(bool value, int index) {
@@ -272,9 +271,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(InitialAppState());
   }
 
-
   Future<int> signUp(
-
     String email,
     String password,
     String firstName,
@@ -334,9 +331,10 @@ class AppCubit extends Cubit<AppStates> {
 
   Future<int> logIn(String email, String password, String role) async {
     emit(LoadingState());
+
+    final pref = await SharedPreferences.getInstance();
+    var dio = Dio();
     try {
-      final pref = await SharedPreferences.getInstance();
-      var dio = Dio();
       final response = await dio.post(
         "https://dawiny.herokuapp.com/api/auth/login",
         data: jsonEncode({
@@ -345,22 +343,15 @@ class AppCubit extends Cubit<AppStates> {
           "role": role,
         }),
       );
-      print(response.data);
 
       if (response.statusCode == 200) {
+        print(response.data);
         accessToken = response.data['access'];
         refreshToken = response.data['refresh'];
 
         await pref.setString('access', accessToken!);
         await pref.setString('refresh', refreshToken!);
         emit(DoneState());
-      } else if (response.statusCode == 404) {
-        print(response.data['error']);
-        errorMsg = response.data['error'];
-        emit(ErrorState());
-      } else {
-        errorMsg = response.data['error'];
-        emit(ErrorState());
       }
       emit(DoneState());
       return 1;
@@ -373,7 +364,6 @@ class AppCubit extends Cubit<AppStates> {
       }
       print(ex.response);
       print(ex.response!.statusCode);
-
       emit(ErrorState());
       return 0;
     }
@@ -482,6 +472,9 @@ class AppCubit extends Cubit<AppStates> {
     // }
   }
 
+  DateTime timeOfDayMinToInt(TimeOfDay t) {
+    return DateTime(2022, 1, 1, t.hour, t.minute);
+  }
 
   Future<int> updatePProfile({required Map data}) async {
     emit(LoadingState());
@@ -505,7 +498,7 @@ class AppCubit extends Cubit<AppStates> {
           'https://dawiny.herokuapp.com/api/' + role + 's/' + payload['userId'],
           data: jsonEncode(data),
           options: Options(headers: {
-            HttpHeaders.authorizationHeader: accessToken,
+            'authorization': accessToken,
           }));
       emit(DoneState());
       return 1;
@@ -547,4 +540,21 @@ class AppCubit extends Cubit<AppStates> {
     return available;
   }
 
+  Future getDoctorById({required String id}) async {
+    try {
+      String url = "https://dawiny.herokuapp.com/api/doctors/" + id;
+      emit(LoadingState());
+      var dio = Dio();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      accessToken = prefs.getString("access");
+      var response = await dio.get(url,
+          options: Options(headers: {
+            'authorization': accessToken,
+          }));
+      doctor = response.data;
+    } on DioError catch (ex) {
+      errorMsg = ex.response!.data['msg'];
+      emit(ErrorState());
+    }
+  }
 }
