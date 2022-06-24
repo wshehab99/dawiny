@@ -448,21 +448,38 @@ class AppCubit extends Cubit<AppStates> {
               "refresh": refreshToken,
             }));
 
-    if (response.statusCode == 200) {
-      emit(DoneState());
-    } else if (response.statusCode! == 401) {
-      var result = refreshAccessToken();
-      if (result == -1) {
-        //make user login again
-      } else {
-        await pref.setString("access", result.toString());
-        accessToken = result as String?;
-        logout();
+    try {
+      if (response.statusCode == 200) {
+        emit(DoneState());
+      } else if (response.statusCode! == 401) {
+        var result = refreshAccessToken();
+        if (result == -1) {
+          //make user login again
+        } else {
+          await pref.setString("access", result.toString());
+          accessToken = result as String?;
+          logout();
+        }
       }
-    } else {
+    } on DioError catch (e) {
       errorMsg = response.statusMessage;
       emit(ErrorState());
     }
+    // if (response.statusCode == 200) {
+    //   emit(DoneState());
+    // } else if (response.statusCode! == 401) {
+    //   var result = refreshAccessToken();
+    //   if (result == -1) {
+    //     //make user login again
+    //   } else {
+    //     await pref.setString("access", result.toString());
+    //     accessToken = result as String?;
+    //     logout();
+    //   }
+    // } else {
+    //   errorMsg = response.statusMessage;
+    //   emit(ErrorState());
+    // }
   }
 
 
