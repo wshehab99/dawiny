@@ -150,8 +150,7 @@ class SignIn extends StatelessWidget {
                                                               _password.text,
                                                               'doctor')
                                                           .then((value) {
-                                                        if (state
-                                                            is DoneState) {
+                                                        if (value == 1) {
                                                           Navigator.pushReplacement(
                                                               context,
                                                               MaterialPageRoute(
