@@ -1,3 +1,4 @@
+import 'package:find_doctor/screens/videocalldetails/videocalldetails.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/diagnosesList.dart';
@@ -30,8 +31,7 @@ class VideoCallScreen extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          const DiagnosesList(vidoecall: true),
+                      builder: (context) => VideoCallDetails(),
                     ));
               },
               child: Padding(

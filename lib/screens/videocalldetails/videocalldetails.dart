@@ -1,11 +1,13 @@
+import 'package:find_doctor/screens/Video_call_now/VideoCallNow.dart';
 import 'package:flutter/material.dart';
 
 class VideoCallDetails extends StatelessWidget {
-  VideoCallDetails({Key? key, this.doctorName, this.imageDoctor})
-      : super(key: key);
+  VideoCallDetails({
+    Key? key,
+  }) : super(key: key);
 
-  String? doctorName;
-  String? imageDoctor;
+  //String? doctorName;
+  //String? imageDoctor;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,15 +24,14 @@ class VideoCallDetails extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             child: Container(
               width: double.infinity,
-              height: 120,
+              height: 130,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(width: 1, color: Colors.grey)),
               child: Row(
                 children: [
                   Image.asset(
-                    "$imageDoctor",
-                    width: 110,
+                    "assets/images/doctorW.jpg",
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10),
@@ -39,7 +40,7 @@ class VideoCallDetails extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "$doctorName",
+                          "Mousa",
                           style: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -150,7 +151,13 @@ class VideoCallDetails extends StatelessWidget {
                   primary: Colors.blue,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20))),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => VideoCallNow(),
+                    ));
+              },
               child: const Padding(
                 padding: EdgeInsets.all(20),
                 child: Text(

@@ -2,7 +2,6 @@ import 'package:find_doctor/model/doctor.dart';
 
 class SpecializationData {
   SpecializationData(this.name, this.imagePath);
-
   String name;
   String imagePath;
 }

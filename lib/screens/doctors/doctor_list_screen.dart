@@ -25,7 +25,8 @@ class DoctorListScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
-          shownList = cubit.searchAboutDoctor(dignoseName!, value1, videocall);
+          //shownList = cubit.searchAboutDoctor(dignoseName!, value1, videocall);
+          cubit.getDoctor();
           return Scaffold(
             backgroundColor: kBackgroundColor,
             body: SafeArea(
@@ -76,10 +77,10 @@ class DoctorListScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    Expanded(
-                      child: DoctorListWidget(
-                          dignoseName: dignoseName!, shownList: shownList),
-                    ),
+                    // Expanded(
+                    //   child: DoctorListWidget(
+                    //       dignoseName: dignoseName!, shownList: shownList),
+                    // ),
                   ],
                 )),
           );

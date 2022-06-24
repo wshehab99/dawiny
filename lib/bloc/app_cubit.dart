@@ -153,6 +153,32 @@ class AppCubit extends Cubit<AppStates> {
     return shownDctors;
   }
 
+  Future getDoctor() async {
+    emit(LoadingState());
+    final pref = await SharedPreferences.getInstance();
+    try {
+      var dio = Dio();
+      accessToken = pref.getString("access");
+      var response = await dio.get("https://dawiny.herokuapp.com/api/doctors",
+          options: Options(headers: {
+            "authorization": accessToken,
+          }));
+      shownDctors = response.data;
+      print(shownDctors);
+    } on DioError catch (e) {
+      if (e.response!.statusCode == 401) {
+        var result = refreshAccessToken();
+        if (result == -1) {
+        } else {
+          pref.setString("access", result.toString());
+          getDoctor();
+        }
+      } else {
+        emit(ErrorState());
+      }
+    }
+  }
+
   void changeDropdownValue(String value) {
     dropdownValue = value;
     emit(ChangeDropdownValue());
@@ -240,7 +266,6 @@ class AppCubit extends Cubit<AppStates> {
     emit(InitialAppState());
   }
 
-
   Future signup(
     String email,
     String password,
@@ -274,13 +299,13 @@ class AppCubit extends Cubit<AppStates> {
     } else if (response.statusCode == 404) {
       print(response.data['error']);
       errorMsg = response.data['error'];
-      emit(ErrorgState());
+      emit(ErrorState());
     } else if (response.data == 401) {
       print(response.data["msg"]);
       errorMsg = response.data["error"];
     } else {
       errorMsg = response.data['error'];
-      emit(ErrorgState());
+      emit(ErrorState());
     }
   }
 
@@ -405,6 +430,18 @@ class AppCubit extends Cubit<AppStates> {
       emit(ErrorState());
     }
   }
+
+  Future sendreq(
+      String id, String email, String firstName, String lastName) async {
+    try {
+      var dio = Dio();
+      Response DoctorData =
+          await dio.get("https://dawiny.herokuapp.com/api/doctors");
+      print(DoctorData.data);
+    } catch (e) {
+      print(e);
+    }
+  }
 }
 
 void avalibaleDates({required Map dates, required int interval}) {
@@ -421,5 +458,4 @@ void avalibaleDates({required Map dates, required int interval}) {
     }
   });
   print(available);
- main
 }
