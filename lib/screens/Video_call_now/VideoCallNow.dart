@@ -17,27 +17,44 @@ class VideoCallNow extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          Positioned(
-            top: size.height * 0.9,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 100),
-              child: Row(
-                children: [
-                  SizedBox(
-                    height: 55,
-                    child: ElevatedButton(
-                      child: const Icon(CupertinoIcons.escape),
-                      onPressed: () {},
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.red),
-                        shape: MaterialStateProperty.all<OutlinedBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+
+          Stack(children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 500),
+              child: Container(
+                height: 400,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.center,
+                  colors: [
+                    Colors.transparent,
+                    Color.fromARGB(255, 181, 172, 89)
+                  ],
+                )),
+              ),
+            ),
+            Positioned(
+              top: size.height * 0.9,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 100),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 55,
+                      child: ElevatedButton(
+                        child: Icon(CupertinoIcons.escape),
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30),
+
                           ),
                         ),
                       ),
                     ),
+
                   ),
                   const SizedBox(
                     width: 10,
@@ -65,26 +82,46 @@ class VideoCallNow extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
+
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Container(
+                      height: 55,
+                      child: ElevatedButton(
+                        child: Icon(CupertinoIcons.fullscreen),
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Container(
+                      height: 55,
+                      child: ElevatedButton(
+                        child: SvgPicture.asset(
+                          "assets/images/audio.svg",
+                          height: 28,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          // Positioned(
-          //   top: size.height * 0.8,
-          //   child: Container(
-          //     height: 100,
-          //     decoration: BoxDecoration(
-          //         gradient: LinearGradient(
-          //       begin: Alignment.topCenter,
-          //       end: Alignment.center,
-          //       colors: [Colors.yellow, Colors.red],
-          //     )),
-          //   ),
-          // ),
+          ]),
         ],
       ),
     );
