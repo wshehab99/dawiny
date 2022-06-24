@@ -172,6 +172,7 @@ class DoctorTime extends StatelessWidget {
                                         "from": days[1].from.text,
                                         "to": days[1].to.text
                                       },
+
                                       "mon": {
                                         "from": days[2].from.text,
                                         "to": days[2].to.text
@@ -218,6 +219,7 @@ class DoctorTime extends StatelessWidget {
                             )
                           ],
                         ),
+
             ),
           );
         },

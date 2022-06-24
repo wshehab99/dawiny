@@ -1,15 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:dio/dio.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../fake_data/fake_data.dart';
 import 'package:intl/intl.dart';
 import 'package:jwt_decode/jwt_decode.dart';
+
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit(AppStates initialState) : super(InitialAppState());
@@ -155,6 +159,32 @@ class AppCubit extends Cubit<AppStates> {
     return shownDctors;
   }
 
+  Future getDoctor() async {
+    emit(LoadingState());
+    final pref = await SharedPreferences.getInstance();
+    try {
+      var dio = Dio();
+      accessToken = pref.getString("access");
+      var response = await dio.get("https://dawiny.herokuapp.com/api/doctors",
+          options: Options(headers: {
+            "authorization": accessToken,
+          }));
+      shownDctors = response.data;
+      print(shownDctors);
+    } on DioError catch (e) {
+      if (e.response!.statusCode == 401) {
+        var result = refreshAccessToken();
+        if (result == -1) {
+        } else {
+          pref.setString("access", result.toString());
+          getDoctor();
+        }
+      } else {
+        emit(ErrorState());
+      }
+    }
+  }
+
   void changeDropdownValue(String value) {
     dropdownValue = value;
     emit(ChangeDropdownValue());
@@ -242,7 +272,9 @@ class AppCubit extends Cubit<AppStates> {
     emit(InitialAppState());
   }
 
+
   Future<int> signUp(
+
     String email,
     String password,
     String firstName,
@@ -302,10 +334,9 @@ class AppCubit extends Cubit<AppStates> {
 
   Future<int> logIn(String email, String password, String role) async {
     emit(LoadingState());
-
-    final pref = await SharedPreferences.getInstance();
-    var dio = Dio();
     try {
+      final pref = await SharedPreferences.getInstance();
+      var dio = Dio();
       final response = await dio.post(
         "https://dawiny.herokuapp.com/api/auth/login",
         data: jsonEncode({
@@ -314,15 +345,22 @@ class AppCubit extends Cubit<AppStates> {
           "role": role,
         }),
       );
+      print(response.data);
 
       if (response.statusCode == 200) {
-        print(response.data);
         accessToken = response.data['access'];
         refreshToken = response.data['refresh'];
 
         await pref.setString('access', accessToken!);
         await pref.setString('refresh', refreshToken!);
         emit(DoneState());
+      } else if (response.statusCode == 404) {
+        print(response.data['error']);
+        errorMsg = response.data['error'];
+        emit(ErrorState());
+      } else {
+        errorMsg = response.data['error'];
+        emit(ErrorState());
       }
       emit(DoneState());
       return 1;
@@ -335,6 +373,7 @@ class AppCubit extends Cubit<AppStates> {
       }
       print(ex.response);
       print(ex.response!.statusCode);
+
       emit(ErrorState());
       return 0;
     }
@@ -426,9 +465,6 @@ class AppCubit extends Cubit<AppStates> {
     }
   }
 
-  DateTime timeOfDayMinToInt(TimeOfDay t) {
-    return DateTime(2022, 1, 1, t.hour, t.minute);
-  }
 
   Future<int> updatePProfile({required Map data}) async {
     emit(LoadingState());
@@ -493,4 +529,5 @@ class AppCubit extends Cubit<AppStates> {
     });
     return available;
   }
+
 }
