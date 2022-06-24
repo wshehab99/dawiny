@@ -1,6 +1,5 @@
 import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
-import 'package:find_doctor/screens/doctors/doctor_list_widget..dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -8,6 +7,8 @@ import '../../shared/constant.dart';
 
 import '../../shared/searchBar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'doctor_list_widget..dart';
 
 // ignore: must_be_immutable
 class DoctorListScreen extends StatelessWidget {
@@ -25,7 +26,7 @@ class DoctorListScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
-          //shownList = cubit.searchAboutDoctor(dignoseName!, value1, videocall);
+          shownList = cubit.searchAboutDoctor(dignoseName!, value1, videocall);
           cubit.getDoctor();
           return Scaffold(
             backgroundColor: kBackgroundColor,
@@ -77,10 +78,10 @@ class DoctorListScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    // Expanded(
-                    //   child: DoctorListWidget(
-                    //       dignoseName: dignoseName!, shownList: shownList),
-                    // ),
+                    Expanded(
+                      child: DoctorListWidget(
+                          dignoseName: dignoseName!, shownList: shownList),
+                    ),
                   ],
                 )),
           );

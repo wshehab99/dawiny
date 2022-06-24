@@ -4,9 +4,6 @@ import '../../shared/constant.dart';
 import '../../shared/doctorCard.dart';
 
 class DoctorListWidget extends StatelessWidget {
-  // List<Doctor> shownList = [
-
-  // ];
   List? shownList;
   String dignoseName;
 
@@ -22,9 +19,9 @@ class DoctorListWidget extends StatelessWidget {
         child: ListView.separated(
             itemBuilder: (context, index) {
               return DoctorCard(
-                  shownList![index].fullName,
-                  "${shownList![index].specialist} - ${shownList![index].hospitalName}",
-                  "${shownList![index].profilePhoto}",
+                  "${shownList![index]['_id']}",
+                  "${shownList![index]['firstName']} ${shownList![index]['lastName']}",
+                  "${shownList![index]['specification']} - ${shownList![index]['clinicAddress']}",
                   kBlueColor);
             },
             separatorBuilder: (context, index) => const SizedBox(
