@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../doctor_time/doctor_time_screen.dart';
 import 'widgets/intro_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -83,8 +82,10 @@ class WelcomeScreen extends StatelessWidget {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        const RegistrationScreen()),
+
+                                    builder: (context) => RegistrationScreen()),
+
+
                               );
                             }
                           },

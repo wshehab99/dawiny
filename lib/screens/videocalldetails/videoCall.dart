@@ -7,9 +7,9 @@ import 'package:agora_rtc_engine/rtc_remote_view.dart' as RtcRemoteView;
 import 'package:permission_handler/permission_handler.dart';
 
 /// Define App ID and Token
-const APP_ID = '76eefd968d5f4657986b88757c366e84';
+const APP_ID = 'ba637d2e6da746b589561478efc3c78b';
 const Token =
-    '00676eefd968d5f4657986b88757c366e84IAAGuXakSRR/eQi2Gn0pDYksHg0Ubp7CpoDvKeHbCSYAcwx+f9gAAAAAEABGROOeID61YgEAAQAdPrVi';
+    '00676eefd968d5f4657986b88757c366e84IAA/kM3ouSFQqLWmpgKwL9i05Ao47AdRWem6xoKe43CCQwx+f9gAAAAAEABGROOeOvC3YgEAAQA58Ldi';
 
 class VideoCall extends StatefulWidget {
   const VideoCall({Key? key}) : super(key: key);

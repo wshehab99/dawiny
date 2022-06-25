@@ -554,6 +554,10 @@ class AppCubit extends Cubit<AppStates> {
     }
   }
 
+  DateTime timeOfDayMinToInt(TimeOfDay t) {
+    return DateTime(2022, 1, 1, t.hour, t.minute);
+  }
+
   List avalibaleDates({required Map dates, required Duration interval}) {
     List available = [];
     dates.forEach((key, value) {
@@ -576,6 +580,7 @@ class AppCubit extends Cubit<AppStates> {
     return available;
   }
 
+
   Future getDoctorById({required String id}) async {
     try {
       String url = "https://dawiny.herokuapp.com/api/doctors/" + id;
@@ -594,4 +599,5 @@ class AppCubit extends Cubit<AppStates> {
       emit(ErrorState());
     }
   }
+
 }
