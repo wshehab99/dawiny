@@ -17,8 +17,10 @@ class SignIn extends StatelessWidget {
   }) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _password = TextEditingController();
+  final TextEditingController _email =
+      TextEditingController(text: 'waleed@dawiny.com');
+  final TextEditingController _password =
+      TextEditingController(text: '12345678');
 
   @override
   Widget build(BuildContext context) {
