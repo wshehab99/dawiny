@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class SymptomsScreen extends StatelessWidget {
   SymptomsScreen({Key? key}) : super(key: key);
   final TextEditingController controller = TextEditingController();
-  String response = "";
+  Map response = {};
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -48,7 +48,7 @@ class SymptomsScreen extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Text(
-                                      "You may have a/an $response!",
+                                      "You may have a/an ${response.keys}!",
                                       style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold),
@@ -56,8 +56,8 @@ class SymptomsScreen extends StatelessWidget {
                                     const SizedBox(
                                       height: 10,
                                     ),
-                                    const Text(
-                                        "this is not alternative of doctor visit plese try to visit a doctor")
+                                    Text(
+                                        "this is not alternative of doctor visit plese try to visit a ${response.values} doctor")
                                   ],
                                 ),
                                 actions: [
