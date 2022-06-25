@@ -59,6 +59,49 @@ class AppCubit extends Cubit<AppStates> {
       "value": false,
     },
   ];
+  Map spac = {
+    "(vertigo) Paroymsal Positional Vertigo": " ear specialist",
+    "AIDS": "internists",
+    "Acne": "Dermatology specialty",
+    "Alcoholic hepatitis": "Transplant Hepatologist specialist",
+    "Allergy": "Dermatology specialty",
+    "Arthritis": "orthopedic specialty",
+    "Bronchial Asthma": "Chest diseases specialization",
+    "Cervical spondylosis": "Neurosurgery",
+    "Chicken pox": "Dermatology specialty",
+    "Chronic cholestasis": "Transplant Hepatologist specialist",
+    "Common Cold ": "internists",
+    "Dengue": "internists",
+    "Diabetes": "internists",
+    "Dimorphic hemmorhoids(piles)": "Urology specialty",
+    "Drug Reaction": "Pharmacist's specialty",
+    "Fungal infection": "Dermatology specialty",
+    "GERD": "internists",
+    "Gastroenteritis": "Gastrointestinal specialty",
+    "Heart attack": "Cardiology specialization",
+    "Hepatitis B": "Transplant Hepatologist specialist",
+    "Hepatitis C": "Transplant Hepatologist specialist",
+    "Hepatitis D": "Transplant Hepatologist specialist",
+    "Hepatitis E": "Transplant Hepatologist specialist",
+    "Hypertension": "internists",
+    "Hyperthyroidism": "Dermatology specialty",
+    "Hypoglycemia ": "internists",
+    "Hypothyroidism": "Dermatology specialty",
+    "Impetigo": "Dermatology specialty",
+    "Jaundice": "eyes specialty",
+    "Malaria": "internists",
+    "Migraine": "internists",
+    "Osteoarthristis ": "orthopedic specialty",
+    "Paralysis (brain hemorrhage)": "Neuroscience specialization",
+    "Peptic ulcer diseae": "internists",
+    "Pneumonia": "chest diseases specialization",
+    "Psoriasis": "orthopedic specialty",
+    "Tuberculosis": "Chest diseases specialization",
+    "Typhoid": "internists",
+    "Urinary tract infection": "Urology specialty",
+    "Varicose veins": "Neurosurgery",
+    "hepatitis A": "Transplant Hepatologist specialist",
+  };
   List availableTimes = [
     {
       'time': const TimeOfDay(hour: 9, minute: 30),
@@ -280,19 +323,30 @@ class AppCubit extends Cubit<AppStates> {
     emit(LoadingSymptom());
   }
 
-  Future<String> medicalDiagnosis() async {
+  Future<Map> medicalDiagnosis() async {
     emit(LoadingState());
 
     var dio = Dio();
     final response = await dio.post("https://dawinyml.herokuapp.com/api/ml",
         data: jsonEncode({"symptoms": selectedSymptoms}));
+    Map? result;
     if (response.statusCode == 200) {
+      String disease = response.data['disease'];
+
+      spac.forEach(
+        (key, value) {
+          if (key.toString().contains(disease)) {}
+          result = {key: value};
+        },
+      );
+      result ??= {response.data['disease']: " "};
+
       emit(DoneState());
-      return response.data['disease'];
+      return result!;
     } else {
       emit(ErrorState());
 
-      return "";
+      return {" ": " "};
     }
   }
 
@@ -483,7 +537,7 @@ class AppCubit extends Cubit<AppStates> {
           logout();
         }
       }
-    } on DioError catch (e) {
+    } on DioError {
       errorMsg = response.statusMessage;
       emit(ErrorState());
     }
