@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../shared/diagnosesList.dart';
 import '../../shared/getLocation.dart';
+import '../appointments/listOfAppointment.dart';
 import '../clinick_booking/clinic_booking.dart';
 import '../doctor_home_visit/bookDoctorHomeVisit.dart';
 import '../doctor_time/doctor_time_screen.dart';
@@ -131,7 +132,9 @@ class GridPage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
+
                             builder: (context) => const ClinicBooking()));
+
 
                     builder:
                     (context) => const DiagnosesList();
