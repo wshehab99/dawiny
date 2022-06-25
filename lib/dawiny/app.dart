@@ -29,7 +29,7 @@ class Dawiny extends StatelessWidget {
             ),
             home: BlocProvider(
               create: (context) => AppCubit(InitialAppState()),
-              child: VideoCallNow(),
+              child: VideoCallScreen(),
             ),
             routes: {"WelcomeScreen": (context) => const WelcomeScreen()},
           );
