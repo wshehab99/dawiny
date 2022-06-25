@@ -41,7 +41,7 @@ class GridPage extends StatelessWidget {
       key: scaffoldKey,
       drawer: Drawer(
         child: Column(
-          children: [
+          children: const [
             UserAccountsDrawerHeader(
               accountName: Text(
                 "Morsy HashisH",
@@ -84,16 +84,16 @@ class GridPage extends StatelessWidget {
                         onPressed: () {
                           scaffoldKey.currentState?.openDrawer();
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.menu,
                           color: Colors.white,
                           size: 25,
                         )),
-                    SizedBox(
+                    const SizedBox(
                       width: 50,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 40),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 40),
                       child: Image(
                         image: AssetImage('assets/images/Dawiny logo - 2.png'),
                         width: 170,
@@ -132,20 +132,24 @@ class GridPage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ListOfAppointments()));
+
+                            builder: (context) => const ClinicBooking()));
+
 
                     builder:
-                    (context) => DiagnosesList();
+                    (context) => const DiagnosesList();
                   } else if (index == 1) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => BookDoctorHomeVisit()));
+                            builder: (context) => const BookDoctorHomeVisit()));
                   } else if (index == 2) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
+
                             builder: (context) => VideoCallNow()));
+
                   } else if (index == 3) {
                     Navigator.push(
                         context,

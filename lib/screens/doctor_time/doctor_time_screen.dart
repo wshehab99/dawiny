@@ -172,7 +172,6 @@ class DoctorTime extends StatelessWidget {
                                         "from": days[1].from.text,
                                         "to": days[1].to.text
                                       },
-
                                       "mon": {
                                         "from": days[2].from.text,
                                         "to": days[2].to.text
@@ -200,7 +199,7 @@ class DoctorTime extends StatelessWidget {
                                       "price": int.parse(_price.text),
                                       "specification":
                                           appDropDownMenu.dropdownValue,
-                                      "slots": available,
+                                      "appointments": available,
                                     };
                                     cubit
                                         .updatePProfile(data: data)
@@ -219,7 +218,6 @@ class DoctorTime extends StatelessWidget {
                             )
                           ],
                         ),
-
             ),
           );
         },

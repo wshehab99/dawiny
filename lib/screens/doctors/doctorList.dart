@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import '../../shared/constant.dart';
 import '../../shared/doctorCard.dart';
 import '../../shared/searchBar.dart';
-import 'doctor_list_widget..dart';
 
 class DoctorList extends StatelessWidget {
   const DoctorList({Key? key}) : super(key: key);
@@ -28,11 +27,11 @@ class DoctorList extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Text(
                   'Find Your Desired\nDoctor',
                   style: TextStyle(
@@ -42,18 +41,18 @@ class DoctorList extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: SearchBar(),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Text(
                   '',
                   style: TextStyle(
@@ -73,72 +72,79 @@ class DoctorList extends StatelessWidget {
 
   buildDoctorList() {
     return Padding(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 30,
       ),
       child: ListView(
         children: [
           DoctorCard(
+            "6297b0aafcbbc7219c01c9e0",
             'Dr. Stella Kane',
             'Heart Surgeon - Flower Hospitals',
-            'assets/images/doctor1.png',
+            // 'assets/images/doctor1.png',
             kBlueColor,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           DoctorCard(
+            "6297b0aafcbbc7219c01c9e0",
             'Dr. Stella Kane',
             'Heart Surgeon - Flower Hospitals',
-            'assets/images/doctor1.png',
+            // 'assets/images/doctor1.png',
             kBlueColor,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           DoctorCard(
+            "6297b0aafcbbc7219c01c9e0",
             'Dr. Stella Kane',
             'Heart Surgeon - Flower Hospitals',
-            'assets/images/doctor1.png',
+            // 'assets/images/doctor1.png',
             kBlueColor,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           DoctorCard(
+            "6297b0aafcbbc7219c01c9e0",
             'Dr. Stella Kane',
             'Heart Surgeon - Flower Hospitals',
-            'assets/images/doctor1.png',
+            // 'assets/images/doctor1.png',
             kBlueColor,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           DoctorCard(
+            "6297b0aafcbbc7219c01c9e0",
             'Dr. Stella Kane',
             'Heart Surgeon - Flower Hospitals',
-            'assets/images/doctor1.png',
+            // 'assets/images/doctor1.png',
             kBlueColor,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           DoctorCard(
+            "6297b0aafcbbc7219c01c9e0",
             'Dr. Joseph Cart',
             'Dental Surgeon - Flower Hospitals',
-            'assets/images/doctor2.png',
+            // 'assets/images/doctor2.png',
             kYellowColor,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           DoctorCard(
+            "6297b0aafcbbc7219c01c9e0",
             'Dr. Stephanie',
             'Eye Specialist - Flower Hospitals',
-            'assets/images/doctor3.png',
+            // 'assets/images/doctor3.png',
             kOrangeColor,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
         ],

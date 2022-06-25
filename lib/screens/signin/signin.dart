@@ -148,9 +148,9 @@ class SignIn extends StatelessWidget {
                                                       // doctor at the begning ------ later will be dynamic
                                                       await cubit
                                                           .logIn(
-                                                              _email.text,
-                                                              _password.text,
-                                                              'doctor')
+                                                        _email.text,
+                                                        _password.text,
+                                                      )
                                                           .then((value) {
                                                         if (value == 1) {
                                                           Navigator.pushReplacement(
