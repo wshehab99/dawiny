@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../shared/constant.dart';
-import 'package:date_picker_timeline/date_picker_timeline.dart';
+import "package:date_picker_timeline/date_picker_timeline.dart";
 
 class DetailScreen extends StatelessWidget {
   final String? _name;
@@ -16,6 +16,7 @@ class DetailScreen extends StatelessWidget {
     this._name,
     this._description,
   );
+  DateTime dateTime = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,7 @@ class DetailScreen extends StatelessWidget {
         builder: (context, stste) {
           AppCubit cubit = AppCubit.get(context);
           cubit.getDoctorById(id: id!);
+          cubit.changeDate(dateTime);
           return Scaffold(
             body: Container(
               width: double.infinity,
@@ -36,7 +38,7 @@ class DetailScreen extends StatelessWidget {
                   fit: BoxFit.fitWidth,
                 ),
               ),
-              child: Column(
+              child: ListView(
                 children: <Widget>[
                   const SizedBox(
                     height: 50,
@@ -77,7 +79,8 @@ class DetailScreen extends StatelessWidget {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(30),
-                      child: ListView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Row(
                             children: <Widget>[
@@ -185,54 +188,40 @@ class DetailScreen extends StatelessWidget {
                             selectionColor: Colors.blue,
                             selectedTextColor: Colors.white,
                             onDateChange: (date) {
-                              cubit.changeDate(date);
+                              dateTime = date;
+                              cubit.changeDate(dateTime);
                             },
                           ),
-                          Expanded(
-                            child: GridView.builder(
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                ),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    height: 20,
-                                    width: 15,
-                                    decoration: BoxDecoration(
-                                        color: Colors.blue,
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    child: Text(cubit.doctor['slots'][index]),
-                                  );
-                                }),
+                          const SizedBox(
+                            height: 20,
                           ),
-                          // ScheduleCard(
-                          //   'Consultation',
-                          //   'Sunday . 9am - 11am',
-                          //   '30',
-                          //   'March',
-                          //   kBlueColor,
-                          // ),
-                          // const SizedBox(
-                          //   height: 10,
-                          // ),
-                          // ScheduleCard(
-                          //   'Consultation',
-                          //   'Sunday . 9am - 11am',
-                          //   '22',
-                          //   'March',
-                          //   kYellowColor,
-                          // ),
-                          // const SizedBox(
-                          //   height: 10,
-                          // ),
-                          // ScheduleCard(
-                          //   'Consultation',
-                          //   'Sunday . 9am - 11am',
-                          //   '20',
-                          //   'March',
-                          //   kOrangeColor,
-                          // ),
+                          Wrap(
+                            alignment: WrapAlignment.start,
+                            children:
+                                List.generate(cubit.shownSlots.length, (index) {
+                              return Container(
+                                margin: const EdgeInsets.all(2.0),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 4.0),
+                                decoration: BoxDecoration(
+                                    color: const Color(0xFF1171C8),
+                                    borderRadius: BorderRadius.circular(16.0)),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      cubit.shownSlots[index]['start'],
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }),
+                          ),
                           const SizedBox(
                             height: 20,
                           ),

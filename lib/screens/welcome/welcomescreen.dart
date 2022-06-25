@@ -83,7 +83,8 @@ class WelcomeScreen extends StatelessWidget {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => DoctorTime()),
+                                    builder: (context) =>
+                                        const RegistrationScreen()),
                               );
                             }
                           },

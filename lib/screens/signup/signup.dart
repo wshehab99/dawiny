@@ -1,5 +1,6 @@
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/signin/signin.dart';
+import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
 import 'package:flutter/material.dart';
 
 import '../../bloc/app_cubit.dart';
@@ -22,6 +23,11 @@ class SignUp extends StatelessWidget {
   final TextEditingController _firstName = TextEditingController();
 
   final TextEditingController _lastName = TextEditingController();
+  final AppDropDownMenu _role = AppDropDownMenu(
+    choices: const ['Doctor', 'Nurse', 'Patient'],
+    hint: "Role",
+    label: "Role",
+  );
 
   final _formKey = GlobalKey<FormState>();
 
@@ -180,6 +186,10 @@ class SignUp extends StatelessWidget {
                                       const SizedBox(
                                         height: 20,
                                       ),
+                                      _role,
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
                                       CheckBoxRow(
                                         isCheked: cubit.remeberMeValue,
                                         onPress: (value) {
@@ -201,7 +211,8 @@ class SignUp extends StatelessWidget {
                                                     _password.text,
                                                     _firstName.text,
                                                     _lastName.text,
-                                                    "doctor",
+                                                    _role.dropdownValue!
+                                                        .toLowerCase(),
                                                   )
                                                       .then((value) {
                                                     if (value == 1) {

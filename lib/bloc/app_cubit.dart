@@ -97,6 +97,8 @@ class AppCubit extends Cubit<AppStates> {
   String? errorMsg;
   String? accessToken;
   String? refreshToken;
+  List initSlots = [];
+  List shownSlots = [];
   void changePage(int value) {
     curentPage = value;
     emit(ChangeWelcomePage());
@@ -173,7 +175,7 @@ class AppCubit extends Cubit<AppStates> {
             "authorization": accessToken,
           }));
       initDctors = response.data;
-      print(initDctors);
+
       emit(DoneState());
     } on DioError catch (e) {
       if (e.response!.statusCode == 401) {
@@ -184,6 +186,7 @@ class AppCubit extends Cubit<AppStates> {
           getDoctor();
         }
       } else {
+        print(e);
         emit(ErrorState());
       }
     }
@@ -213,6 +216,32 @@ class AppCubit extends Cubit<AppStates> {
 
   void changeDate(DateTime date) {
     initialDate = date;
+    int d = initialDate.weekday;
+    String? day;
+    if (d == 1) {
+      day = "Mon";
+    } else if (d == 2) {
+      day = "Tus";
+    } else if (d == 3) {
+      day = "Wed";
+    } else if (d == 4) {
+      day = "Thu";
+    } else if (d == 5) {
+      day = "Fri";
+    } else if (d == 6) {
+      day = "Sat";
+    } else {
+      day = "Sun";
+    }
+    shownSlots = initSlots
+        .where(
+          (element) => element['day']
+              .toString()
+              .toLowerCase()
+              .contains(day!.toLowerCase()),
+        )
+        .toList();
+
     emit(ChangeSelectedDate());
   }
 
@@ -289,6 +318,7 @@ class AppCubit extends Cubit<AppStates> {
     } else {
       url = "patients";
     }
+    final pref = await SharedPreferences.getInstance();
     try {
       var response = await dio.post(
         "https://dawiny.herokuapp.com/api/" + url,
@@ -307,9 +337,10 @@ class AppCubit extends Cubit<AppStates> {
             "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++morsy m4 salk");
         accessToken = response.data['access'];
         refreshToken = response.data['refresh'];
-        final pref = await SharedPreferences.getInstance();
+
         await pref.setString('access', accessToken!);
         await pref.setString('refresh', refreshToken!);
+        await pref.setString('role', role);
 
         emit(DoneState());
       }
@@ -329,10 +360,11 @@ class AppCubit extends Cubit<AppStates> {
     }
   }
 
-  Future<int> logIn(String email, String password, String role) async {
+  Future<int> logIn(String email, String password) async {
     emit(LoadingState());
 
     final pref = await SharedPreferences.getInstance();
+    String? role = pref.getString("role");
     var dio = Dio();
     try {
       final response = await dio.post(
@@ -413,7 +445,7 @@ class AppCubit extends Cubit<AppStates> {
       } else {
         await pref.setString("access", result.toString());
         accessToken = result as String?;
-        logIn(email, password, role);
+        logIn(email, password);
       }
     } else {
       errorMsg = response.statusMessage;
@@ -470,7 +502,7 @@ class AppCubit extends Cubit<AppStates> {
     print(payload);
     print(accessToken);
     if (role == "patient") {
-      data.update('address', (value) => data["clinicAddress"]);
+      data.addAll({"address": data["clinicAddress"]});
       data.remove("clinicAddress");
     } else if (role == "nurse") {
       data.remove("clinicAddress");
@@ -484,7 +516,11 @@ class AppCubit extends Cubit<AppStates> {
             'authorization': accessToken,
           }));
       emit(DoneState());
-      return 1;
+      if (role == "doctor") {
+        return 1;
+      } else {
+        return -1;
+      }
     } on DioError catch (ex) {
       print(ex.response);
       if (ex.response!.statusCode == 400) {
@@ -535,6 +571,7 @@ class AppCubit extends Cubit<AppStates> {
             'authorization': accessToken,
           }));
       doctor = response.data;
+      initSlots = response.data['appointments'];
     } on DioError catch (ex) {
       errorMsg = ex.response!.data['msg'];
       emit(ErrorState());
