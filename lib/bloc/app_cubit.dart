@@ -14,7 +14,6 @@ import '../fake_data/fake_data.dart';
 import 'package:intl/intl.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
-
 class AppCubit extends Cubit<AppStates> {
   AppCubit(AppStates initialState) : super(InitialAppState());
   static AppCubit get(context) {
@@ -272,9 +271,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(InitialAppState());
   }
 
-
   Future<int> signUp(
-
     String email,
     String password,
     String firstName,
@@ -482,7 +479,6 @@ class AppCubit extends Cubit<AppStates> {
     // }
   }
 
-
   Future<int> updatePProfile({required Map data}) async {
     emit(LoadingState());
 
@@ -525,6 +521,10 @@ class AppCubit extends Cubit<AppStates> {
     }
   }
 
+  DateTime timeOfDayMinToInt(TimeOfDay t) {
+    return DateTime(2022, 1, 1, t.hour, t.minute);
+  }
+
   List avalibaleDates({required Map dates, required Duration interval}) {
     List available = [];
     dates.forEach((key, value) {
@@ -546,5 +546,4 @@ class AppCubit extends Cubit<AppStates> {
     });
     return available;
   }
-
 }

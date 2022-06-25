@@ -2,7 +2,7 @@ import 'package:find_doctor/screens/symptoms_screen/symptoms_screen.dart';
 
 import 'package:find_doctor/screens/videocallscreen/video_call_screen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:find_doctor/screens/Video_call_now/VideoCallNow.dart';
 import '../../shared/diagnosesList.dart';
 import '../../shared/getLocation.dart';
 import '../appointments/listOfAppointment.dart';
@@ -142,8 +142,10 @@ class GridPage extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => BookDoctorHomeVisit()));
                   } else if (index == 2) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => VideoCall()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => VideoCallNow()));
                   } else if (index == 3) {
                     Navigator.push(
                         context,
