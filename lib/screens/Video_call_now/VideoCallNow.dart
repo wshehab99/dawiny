@@ -20,7 +20,6 @@ const APP_ID = 'ba637d2e6da746b589561478efc3c78b';
 const Token =
     '00676eefd968d5f4657986b88757c366e84IACHlT8Xi6tYmouZFIyz9351SK7lET/Bo3mDDPnQ2B48Rgx+f9gAAAAAEABGROOepAK4YgEAAQCjArhi';
 
-
 class VideoCallNow extends StatefulWidget {
   const VideoCallNow({Key? key}) : super(key: key);
 
@@ -56,17 +55,17 @@ class _VideoCallNowState extends State<VideoCallNow> {
       engine = await RtcEngine.createWithContext(cntxt!);
       engine!.setEventHandler(RtcEngineEventHandler(
           joinChannelSuccess: (String channel, int uid, int elapsed) {
-        print('joinChannelSuccess ${channel} ${uid}');
+        print('joinChannelSuccess $channel $uid');
         setState(() {
           _joined = true;
         });
       }, userJoined: (int uid, int elapsed) {
-        print('userJoined ${uid}');
+        print('userJoined $uid');
         setState(() {
           _remoteUid = uid;
         });
       }, userOffline: (int uid, UserOfflineReason reason) {
-        print('userOffline ${uid}');
+        print('userOffline $uid');
         setState(() {
           _remoteUid = 0;
         });
@@ -113,112 +112,108 @@ class _VideoCallNowState extends State<VideoCallNow> {
               child: _switch ? _renderRemoteVideo() : _renderLocalPreview(),
             ),
           ),
-          Stack(children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 500),
-              child: Container(
-                height: 400,
-                decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.center,
-                  colors: [
-                    Colors.transparent,
-                    Color.fromARGB(255, 181, 172, 89)
-                  ],
-                )),
-              ),
+        ),
+        Stack(children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 500),
+            child: Container(
+              height: 400,
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.center,
+                colors: [Colors.transparent, Color.fromARGB(255, 181, 172, 89)],
+              )),
             ),
-            Positioned(
-              top: size.height * 0.9,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 100),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      height: 55,
-                      child: ElevatedButton(
-                        child: const Icon(CupertinoIcons.escape),
-                        onPressed: () {},
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.red),
-                          shape: MaterialStateProperty.all<OutlinedBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    SizedBox(
-                      height: 55,
-                      child: ElevatedButton(
-                        child: const Icon(CupertinoIcons.fullscreen),
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
+          ),
+          Positioned(
+            top: size.height * 0.9,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 100),
+              child: Row(
+                children: [
+                  SizedBox(
+                    height: 55,
+                    child: ElevatedButton(
+                      child: const Icon(CupertinoIcons.escape),
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.red),
+                        shape: MaterialStateProperty.all<OutlinedBorder>(
+                          RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    SizedBox(
-                        height: 55,
-                        child: ElevatedButton(
-                            child: const Icon(CupertinoIcons.camera),
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            )))),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    SizedBox(
-                      height: 55,
-                      child: ElevatedButton(
-                        child: const Icon(CupertinoIcons.fullscreen),
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    SizedBox(
-                      height: 55,
-                      child: ElevatedButton(
-                        child: SvgPicture.asset(
-                          "assets/images/audio.svg",
-                          height: 28,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-
                       ),
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  SizedBox(
+                    height: 55,
+                    child: ElevatedButton(
+                      child: const Icon(CupertinoIcons.fullscreen),
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  SizedBox(
+                      height: 55,
+                      child: ElevatedButton(
+                          child: const Icon(CupertinoIcons.camera),
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          )))),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  SizedBox(
+                    height: 55,
+                    child: ElevatedButton(
+                      child: const Icon(CupertinoIcons.fullscreen),
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  SizedBox(
+                    height: 55,
+                    child: ElevatedButton(
+                      child: SvgPicture.asset(
+                        "assets/images/audio.svg",
+                        height: 28,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
+        ]),
       ]),
     );
   }
@@ -226,14 +221,14 @@ class _VideoCallNowState extends State<VideoCallNow> {
   Widget _renderLocalPreview() {
     if (_joined && defaultTargetPlatform == TargetPlatform.android ||
         _joined && defaultTargetPlatform == TargetPlatform.iOS) {
-      return RtcLocalView.SurfaceView();
+      return const RtcLocalView.SurfaceView();
     }
 
     if (_joined && defaultTargetPlatform == TargetPlatform.windows ||
         _joined && defaultTargetPlatform == TargetPlatform.macOS) {
-      return RtcLocalView.TextureView();
+      return const RtcLocalView.TextureView();
     } else {
-      return Text(
+      return const Text(
         'Please join channel first',
         textAlign: TextAlign.center,
       );
