@@ -1,3 +1,4 @@
+import 'package:find_doctor/screens/nursing_task/nursing_tasks_screen.dart';
 import 'package:find_doctor/screens/symptoms_screen/symptoms_screen.dart';
 
 import 'package:find_doctor/screens/videocallscreen/video_call_screen.dart';
@@ -132,9 +133,7 @@ class GridPage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-
                             builder: (context) => const ClinicBooking()));
-
 
                     builder:
                     (context) => const DiagnosesList();
@@ -147,16 +146,12 @@ class GridPage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-
-                            builder: (context) => VideoCallNow()));
-
+                            builder: (context) => const VideoCallNow()));
                   } else if (index == 3) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => GetLocation(
-                                  title: ' ',
-                                )));
+                            builder: (context) => const NursingTasksScreen()));
                   } else if (index == 4) {
                     Navigator.push(
                         context,

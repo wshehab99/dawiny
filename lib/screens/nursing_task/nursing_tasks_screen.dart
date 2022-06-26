@@ -1,6 +1,6 @@
 import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
-import 'package:find_doctor/screens/nursing_task/select_center.dart';
+import 'package:find_doctor/screens/nurse_map/nurse_map.dart';
 import 'package:find_doctor/screens/search/search_widget.dart';
 import 'package:find_doctor/shared/app_button.dart';
 import 'package:flutter/material.dart';
@@ -62,8 +62,7 @@ class NursingTasksScreen extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const SelectCenterScreen()));
+                                builder: (context) => const NurseMap()));
                       }
                     : null,
               ),

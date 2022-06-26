@@ -28,7 +28,7 @@ class AppCubit extends Cubit<AppStates> {
   DateTime initialDate = DateTime.now();
   List shownDctors = [];
   List initDctors = [];
-  Map doctor = {};
+  Map? doctor;
   String symptomText =
       'Itching,Skin Rash,Nodal Skin Eruptions,Continuous Sneezing,Shivering,Chills,Joint Pain,Stomach Pain,Acidity,Ulcers On Tongue,Muscle Wasting,Vomiting,Burning Micturition,Spotting  urination,Fatigue,Weight Gain,Anxiety,Cold Hands And Feets,Mood Swings,Weight Loss,Restlessness,Lethargy,Patches In Throat,Irregular Sugar Level,Cough,High Fever,Sunken Eyes,Breathlessness,Sweating,Dehydration,Indigestion,Headache,Yellowish Skin,Dark Urine,Nausea,Loss Of Appetite,Pain Behind The Eyes,Back Pain,Constipation,Abdominal Pain,Diarrhoea,Mild Fever,Yellow Urine,Yellowing Of Eyes,Acute Liver Failure,Fluid Overload,Swelling Of Stomach,Swelled Lymph Nodes,Malaise,Blurred And Distorted Vision,Phlegm,Throat Irritation,Redness Of Eyes,Sinus Pressure,Runny Nose,Congestion,Chest Pain,Weakness In Limbs,Fast Heart Rate,Pain During Bowel Movements,Pain In Anal Region,Bloody Stool,Irritation In Anus,Neck Pain,Dizziness,Cramps,Bruising,Obesity,Swollen Legs,Swollen Blood Vessels,Puffy Face And Eyes,Enlarged Thyroid,Brittle Nails,Swollen Extremeties,Excessive Hunger,Extra Marital Contacts,Drying And Tingling Lips,Slurred Speech,Knee Pain,Hip Joint Pain,Muscle Weakness,Stiff Neck,Swelling Joints,Movement Stiffness,Spinning Movements,Loss Of Balance,Unsteadiness,Weakness Of One Body Side,Loss Of Smell,Bladder Discomfort,Foul Smell Of urine,Continuous Feel Of Urine,Passage Of Gases,Internal Itching,Toxic Look (typhos),Depression,Irritability,Muscle Pain,Altered Sensorium,Red Spots Over Body,Belly Pain,Abnormal Menstruation,Dischromic  Patches,Watering From Eyes,Increased Appetite,Polyuria,Family History,Mucoid Sputum,Rusty Sputum,Lack Of Concentration,Visual Disturbances,Receiving Blood Transfusion,Receiving Unsterile Injections,Coma,Stomach Bleeding,Distention Of Abdomen,History Of Alcohol Consumption,Fluid Overload.1,Blood In Sputum,Prominent Veins On Calf,Palpitations,Painful Walking,Pus Filled Pimples,Blackheads,Scurring,Skin Peeling,Silver Like Dusting,Small Dents In Nails,Inflammatory Nails,Blister,Red Sore Around Nose,Yellow Crust Ooze,Prognosis,';
   static List symptomList = [];
@@ -190,14 +190,18 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   List searchAboutDoctor(String dignoseName, String value, bool? video) {
-    getDoctor();
-    shownDctors = initDctors
-        .where(
-          (element) => (element['specification'] == dignoseName &&
-              (element['firstName'].toLowerCase().contains(value) ||
-                  element['lastName'].toLowerCase().contains(value))),
-        )
-        .toList();
+    getDoctor().then(
+      (value) {
+        shownDctors = initDctors
+            .where(
+              (element) => (element['specification'] == dignoseName &&
+                  (element['firstName'].toLowerCase().contains(value) ||
+                      element['lastName'].toLowerCase().contains(value))),
+            )
+            .toList();
+      },
+    );
+
     emit(DoctrosSearch());
     return shownDctors;
   }
@@ -218,9 +222,9 @@ class AppCubit extends Cubit<AppStates> {
             "authorization": accessToken,
           }));
       initDctors = response.data;
-
-      emit(DoneState());
     } on DioError catch (e) {
+      print(e);
+
       if (e.response!.statusCode == 401) {
         var result = refreshAccessToken();
         if (result == -1) {
@@ -258,6 +262,7 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   void changeDate(DateTime date) {
+    emit(LoadingDateState());
     initialDate = date;
     int d = initialDate.weekday;
     String? day;
@@ -365,22 +370,17 @@ class AppCubit extends Cubit<AppStates> {
 
     var dio = Dio();
     String? url;
-    if (role == "doctor") {
-      url = "doctors";
-    } else if (role == "nurse") {
-      url = "nurses";
-    } else {
-      url = "patients";
-    }
+
     final pref = await SharedPreferences.getInstance();
     try {
       var response = await dio.post(
-        "https://dawiny.herokuapp.com/api/" + url,
+        "https://dawiny.herokuapp.com/api/" + role + "s",
         data: jsonEncode({
           "email": email,
           "password": password,
           "firstName": firstName,
           "lastName": lastName,
+          "role": role
         }),
       );
 
@@ -631,21 +631,25 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   Future getDoctorById({required String id}) async {
-    try {
-      String url = "https://dawiny.herokuapp.com/api/doctors/" + id;
-      emit(LoadingState());
-      var dio = Dio();
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      accessToken = prefs.getString("access");
-      var response = await dio.get(url,
-          options: Options(headers: {
-            'authorization': accessToken,
-          }));
-      doctor = response.data;
-      initSlots = response.data['appointments'];
-    } on DioError catch (ex) {
-      errorMsg = ex.response!.data['msg'];
-      emit(ErrorState());
+    if (doctor == null) {
+      try {
+        String url = "https://dawiny.herokuapp.com/api/doctors/" + id;
+        emit(LoadingState());
+        var dio = Dio();
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        accessToken = prefs.getString("access");
+        var response = await dio.get(url,
+            options: Options(headers: {
+              'authorization': accessToken,
+            }));
+        doctor = response.data;
+        initSlots = response.data['appointments'];
+        emit(DoneState());
+      } on DioError catch (ex) {
+        errorMsg = ex.response!.data['msg'];
+        print(errorMsg);
+        emit(ErrorState());
+      }
     }
   }
 }
