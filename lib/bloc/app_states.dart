@@ -29,3 +29,5 @@ class LoadingState extends AppStates {}
 class ErrorState extends AppStates {}
 
 class DoneState extends AppStates {}
+
+class LoadingDateState extends AppStates {}
