@@ -49,20 +49,20 @@ class _NurseMapState extends State<NurseMap> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          NurseDetals(name: "Waleed Bin Shehab")));
+                          NurseCardDatails(name: "Waleed Bin Shehab")));
             }),
       ));
       markers.add(Marker(
         markerId: const MarkerId("3136166931035545"),
         position: const LatLng(31.036628, 31.362581),
         infoWindow: InfoWindow(
-            title: "Mohammed Musa",
+            title: "Eman Ali",
             onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          NurseDetals(name: "Mohammed Musa")));
+                          NurseCardDatails(name: "Mohammed Musa")));
             }),
       ));
       markers.add(Marker(
@@ -74,7 +74,7 @@ class _NurseMapState extends State<NurseMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseDetals(name: "Morsy")));
+                      builder: (context) => NurseCardDatails(name: "Morsy")));
             }),
       ));
       markers.add(Marker(
@@ -87,7 +87,7 @@ class _NurseMapState extends State<NurseMap> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          NurseDetals(name: "Ahmed Mohammed")));
+                          NurseCardDatails(name: "Ahmed Mohammed")));
             }),
       ));
       markers.add(Marker(
@@ -99,7 +99,7 @@ class _NurseMapState extends State<NurseMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseDetals(name: "Nader")));
+                      builder: (context) => NurseCardDatails(name: "Nader")));
             }),
       ));
       markers.add(Marker(
@@ -111,7 +111,8 @@ class _NurseMapState extends State<NurseMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseDetals(name: "Ibraheem")));
+                      builder: (context) =>
+                          NurseCardDatails(name: "Ibraheem")));
             }),
       ));
       markers.add(Marker(
@@ -123,7 +124,7 @@ class _NurseMapState extends State<NurseMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseDetals(name: "Ayman")));
+                      builder: (context) => NurseCardDatails(name: "Ayman")));
             }),
       ));
       markers.add(Marker(
@@ -135,7 +136,7 @@ class _NurseMapState extends State<NurseMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseDetals(name: "Mostafa")));
+                      builder: (context) => NurseCardDatails(name: "Mostafa")));
             }),
       ));
     });
