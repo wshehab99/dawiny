@@ -4,14 +4,10 @@ import 'package:find_doctor/screens/symptoms_screen/symptoms_screen.dart';
 
 import 'package:find_doctor/screens/videocallscreen/video_call_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:find_doctor/screens/Video_call_now/VideoCallNow.dart';
 import '../../shared/diagnosesList.dart';
-import '../../shared/getLocation.dart';
 import '../appointments/listOfAppointment.dart';
 import '../clinick_booking/clinic_booking.dart';
 import '../doctor_home_visit/bookDoctorHomeVisit.dart';
-import '../doctor_time/doctor_time_screen.dart';
-import '../videocalldetails/videoCall.dart';
 
 class GridPage extends StatelessWidget {
   GridPage({Key? key}) : super(key: key);
@@ -43,8 +39,8 @@ class GridPage extends StatelessWidget {
       key: scaffoldKey,
       drawer: Drawer(
         child: Column(
-          children: const [
-            UserAccountsDrawerHeader(
+          children: [
+            const UserAccountsDrawerHeader(
               accountName: Text(
                 "Morsy HashisH",
                 style: TextStyle(
@@ -60,13 +56,23 @@ class GridPage extends StatelessWidget {
                     backgroundImage: AssetImage("assets/images/photo.jpg")),
               ],
             ),
-            ListTile(
+            const ListTile(
               title: Text("Logout"),
               leading: Icon(Icons.logout),
             ),
-            ListTile(
+            const ListTile(
               title: Text("Setting"),
               leading: Icon(Icons.settings),
+            ),
+            ListTile(
+              title: const Text("My Appointment"),
+              leading: const Icon(Icons.settings),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ListOfAppointments()));
+              },
             ),
           ],
         ),
@@ -136,7 +142,6 @@ class GridPage extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => const ClinicBooking()));
 
-                    builder:
                     (context) => const DiagnosesList();
                   } else if (index == 1) {
                     Navigator.push(
@@ -147,7 +152,7 @@ class GridPage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const VideoCallNow()));
+                            builder: (context) => const VideoCallScreen()));
                   } else if (index == 3) {
                     Navigator.push(
                         context,

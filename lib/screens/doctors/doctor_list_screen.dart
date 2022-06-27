@@ -85,6 +85,7 @@ class DoctorListScreen extends StatelessWidget {
                           )
                         : Expanded(
                             child: DoctorListWidget(
+                                videoCall: videocall,
                                 dignoseName: dignoseName!,
                                 shownList: shownList),
                           ),

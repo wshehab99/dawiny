@@ -143,6 +143,7 @@ class AppCubit extends Cubit<AppStates> {
   String? refreshToken;
   List initSlots = [];
   List shownSlots = [];
+  List myAppointments = [];
   void changePage(int value) {
     curentPage = value;
     emit(ChangeWelcomePage());
@@ -416,6 +417,7 @@ class AppCubit extends Cubit<AppStates> {
 
     final pref = await SharedPreferences.getInstance();
     String? role = pref.getString("role");
+
     var dio = Dio();
     try {
       final response = await dio.post(
@@ -702,6 +704,34 @@ class AppCubit extends Cubit<AppStates> {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Done"),
       ));
+      emit(DoneState());
+    } on DioError catch (ex) {
+      errorMsg = ex.response!.data['msg'];
+      print(errorMsg);
+      emit(ErrorState());
+    }
+  }
+
+  Future getMyAppintment() async {
+    emit(LoadingState());
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+
+      accessToken = pref.getString("access");
+      Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
+      String role = payload['role'];
+      Dio dio = Dio();
+      var response = await dio.get(
+          "https://dawiny.herokuapp.com/api/" +
+              role +
+              "s/" +
+              payload['userId'] +
+              "/reservations",
+          options: Options(headers: {
+            'authorization': accessToken,
+          }));
+      print(response);
+      myAppointments = response.data;
       emit(DoneState());
     } on DioError catch (ex) {
       errorMsg = ex.response!.data['msg'];

@@ -4,14 +4,14 @@ class AppointmentCard extends StatelessWidget {
   const AppointmentCard(
       {Key? key,
       required this.doctorName,
-      required this.patientName,
       required this.dateTime,
       required this.startAppointment,
       required this.endAppointment,
+      required this.type,
       this.onPressed})
       : super(key: key);
   final String doctorName;
-  final String patientName;
+  final String type;
   final String dateTime;
   final String startAppointment;
   final String endAppointment;
@@ -74,6 +74,31 @@ class AppointmentCard extends StatelessWidget {
             height: 8,
           ),
           Row(
+            children: [
+              (type.contains("online"))
+                  ? const Icon(
+                      Icons.video_call_outlined,
+                      size: 40,
+                    )
+                  : const Icon(
+                      Icons.videocam_off_outlined,
+                      size: 40,
+                    ),
+              const SizedBox(width: 10),
+              Text(
+                type,
+                style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.blue[600],
+                    fontWeight: FontWeight.bold,
+                    height: 1.2),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               IconText(
@@ -87,7 +112,6 @@ class AppointmentCard extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }
 

@@ -1,7 +1,6 @@
 import 'package:find_doctor/screens/videocalldetails/videocalldetails.dart';
+import 'package:find_doctor/shared/diagnosesList.dart';
 import 'package:flutter/material.dart';
-
-import '../../shared/diagnosesList.dart';
 
 class VideoCallScreen extends StatelessWidget {
   const VideoCallScreen({Key? key}) : super(key: key);
@@ -23,7 +22,7 @@ class VideoCallScreen extends StatelessWidget {
               height: 10,
             ),
             const Text(
-              "مستقبل الرعاية الصحية",
+              "Future of Healtcare",
               style: TextStyle(color: Color(0xff0170CC), fontSize: 25),
             ),
             GestureDetector(
@@ -31,7 +30,9 @@ class VideoCallScreen extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => VideoCallDetails(),
+                      builder: (context) => const DiagnosesList(
+                        vidoecall: true,
+                      ),
                     ));
               },
               child: Padding(
@@ -43,29 +44,20 @@ class VideoCallScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Icon(
-                        Icons.arrow_back,
+                    children: const [
+                      Icon(
+                        Icons.calendar_month,
                         color: Colors.white,
                       ),
-                      Row(
-                        children: const [
-                          Text(
-                            "احجز مكالمة مع دكتور متخصص",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(
-                            Icons.phone_missed,
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text(
+                        "book a Specialized Doctor",
+                        style: TextStyle(
                             color: Colors.white,
-                          ),
-                        ],
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
                       ),
                     ],
                   ),
@@ -83,29 +75,20 @@ class VideoCallScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Icon(
-                          Icons.arrow_back,
+                      children: const [
+                        Icon(
+                          Icons.coronavirus_sharp,
                           color: Colors.white,
                         ),
-                        Row(
-                          children: const [
-                            Text(
-                              "احجز مكالمة كرونا",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Icon(
-                              Icons.coronavirus_sharp,
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Text(
+                          "Get Corona Consultation",
+                          style: TextStyle(
                               color: Colors.white,
-                            ),
-                          ],
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
                         ),
                       ],
                     ),
@@ -113,7 +96,7 @@ class VideoCallScreen extends StatelessWidget {
                 ),
                 Positioned(
                     top: 10,
-                    left: 10,
+                    right: 10,
                     child: Container(
                       width: 60,
                       decoration: const BoxDecoration(
@@ -121,7 +104,7 @@ class VideoCallScreen extends StatelessWidget {
                       ),
                       child: const Center(
                         child: Text(
-                          "مجانا",
+                          "Free",
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
