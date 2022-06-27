@@ -5,6 +5,7 @@ import 'package:find_doctor/screens/search/search_widget.dart';
 import 'package:find_doctor/shared/app_button.dart';
 import 'package:flutter/material.dart';
 
+import '../../shared/custom_appbar.dart';
 import 'nursing_task_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +21,7 @@ class NursingTasksScreen extends StatelessWidget {
           builder: (context, state) {
             AppCubit cubit = AppCubit.get(context);
             return Scaffold(
-              appBar: AppBar(title: const Text('Nursing Tasks')),
+              appBar: CustomAppbar(context, titleText: "Nursing Tasks"),
               body: Column(
                 children: [
                   const SizedBox(

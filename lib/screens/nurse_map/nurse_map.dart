@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../shared/custom_appbar.dart';
 import '../nurse_details/nurse_details.dart';
 import 'package:custom_marker/marker_icon.dart';
 
@@ -48,20 +49,20 @@ class _NurseMapState extends State<NurseMap> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          NurseDetals(name: "Waleed Bin Shehab")));
+                          NurseCardDatails(name: "Waleed Bin Shehab")));
             }),
       ));
       markers.add(Marker(
         markerId: const MarkerId("3136166931035545"),
         position: const LatLng(31.036628, 31.362581),
         infoWindow: InfoWindow(
-            title: "Mohammed Musa",
+            title: "Eman Ali",
             onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          NurseDetals(name: "Mohammed Musa")));
+                          NurseCardDatails(name: "Mohammed Musa")));
             }),
       ));
       markers.add(Marker(
@@ -73,7 +74,7 @@ class _NurseMapState extends State<NurseMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseDetals(name: "Morsy")));
+                      builder: (context) => NurseCardDatails(name: "Morsy")));
             }),
       ));
       markers.add(Marker(
@@ -86,7 +87,7 @@ class _NurseMapState extends State<NurseMap> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          NurseDetals(name: "Ahmed Mohammed")));
+                          NurseCardDatails(name: "Ahmed Mohammed")));
             }),
       ));
       markers.add(Marker(
@@ -98,7 +99,7 @@ class _NurseMapState extends State<NurseMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseDetals(name: "Nader")));
+                      builder: (context) => NurseCardDatails(name: "Nader")));
             }),
       ));
       markers.add(Marker(
@@ -110,7 +111,8 @@ class _NurseMapState extends State<NurseMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseDetals(name: "Ibraheem")));
+                      builder: (context) =>
+                          NurseCardDatails(name: "Ibraheem")));
             }),
       ));
       markers.add(Marker(
@@ -122,7 +124,7 @@ class _NurseMapState extends State<NurseMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseDetals(name: "Ayman")));
+                      builder: (context) => NurseCardDatails(name: "Ayman")));
             }),
       ));
       markers.add(Marker(
@@ -134,7 +136,7 @@ class _NurseMapState extends State<NurseMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseDetals(name: "Mostafa")));
+                      builder: (context) => NurseCardDatails(name: "Mostafa")));
             }),
       ));
     });
@@ -149,7 +151,7 @@ class _NurseMapState extends State<NurseMap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Nearest Nurses")),
+      appBar: CustomAppbar(context, titleText: "Nearest Nurses"),
       body: GoogleMap(
         markers: Set.from(markers),
         initialCameraPosition: _myLocation,

@@ -25,8 +25,8 @@ class AppointmentCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
         gradient: LinearGradient(
           colors: [
-            Colors.white,
-            Colors.blue[100]!,
+            Colors.green.withOpacity(0.3),
+            Colors.blue.withOpacity(0.3),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,

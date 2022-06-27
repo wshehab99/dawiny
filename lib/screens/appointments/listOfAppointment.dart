@@ -10,17 +10,8 @@ class ListOfAppointments extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          'My Appointments ',
-          style: TextStyle(
-              fontSize: 24,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              height: 1.2),
-        ),
-      ),
+      appBar: CustomAppbar(context, titleText: "My Appointments"),
+
       body: BlocProvider(
         create: (context) => AppCubit(InitialAppState()),
         child: BlocConsumer<AppCubit, AppStates>(
@@ -61,6 +52,7 @@ class ListOfAppointments extends StatelessWidget {
             );
           },
         ),
+
       ),
     );
   }
