@@ -136,7 +136,9 @@ class _VideoCallNowState extends State<VideoCallNow> {
                     height: 55,
                     child: ElevatedButton(
                       child: const Icon(CupertinoIcons.escape),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all<Color>(Colors.red),
@@ -165,33 +167,6 @@ class _VideoCallNowState extends State<VideoCallNow> {
                   ),
                   const SizedBox(
                     width: 10,
-                  ),
-                  SizedBox(
-                      height: 55,
-                      child: ElevatedButton(
-                          child: const Icon(CupertinoIcons.camera),
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          )))),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  SizedBox(
-                    height: 55,
-                    child: ElevatedButton(
-                      child: const Icon(CupertinoIcons.fullscreen),
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
                   ),
                   SizedBox(
                     height: 55,

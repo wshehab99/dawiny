@@ -90,8 +90,8 @@ class GridPage extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              mainAxisSpacing: 15,
-              crossAxisSpacing: 10,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
               padding: const EdgeInsets.all(10),
               crossAxisCount: 2,
               children: List<Widget>.generate(6, (index) {
