@@ -15,7 +15,10 @@ class TeriaqTextField extends StatelessWidget {
       this.validator,
       this.controller,
       this.onTap,
-      this.icon})
+      this.height = 45,
+      this.icon,
+      this.expands = false,
+      this.maxLines = 1})
       : super(key: key);
   String? label;
   String hint;
@@ -26,6 +29,9 @@ class TeriaqTextField extends StatelessWidget {
   void Function()? onTap;
   Widget? icon;
   // MaskTextInputFormatter? format;
+  final double height;
+  final bool expands;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +68,7 @@ class TeriaqTextField extends StatelessWidget {
               ),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 15),
-                height: 45,
+                height: height,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(45),
@@ -80,6 +86,11 @@ class TeriaqTextField extends StatelessWidget {
                   onTap: onTap,
                   controller: controller,
                   validator: validator,
+                  expands: expands,
+                  minLines: null,
+                  maxLines: maxLines,
+                  textAlign: TextAlign.start,
+                  textAlignVertical: TextAlignVertical.top,
                   obscureText: hide ? !cubit.isPasswordShown : false,
                   decoration: InputDecoration(
                     hintStyle: const TextStyle(color: Colors.black26),

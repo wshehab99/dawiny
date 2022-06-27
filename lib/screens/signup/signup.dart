@@ -8,6 +8,7 @@ import '../../shared/app_CheckBox.dart';
 import '../../shared/app_button.dart';
 import '../../shared/textFieldApp.dart';
 import '../profile_data.dart';
+import '../profiledoctor.dart';
 import '../signin/continue_with.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -216,11 +217,22 @@ class SignUp extends StatelessWidget {
                                                   )
                                                       .then((value) {
                                                     if (value == 1) {
+                                                      cubit.userType = cubit
+                                                              .userType =
+                                                          _role.dropdownValue!;
                                                       Navigator.pushReplacement(
                                                           context,
                                                           MaterialPageRoute(
                                                               builder: (context) =>
-                                                                  UserProfile()));
+                                                                  UserData()));
+                                                    } else if (value == -1) {
+                                                      cubit.userType =
+                                                          _role.dropdownValue!;
+                                                      Navigator.pushReplacement(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  DoctorProfile()));
                                                     }
                                                   });
                                                 }

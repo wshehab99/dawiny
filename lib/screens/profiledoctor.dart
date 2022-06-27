@@ -4,20 +4,39 @@ import 'package:find_doctor/screens/doctor_time/doctor_time_screen.dart';
 import 'package:find_doctor/screens/gridpage/gridpage.dart';
 import 'package:find_doctor/screens/profile_photo_card.dart';
 import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
+import 'package:find_doctor/screens/welcome/widgets/doctor_education.dart';
 import 'package:find_doctor/shared/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../shared/textFieldApp.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class UserData extends StatelessWidget {
-  UserData({Key? key}) : super(key: key);
+class DoctorProfile extends StatelessWidget {
+  DoctorProfile({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _address = TextEditingController();
-  final AppDropDownMenu appDropDownMenu = AppDropDownMenu(
+  final AppDropDownMenu Gender = AppDropDownMenu(
     choices: const ['Male', 'Femle'],
+  );
+
+  AppDropDownMenu appDropDownMenu = AppDropDownMenu(
+    choices: const [
+      'Dermatology',
+      'Ear',
+      'Ophthalmology',
+      'Nephrology',
+      'Dentistry',
+      'Brain',
+      'Cardiology',
+      'Neurology',
+      'Orthopedics',
+      'Pediatrics',
+      'Endocrinology',
+    ],
+    hint: "specification",
+    label: "specification",
   );
 
   @override
@@ -95,7 +114,7 @@ class UserData extends StatelessWidget {
                                 key: _formKey,
                                 child: Column(
                                   children: [
-                                    appDropDownMenu,
+                                    Gender,
                                     //TeriaqTextField(label: 'Gender', hint: "Gender", controller: _gender),
 
                                     const SizedBox(
@@ -119,6 +138,7 @@ class UserData extends StatelessWidget {
                                     const SizedBox(
                                       height: 15,
                                     ),
+                                    appDropDownMenu,
                                     TeriaqTextField(
                                       label: 'Address',
                                       hint: "Address",
@@ -133,6 +153,10 @@ class UserData extends StatelessWidget {
                                   ],
                                 ),
                               ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              DoctorEducation(),
                               const SizedBox(
                                 height: 15,
                               ),
@@ -151,12 +175,11 @@ class UserData extends StatelessWidget {
                                               appDropDownMenu.dropdownValue !=
                                                   null) {
                                             cubit.updatePProfile(data: {
-                                              'gender': appDropDownMenu
-                                                  .dropdownValue!
+                                              "specification":
+                                                  appDropDownMenu.dropdownValue,
+                                              'gender': Gender.dropdownValue!
                                                   .toLowerCase(),
                                               "clinicAddress": _address.text,
-                                              "dateOfBirth":
-                                                  _dateController.text,
                                               "dateOfBirth":
                                                   _dateController.text,
                                             }).then((value) {

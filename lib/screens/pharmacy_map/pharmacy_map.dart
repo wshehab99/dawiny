@@ -4,6 +4,7 @@ import 'package:find_doctor/screens/pharmacy_map/pharamcyDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../shared/custom_appbar.dart';
 import '../nurse_details/nurse_details.dart';
 import 'package:custom_marker/marker_icon.dart';
 
@@ -214,7 +215,7 @@ class _PharmacyMapState extends State<PharmacyMap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Nearest Pharmaceis")),
+      appBar: CustomAppbar(context, titleText: "Nearest Pharmaceis"),
       body: GoogleMap(
         markers: Set.from(markers),
         initialCameraPosition: _myLocation,

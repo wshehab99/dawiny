@@ -1,6 +1,8 @@
 import 'package:find_doctor/screens/appointments/appointment_card.dart';
 import 'package:flutter/material.dart';
 
+import '../../shared/custom_appbar.dart';
+
 class ListOfAppointments extends StatefulWidget {
   const ListOfAppointments({Key? key}) : super(key: key);
 
@@ -18,21 +20,21 @@ class _ListOfAppointmentsState extends State<ListOfAppointments> {
       'endAppointment': '10:30 AM'
     },
     {
-      'doctorName': 'Morsy Mousa',
+      'doctorName': 'Morsy Hashish',
       'patientName': 'Ail ',
       'dateTime': '13/7/2022 ',
       'startAppointment': '10 AM',
       'endAppointment': '10:30 AM'
     },
     {
-      'doctorName': 'Waleed Ahmed',
+      'doctorName': 'Waleed Bin Shehab',
       'patientName': 'Ail ',
       'dateTime': '15/7/2022 ',
       'startAppointment': '10 AM',
       'endAppointment': '10:30 AM'
     },
     {
-      'doctorName': 'Hazem Mousa',
+      'doctorName': 'Hazem Essam',
       'patientName': 'Ail ',
       'dateTime': '12/7/2022 ',
       'startAppointment': '10 AM',
@@ -50,17 +52,7 @@ class _ListOfAppointmentsState extends State<ListOfAppointments> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'My Appointments ',
-          style: TextStyle(
-              fontSize: 24,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              height: 1.2),
-        ),
-      ),
+      appBar: CustomAppbar(context, titleText: "My Appointments"),
       body: Column(
         children: [
           Expanded(

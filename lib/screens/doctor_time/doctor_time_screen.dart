@@ -41,23 +41,6 @@ class DoctorTime extends StatelessWidget {
     WorkDay(day: "Tharsday"),
     WorkDay(day: "Friday"),
   ];
-  AppDropDownMenu appDropDownMenu = AppDropDownMenu(
-    choices: const [
-      'Dermatology',
-      'Ear',
-      'Ophthalmology',
-      'Nephrology',
-      'Dentistry',
-      'Brain',
-      'Cardiology',
-      'Neurology',
-      'Orthopedics',
-      'Pediatrics',
-      'Endocrinology',
-    ],
-    hint: "specification",
-    label: "specification",
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -88,10 +71,6 @@ class DoctorTime extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            appDropDownMenu,
                             const SizedBox(
                               height: 20,
                             ),
@@ -197,8 +176,6 @@ class DoctorTime extends StatelessWidget {
                                         dates: dates, interval: selected!);
                                     Map data = {
                                       "price": int.parse(_price.text),
-                                      "specification":
-                                          appDropDownMenu.dropdownValue,
                                       "appointments": available,
                                     };
                                     cubit

@@ -4,6 +4,8 @@ import 'package:find_doctor/screens/search/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../shared/custom_appbar.dart';
+
 class SymptomsScreen extends StatelessWidget {
   SymptomsScreen({Key? key}) : super(key: key);
   final TextEditingController controller = TextEditingController();
@@ -21,10 +23,7 @@ class SymptomsScreen extends StatelessWidget {
                 backgroundColor: (state is DoneState || state is ErrorState)
                     ? Colors.grey
                     : Colors.white,
-                appBar: AppBar(
-                  title: const Text("Medical Diagnosis"),
-                  centerTitle: true,
-                ),
+                appBar: CustomAppbar(context, titleText: "Medical Diagnosis"),
                 body: state is LoadingState
                     ? const Center(
                         child: CircularProgressIndicator(),

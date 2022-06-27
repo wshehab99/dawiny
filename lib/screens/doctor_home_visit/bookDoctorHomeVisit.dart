@@ -1,3 +1,4 @@
+import 'package:find_doctor/shared/custom_appbar.dart';
 import 'package:find_doctor/shared/getLocation.dart';
 import 'package:flutter/material.dart';
 
@@ -25,12 +26,13 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
     width = size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Book a Home Visit Doctor"),
-      ),
+      appBar: CustomAppbar(context, titleText: "Book a Home Visit Doctor"),
       body: SingleChildScrollView(
           child: Column(
         children: [
+          SizedBox(
+            height: 16.0,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Container(
