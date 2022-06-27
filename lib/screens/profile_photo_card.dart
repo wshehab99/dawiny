@@ -8,18 +8,20 @@ class ProfilePhotoCard extends StatefulWidget {
       {Key? key,
       required this.title,
       this.showIcon = true,
-      required this.title2})
+      required this.title2,
+      this.placeholerImgPath})
       : super(key: key);
   final String title;
   final String title2;
   final bool showIcon;
+  final String? placeholerImgPath;
+
   @override
   State<ProfilePhotoCard> createState() => _ProfilePhotoCardState();
 }
 
 class _ProfilePhotoCardState extends State<ProfilePhotoCard> {
   XFile? userImage;
-
   final ImagePicker _picker = ImagePicker();
 
   @override
@@ -44,12 +46,19 @@ class _ProfilePhotoCardState extends State<ProfilePhotoCard> {
                   context: context,
                   builder: (builder) {
                     return AlertDialog(
-                      title: Text("choose from"),
+                      title: Text("choose from",
+                          style: TextStyle(
+                            color: Colors.black45,
+                          )),
                       actions: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                  Colors.green.withOpacity(0.1),
+                                )),
                                 onPressed: () async {
                                   var s = await _picker.pickImage(
                                       source: ImageSource.gallery);
@@ -61,6 +70,10 @@ class _ProfilePhotoCardState extends State<ProfilePhotoCard> {
                                 },
                                 child: Text("gallery")),
                             ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                  Colors.green.withOpacity(0.1),
+                                )),
                                 onPressed: () async {
                                   var s = await _picker.pickImage(
                                       source: ImageSource.camera);
@@ -92,7 +105,14 @@ class _ProfilePhotoCardState extends State<ProfilePhotoCard> {
                             borderRadius: BorderRadius.circular(100),
                           ),
                           child: userImage == null
-                              ? const Icon(Icons.cloud_upload_rounded)
+                              ? (widget.placeholerImgPath != null
+                                  ? CircleAvatar(
+                                      maxRadius: 68,
+                                      backgroundImage: AssetImage(
+                                        widget.placeholerImgPath!,
+                                      ),
+                                    )
+                                  : const Icon(Icons.cloud_upload_rounded))
                               : Image.file(
                                   File(userImage!.path),
                                   fit: BoxFit.cover,

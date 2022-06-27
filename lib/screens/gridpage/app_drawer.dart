@@ -1,112 +1,135 @@
 import 'dart:ui';
 
+import 'package:find_doctor/bloc/app_cubit.dart';
+import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/profile_data.dart';
 import 'package:find_doctor/screens/welcome/user_profile.dart';
 import 'package:find_doctor/shared/constant.dart';
 import 'package:find_doctor/shared/glass.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AppDrawer extends StatefulWidget {
+import '../../notifications/notifications.dart';
+import '../appointments/listOfAppointment.dart';
+
+class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
-
-  @override
-  State<AppDrawer> createState() => _AppDrawerState();
-}
-
-class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.7,
-      child: GlassMorphism(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 48.0, horizontal: 8.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  const CircleAvatar(
-                      backgroundImage: AssetImage("assets/images/photo.jpg")),
-                  const SizedBox(
-                    width: 8.0,
-                  ),
-                  Expanded(
+    return BlocProvider(
+        create: (context) => AppCubit(InitialAppState()),
+        child: BlocConsumer<AppCubit, AppStates>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              AppCubit cubit = AppCubit.get(context);
+              return SizedBox(
+                width: MediaQuery.of(context).size.width * 0.7,
+                child: GlassMorphism(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 48.0, horizontal: 8.0),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "Morsy HashisH",
-                          style: TextStyle(
-                              color: kAppWhiteColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
+                      children: [
+                        Row(
+                          children: [
+                            const CircleAvatar(
+                                backgroundImage:
+                                    AssetImage("assets/images/photo.jpg")),
+                            const SizedBox(
+                              width: 8.0,
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: const [
+                                  Text(
+                                    "Morsy HashisH",
+                                    style: TextStyle(
+                                        color: kAppWhiteColor,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                                  Text(
+                                    "morsyhashish123@gmail.com",
+                                    style: TextStyle(
+                                      color: kAppWhiteColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          "morsyhashish123@gmail.com",
-                          style: TextStyle(
-                            color: kAppWhiteColor,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        const Divider(
+                          endIndent: 8.0,
+                          thickness: 1,
+                          color: kAppGreenColor,
+                        ),
+                        _DrawerButton(
+                          title: "Profile",
+                          icon: Icons.account_circle_rounded,
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => UserProfile(),
+                              ),
+                            );
+                          },
+                        ),
+                        _DrawerButton(
+                          title: "Appointments",
+                          icon: Icons.bookmark,
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ListOfAppointments(),
+                              ),
+                            );
+                          },
+                        ),
+                        _DrawerButton(
+                          title: "Notification",
+                          icon: Icons.notifications,
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Notifications(),
+                              ),
+                            );
+                          },
+                        ),
+                        Spacer(),
+                        const Divider(
+                          endIndent: 8.0,
+                          thickness: 1,
+                          color: kAppGreenColor,
+                        ),
+                        _DrawerButton(
+                          title: "Logout",
+                          icon: Icons.logout,
+                          onTap: () {
+                            cubit.logout();
+                          },
+                        ),
+                        _DrawerButton(
+                          title: "Setting",
+                          icon: Icons.settings,
+                          onTap: () {},
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
-              const Divider(
-                endIndent: 8.0,
-                thickness: 1,
-                color: kAppGreenColor,
-              ),
-              _DrawerButton(
-                title: "Profile",
-                icon: Icons.account_circle_rounded,
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => UserProfile(),
-                    ),
-                  );
-                },
-              ),
-              _DrawerButton(
-                title: "Appointments",
-                icon: Icons.bookmark,
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              _DrawerButton(
-                title: "Notification",
-                icon: Icons.notifications,
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              Spacer(),
-              const Divider(
-                endIndent: 8.0,
-                thickness: 1,
-                color: kAppGreenColor,
-              ),
-              _DrawerButton(
-                title: "Logout",
-                icon: Icons.logout,
-                onTap: () {},
-              ),
-              _DrawerButton(
-                title: "Setting",
-                icon: Icons.settings,
-                onTap: () {},
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+                ),
+              );
+            }));
   }
 }
 

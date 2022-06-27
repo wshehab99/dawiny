@@ -86,14 +86,14 @@ class GridPage extends StatelessWidget {
           children: [
             const HeadLine(),
             SizedBox(height: 24.0),
-            ListView(
+            GridView.count(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              // mainAxisSpacing: 15,
-              // crossAxisSpacing: 10,
-              // padding: const EdgeInsets.all(10),
-              // crossAxisCount: 2,
+              mainAxisSpacing: 15,
+              crossAxisSpacing: 10,
+              padding: const EdgeInsets.all(10),
+              crossAxisCount: 2,
               children: List<Widget>.generate(6, (index) {
                 return InkWell(
                   onTap: () {
@@ -143,9 +143,6 @@ class GridPage extends StatelessWidget {
                     }
                   },
                   child: PageCard(
-                    textDirection: (index % 2 == 0)
-                        ? TextDirection.ltr
-                        : TextDirection.rtl,
                     imgPath: gridNames[index]['image']!,
                     text: gridNames[index]['text']!,
                   ),

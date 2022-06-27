@@ -217,17 +217,17 @@ class SignUp extends StatelessWidget {
                                                   )
                                                       .then((value) {
                                                     if (value == 1) {
-                                                      // cubit.userType = cubit
-                                                      //         .userType =
-                                                      //     _role.dropdownValue!;
+                                                      cubit.userType = cubit
+                                                              .userType =
+                                                          _role.dropdownValue!;
                                                       Navigator.pushReplacement(
                                                           context,
                                                           MaterialPageRoute(
                                                               builder: (context) =>
                                                                   UserData()));
                                                     } else if (value == -1) {
-                                                      // cubit.userType =
-                                                      //     _role.dropdownValue!;
+                                                      cubit.userType =
+                                                          _role.dropdownValue!;
                                                       Navigator.pushReplacement(
                                                           context,
                                                           MaterialPageRoute(
