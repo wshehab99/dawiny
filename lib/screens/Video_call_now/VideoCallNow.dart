@@ -7,10 +7,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/svg.dart';
 
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
 import 'package:agora_rtc_engine/rtc_remote_view.dart' as RtcRemoteView;
@@ -136,7 +132,9 @@ class _VideoCallNowState extends State<VideoCallNow> {
                     height: 55,
                     child: ElevatedButton(
                       child: const Icon(CupertinoIcons.escape),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all<Color>(Colors.red),
@@ -165,33 +163,6 @@ class _VideoCallNowState extends State<VideoCallNow> {
                   ),
                   const SizedBox(
                     width: 10,
-                  ),
-                  SizedBox(
-                      height: 55,
-                      child: ElevatedButton(
-                          child: const Icon(CupertinoIcons.camera),
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          )))),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  SizedBox(
-                    height: 55,
-                    child: ElevatedButton(
-                      child: const Icon(CupertinoIcons.fullscreen),
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
                   ),
                   SizedBox(
                     height: 55,

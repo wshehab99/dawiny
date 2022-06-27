@@ -13,7 +13,6 @@ class PageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       clipBehavior: Clip.antiAlias,
       decoration:
           BoxDecoration(borderRadius: BorderRadius.circular(16.0), boxShadow: [
@@ -25,28 +24,23 @@ class PageCard extends StatelessWidget {
       ]),
       child: GlassMorphism(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Image.asset(
-                imgPath,
-                width: 130,
-                height: 130,
-                fit: BoxFit.cover,
-              ),
+            Image.asset(
+              imgPath,
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
             ),
-            Expanded(
-              child: Text(
-                text,
-                style: const TextStyle(
-                    color: kAppWhiteColor,
-                    fontSize: 16,
-                    fontFamily: kNexaFont,
-                    fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-              ),
+            Text(
+              text,
+              style: const TextStyle(
+                  color: kAppWhiteColor,
+                  fontSize: 21,
+                  fontFamily: kNexaFont,
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+              maxLines: 2,
             ),
           ],
         ),

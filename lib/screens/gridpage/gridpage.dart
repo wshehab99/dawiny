@@ -9,14 +9,10 @@ import 'package:find_doctor/screens/videocallscreen/video_call_screen.dart';
 import 'package:find_doctor/shared/constant.dart';
 import 'package:find_doctor/shared/gradient_text.dart';
 import 'package:flutter/material.dart';
-import 'package:find_doctor/screens/Video_call_now/VideoCallNow.dart';
 import '../../shared/diagnosesList.dart';
-import '../../shared/getLocation.dart';
 import '../appointments/listOfAppointment.dart';
 import '../clinick_booking/clinic_booking.dart';
 import '../doctor_home_visit/bookDoctorHomeVisit.dart';
-import '../doctor_time/doctor_time_screen.dart';
-import '../videocalldetails/videoCall.dart';
 
 class GridPage extends StatelessWidget {
   GridPage({Key? key}) : super(key: key);
@@ -90,8 +86,8 @@ class GridPage extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              mainAxisSpacing: 15,
-              crossAxisSpacing: 10,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
               padding: const EdgeInsets.all(10),
               crossAxisCount: 2,
               children: List<Widget>.generate(6, (index) {
@@ -105,24 +101,20 @@ class GridPage extends StatelessWidget {
                         ),
                       );
 
-                      // builder:
-                      // (context) => const DiagnosesList();
-                    } else if (index == 1) {
-                      Navigator.push(
+                    (context) => const DiagnosesList();
+                  } else if (index == 1) {
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const BookDoctorHomeVisit(),
-                        ),
-                      );
-                    } else if (index == 2) {
-                      Navigator.push(
+                            builder: (context) => const BookDoctorHomeVisit()));
+                  } else if (index == 2) {
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const VideoCallNow(),
-                        ),
-                      );
-                    } else if (index == 3) {
-                      Navigator.push(
+                            builder: (context) => const VideoCallScreen()));
+                  } else if (index == 3) {
+                    Navigator.push(
+
                         context,
                         MaterialPageRoute(
                           builder: (context) => const NursingTasksScreen(),
