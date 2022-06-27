@@ -4,8 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfilePhotoCard extends StatefulWidget {
-  ProfilePhotoCard({Key? key}) : super(key: key);
-
+  ProfilePhotoCard(
+      {Key? key,
+      required this.title,
+      this.showIcon = true,
+      required this.title2})
+      : super(key: key);
+  final String title;
+  final String title2;
+  final bool showIcon;
   @override
   State<ProfilePhotoCard> createState() => _ProfilePhotoCardState();
 }
@@ -76,23 +83,25 @@ class _ProfilePhotoCardState extends State<ProfilePhotoCard> {
                 InkWell(
                   child: Column(
                     children: [
-                      Container(
-                        height: MediaQuery.of(context).size.width * .3,
-                        width: MediaQuery.of(context).size.width * .3,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
+                      if (widget.showIcon)
+                        Container(
+                          height: MediaQuery.of(context).size.width * .3,
+                          width: MediaQuery.of(context).size.width * .3,
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          child: userImage == null
+                              ? const Icon(Icons.cloud_upload_rounded)
+                              : Image.file(
+                                  File(userImage!.path),
+                                  fit: BoxFit.cover,
+                                ),
                         ),
-                        child: userImage == null
-                            ? const Icon(Icons.cloud_upload_rounded)
-                            : Image.file(
-                                File(userImage!.path),
-                                fit: BoxFit.cover,
-                              ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      if (widget.showIcon)
+                        SizedBox(
+                          height: 10,
+                        ),
                       userImage == null
                           ? Text(
                               "Upload Photo Profile",
