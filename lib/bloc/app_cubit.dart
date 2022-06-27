@@ -29,7 +29,7 @@ class AppCubit extends Cubit<AppStates> {
   List shownDctors = [];
   List initDctors = [];
   Map? doctor;
-  String userType = 'Doctor';
+  bool availbeDate = false;
   String symptomText =
       'Itching,Skin Rash,Nodal Skin Eruptions,Continuous Sneezing,Shivering,Chills,Joint Pain,Stomach Pain,Acidity,Ulcers On Tongue,Muscle Wasting,Vomiting,Burning Micturition,Spotting  urination,Fatigue,Weight Gain,Anxiety,Cold Hands And Feets,Mood Swings,Weight Loss,Restlessness,Lethargy,Patches In Throat,Irregular Sugar Level,Cough,High Fever,Sunken Eyes,Breathlessness,Sweating,Dehydration,Indigestion,Headache,Yellowish Skin,Dark Urine,Nausea,Loss Of Appetite,Pain Behind The Eyes,Back Pain,Constipation,Abdominal Pain,Diarrhoea,Mild Fever,Yellow Urine,Yellowing Of Eyes,Acute Liver Failure,Fluid Overload,Swelling Of Stomach,Swelled Lymph Nodes,Malaise,Blurred And Distorted Vision,Phlegm,Throat Irritation,Redness Of Eyes,Sinus Pressure,Runny Nose,Congestion,Chest Pain,Weakness In Limbs,Fast Heart Rate,Pain During Bowel Movements,Pain In Anal Region,Bloody Stool,Irritation In Anus,Neck Pain,Dizziness,Cramps,Bruising,Obesity,Swollen Legs,Swollen Blood Vessels,Puffy Face And Eyes,Enlarged Thyroid,Brittle Nails,Swollen Extremeties,Excessive Hunger,Extra Marital Contacts,Drying And Tingling Lips,Slurred Speech,Knee Pain,Hip Joint Pain,Muscle Weakness,Stiff Neck,Swelling Joints,Movement Stiffness,Spinning Movements,Loss Of Balance,Unsteadiness,Weakness Of One Body Side,Loss Of Smell,Bladder Discomfort,Foul Smell Of urine,Continuous Feel Of Urine,Passage Of Gases,Internal Itching,Toxic Look (typhos),Depression,Irritability,Muscle Pain,Altered Sensorium,Red Spots Over Body,Belly Pain,Abnormal Menstruation,Dischromic  Patches,Watering From Eyes,Increased Appetite,Polyuria,Family History,Mucoid Sputum,Rusty Sputum,Lack Of Concentration,Visual Disturbances,Receiving Blood Transfusion,Receiving Unsterile Injections,Coma,Stomach Bleeding,Distention Of Abdomen,History Of Alcohol Consumption,Fluid Overload.1,Blood In Sputum,Prominent Veins On Calf,Palpitations,Painful Walking,Pus Filled Pimples,Blackheads,Scurring,Skin Peeling,Silver Like Dusting,Small Dents In Nails,Inflammatory Nails,Blister,Red Sore Around Nose,Yellow Crust Ooze,Prognosis,';
   static List symptomList = [];
@@ -191,17 +191,13 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   List searchAboutDoctor(String dignoseName, String value, bool? video) {
-    getDoctor().then(
-      (value) {
-        shownDctors = initDctors
-            .where(
-              (element) => (element['specification'] == dignoseName &&
-                  (element['firstName'].toLowerCase().contains(value) ||
-                      element['lastName'].toLowerCase().contains(value))),
-            )
-            .toList();
-      },
-    );
+    shownDctors = initDctors
+        .where(
+          (element) => (element['specification'] == dignoseName &&
+              ("${element['firstName'].toLowerCase()} ${element['lastName'].toLowerCase()}"
+                  .contains(value))),
+        )
+        .toList();
 
     emit(DoctrosSearch());
     return shownDctors;
@@ -223,6 +219,7 @@ class AppCubit extends Cubit<AppStates> {
             "authorization": accessToken,
           }));
       initDctors = response.data;
+      emit(DoneState());
     } on DioError catch (e) {
       print(e);
 
@@ -290,7 +287,6 @@ class AppCubit extends Cubit<AppStates> {
               .contains(day!.toLowerCase()),
         )
         .toList();
-
     emit(ChangeSelectedDate());
   }
 
@@ -388,17 +384,15 @@ class AppCubit extends Cubit<AppStates> {
       print(response.data);
 
       if (response.statusCode == 201) {
-        print("Done");
+        print(
+            "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++morsy m4 salk");
         accessToken = response.data['access'];
         refreshToken = response.data['refresh'];
 
         await pref.setString('access', accessToken!);
         await pref.setString('refresh', refreshToken!);
         await pref.setString('role', role);
-        if (role == "doctor") {
-          emit(DoneState());
-          return -1;
-        }
+
         emit(DoneState());
       }
       return 1;
@@ -446,7 +440,7 @@ class AppCubit extends Cubit<AppStates> {
       return 1;
     } on DioError catch (ex) {
       errorMsg = null;
-      if (ex.response?.statusCode == 404) {
+      if (ex.response!.statusCode == 404) {
         errorMsg = ex.response!.data['msg'];
       } else if (ex.response!.statusCode == 401) {
         errorMsg = ex.response!.data['msg'];
@@ -653,6 +647,66 @@ class AppCubit extends Cubit<AppStates> {
         print(errorMsg);
         emit(ErrorState());
       }
+    }
+  }
+
+  Future checkDate(
+      {required String id,
+      required Map data,
+      required BuildContext context}) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      accessToken = prefs.getString("access");
+      Dio dio = Dio();
+      var respons = await dio.post(
+          "https://dawiny.herokuapp.com/api/doctors/" +
+              id +
+              "/reservations?check=true",
+          options: Options(headers: {
+            'authorization': accessToken,
+          }),
+          data: jsonEncode(data));
+      print(respons);
+      availbeDate = respons.data['available'];
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          availbeDate
+              ? "This time is available right now"
+              : "This time is not available right now",
+        ),
+      ));
+      emit(DoneState());
+    } on DioError catch (ex) {
+      errorMsg = ex.response!.data['msg'];
+      print(errorMsg);
+      emit(ErrorState());
+    }
+  }
+
+  Future bookAppointment(
+      {required String id,
+      required Map data,
+      required BuildContext context}) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      accessToken = prefs.getString("access");
+      Dio dio = Dio();
+      var respons = await dio.post(
+          "https://dawiny.herokuapp.com/api/doctors/" + id + "/reservations",
+          options: Options(headers: {
+            'authorization': accessToken,
+          }),
+          data: jsonEncode(data));
+      print(respons);
+
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Done"),
+      ));
+      emit(DoneState());
+    } on DioError catch (ex) {
+      errorMsg = ex.response!.data['msg'];
+      print(errorMsg);
+      emit(ErrorState());
     }
   }
 }
