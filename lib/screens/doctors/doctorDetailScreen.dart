@@ -1,5 +1,6 @@
 import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
+import 'package:find_doctor/shared/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -320,10 +321,88 @@ class DetailScreen extends StatelessWidget {
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
-                                                        ElevatedButton(
-                                                            onPressed: () {},
-                                                            child: const Text(
-                                                                "Book")),
+                                                        cubit.availbeDate
+                                                            ? const Text(
+                                                                "This Time is availablr right now")
+                                                            : const Text(""),
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        AppButton(
+                                                          text:
+                                                              "Check if available",
+                                                          bottenColor:
+                                                              Colors.blue,
+                                                          textColor:
+                                                              Colors.white,
+                                                          borderradius:
+                                                              BorderRadius
+                                                                  .circular(35),
+                                                          onPressed: () async {
+                                                            cubit.checkDate(
+                                                                id: cubit
+                                                                        .doctor![
+                                                                    '_id'],
+                                                                data: {
+                                                                  "doctorId":
+                                                                      cubit.doctor![
+                                                                          '_id'],
+                                                                  "date": dateTime
+                                                                      .toString()
+                                                                      .substring(
+                                                                          0,
+                                                                          10),
+                                                                  "appointmentId":
+                                                                      cubit.shownSlots[
+                                                                              index]
+                                                                          [
+                                                                          "_id"],
+                                                                  "type":
+                                                                      "offline"
+                                                                },
+                                                                context:
+                                                                    context);
+                                                          },
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        AppButton(
+                                                          text:
+                                                              "Book apointment",
+                                                          bottenColor:
+                                                              Colors.blue,
+                                                          textColor:
+                                                              Colors.white,
+                                                          borderradius:
+                                                              BorderRadius
+                                                                  .circular(35),
+                                                          onPressed: () async {
+                                                            cubit
+                                                                .bookAppointment(
+                                                                    id: cubit
+                                                                            .doctor![
+                                                                        '_id'],
+                                                                    data: {
+                                                                      "doctorId":
+                                                                          cubit.doctor![
+                                                                              '_id'],
+                                                                      "date": dateTime
+                                                                          .toString()
+                                                                          .substring(
+                                                                              0,
+                                                                              10),
+                                                                      "appointmentId":
+                                                                          cubit.shownSlots[index]
+                                                                              [
+                                                                              "_id"],
+                                                                      "type":
+                                                                          "offline"
+                                                                    },
+                                                                    context:
+                                                                        context);
+                                                          },
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
