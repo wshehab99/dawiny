@@ -4,6 +4,8 @@ import 'package:find_doctor/screens/appointments/appointment_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../shared/custom_appbar.dart';
+
 class ListOfAppointments extends StatelessWidget {
   const ListOfAppointments({Key? key}) : super(key: key);
 
@@ -11,7 +13,6 @@ class ListOfAppointments extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(context, titleText: "My Appointments"),
-
       body: BlocProvider(
         create: (context) => AppCubit(InitialAppState()),
         child: BlocConsumer<AppCubit, AppStates>(
@@ -52,7 +53,6 @@ class ListOfAppointments extends StatelessWidget {
             );
           },
         ),
-
       ),
     );
   }
