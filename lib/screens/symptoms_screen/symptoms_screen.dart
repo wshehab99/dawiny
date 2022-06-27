@@ -1,9 +1,12 @@
 import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/search/search_widget.dart';
+import 'package:find_doctor/screens/symptoms_screen/diagnos_card.dart';
+import 'package:find_doctor/shared/gradient_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../shared/constant.dart';
 import '../../shared/custom_appbar.dart';
 
 class SymptomsScreen extends StatelessWidget {
@@ -19,6 +22,7 @@ class SymptomsScreen extends StatelessWidget {
           builder: (context, state) {
             AppCubit cubit = AppCubit.get(context);
             cubit.loadingSymptom();
+
             return Scaffold(
                 backgroundColor: (state is DoneState || state is ErrorState)
                     ? Colors.grey
@@ -40,55 +44,37 @@ class SymptomsScreen extends StatelessWidget {
                             ],
                           )
                         : state is DoneState
-                            ? AlertDialog(
-                                clipBehavior: Clip.hardEdge,
-                                title: const Text('Diagnos'),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      "You may have a/an ${response.keys}!",
-                                      style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                        "this is not alternative of doctor visit plese try to visit a ${response.values} doctor")
-                                  ],
-                                ),
-                                actions: [
-                                  ElevatedButton(
-                                      onPressed: cubit.backToNormalState,
-                                      child: const Text("back"))
-                                ],
-                              )
+                            ? DiagnosCard(
+                                resKey: "${response.keys}",
+                                resValue: "${response.values}",
+                                onPressed: cubit.backToNormalState)
                             : Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const SizedBox(
                                     height: 30,
                                   ),
-                                  const Padding(
+                                  Padding(
                                     padding: EdgeInsets.only(left: 10.0),
-                                    child: Text(
-                                      'Add Your Sympotoms',
+                                    // child: Text(
+                                    //   'Add Your Sympotoms',
+
+                                    // ),
+                                    child: AppGradientText(
+                                      "Add Your Sympotoms",
                                       style: TextStyle(
-                                          fontSize: 25,
-                                          color: Color(0xff1171C8),
+                                          fontSize: 30,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
+                                  SizedBox(height: 15),
                                   const Padding(
-                                    padding: EdgeInsets.only(left: 20.0),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 20.0),
                                     child: Text(
                                       'Add as many symptoms as you can for the most accurate results',
                                       style: TextStyle(
+                                        fontFamily: kNexaFont,
                                         fontSize: 16,
                                         color: Colors.blueGrey,
                                       ),
@@ -125,8 +111,7 @@ class SymptomsScreen extends StatelessWidget {
                                                       horizontal: 10.0,
                                                       vertical: 4.0),
                                                   decoration: BoxDecoration(
-                                                      color: const Color(
-                                                          0xFF1171C8),
+                                                      color: Color(0xFF81C784),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               16.0)),
@@ -147,7 +132,7 @@ class SymptomsScreen extends StatelessWidget {
                                                       Container(
                                                         decoration: BoxDecoration(
                                                             color: const Color(
-                                                                0xff0D5496),
+                                                                0xFF81C784),
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
@@ -212,9 +197,14 @@ class SymptomsScreen extends StatelessWidget {
                                   Center(
                                     child: ElevatedButton(
                                         style: ButtonStyle(
+                                            fixedSize:
+                                                MaterialStateProperty.all(
+                                                    Size(200, 40)),
+                                            elevation:
+                                                MaterialStateProperty.all(0.0),
                                             backgroundColor:
                                                 MaterialStateProperty.all(
-                                                    const Color(0xFF1171C8))),
+                                                    kAppGreenColor.shade600)),
                                         onPressed:
                                             cubit.selectedSymptoms.length >= 3
                                                 ? () async {
@@ -222,8 +212,14 @@ class SymptomsScreen extends StatelessWidget {
                                                         .medicalDiagnosis();
                                                   }
                                                 : null,
-                                        child: const Text("Continue")),
+                                        child: Text(
+                                          "Continue",
+                                          style: TextStyle(color: Colors.white),
+                                        )),
                                   ),
+                                  SizedBox(
+                                    height: 20,
+                                  )
                                 ],
                               ));
           }),
