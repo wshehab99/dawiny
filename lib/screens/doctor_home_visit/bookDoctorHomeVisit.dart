@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../../fake_data/fake_data.dart';
 import '../../shared/diagnosesList.dart';
+import '../doctorMap/doctorMap.dart';
+import 'diagnosesListDoctorHome.dart';
 
 class BookDoctorHomeVisit extends StatefulWidget {
   const BookDoctorHomeVisit({Key? key}) : super(key: key);
@@ -57,14 +59,17 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
                   height: 5,
                 ),
                 Text(
-                  "احجز زياره منزلية",
+                  "Book a home visit",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: height * .033,
                       fontWeight: FontWeight.bold),
                 ),
+                SizedBox(
+                  height: 15,
+                ),
                 Text(
-                  "الان مع داوينى يمكنك حجز زيارة منزليه مع دكتور متخصص",
+                  "Now with Dawiny, you can book a home visit with a specialized doctor",
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -74,8 +79,8 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
                   ),
                   maxLines: 2,
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: 15,
                 ),
                 Icon(
                   Icons.arrow_circle_down_outlined,
@@ -85,16 +90,19 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
               ]),
               height: height * .5,
               width: width,
-              decoration: const BoxDecoration(
-                color: Colors.blueAccent,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.blue.withOpacity(0.6),
+                    Colors.green.withOpacity(.6),
+                  ],
+                ),
                 borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(60),
                 ),
                 boxShadow: [
                   BoxShadow(
-                      blurRadius: 15,
-                      offset: Offset(0, 5),
-                      color: Colors.black54)
+                      blurRadius: 15, offset: Offset(0, 5), color: Colors.white)
                 ],
               ),
             ),
@@ -105,10 +113,15 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Container(
-              height: height * .3,
+              height: height * .35,
               width: width,
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(164, 184, 184, 184),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.grey.withOpacity(.3),
+                    Colors.grey.withOpacity(.3),
+                  ],
+                ),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(60),
                 ),
@@ -119,16 +132,28 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
               ),
               child: Column(
                 children: [
-                  ElevatedButton(
-                      onPressed: () async {
-                        sp = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const DiagnosesList()),
-                        );
-                        setState(() {});
-                      },
-                      child: const Text("Chooes Diagnos")),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                Colors.green.withOpacity(.5)),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ))),
+                        onPressed: () async {
+                          sp = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    DiagnosesListDoctorHome()),
+                          );
+
+                          setState(() {});
+                        },
+                        child: const Text("Chooes Diagnos")),
+                  ),
                   sp == null
                       ? const Text('')
                       : SizedBox(
@@ -144,6 +169,14 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
                   //   height: 55,
                   // ),
                   ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Colors.green.withOpacity(.5)),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ))),
                       onPressed: () async {
                         locationAddress = await Navigator.push(
                           context,
@@ -156,7 +189,29 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
                       },
                       child: const Text('Chooes Location')),
 
-                  Text(locationAddress!)
+                  Text(locationAddress!),
+
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Colors.green.withOpacity(.5)),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ))),
+                      onPressed: () async {
+                        await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DoctorMap()));
+
+                        setState(() {});
+                      },
+                      child: const Text('Find Doctor')),
                 ],
               ),
             ),

@@ -7,7 +7,7 @@ class HeadLine extends StatelessWidget {
     Key? key,
   }) : super(key: key);
   final style = const TextStyle(
-      fontSize: 42, // fontFamily: kNexaFont,
+      fontSize: 30, // fontFamily: kNexaFont,
       color: kAppGreyColor,
       fontWeight: FontWeight.bold,
       height: 1.1);

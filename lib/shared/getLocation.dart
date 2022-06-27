@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../bloc/app_states.dart';
 import 'app_button.dart';
+import 'custom_appbar.dart';
 
 class GetLocation extends StatelessWidget {
   GetLocation({Key? key, required this.title}) : super(key: key);
@@ -27,9 +28,7 @@ class GetLocation extends StatelessWidget {
           cubit.getLocation(value: location);
           location = AppCubit.initialPosition;
           return Scaffold(
-            appBar: AppBar(
-              title: Text(title),
-            ),
+            appBar: CustomAppbar(context, titleText: ""),
             body: AppCubit.initialPosition == null
                 ? const Center(
                     child: CircularProgressIndicator(),
