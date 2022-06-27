@@ -1,4 +1,5 @@
 import 'package:find_doctor/screens/nursing_task/nursing_tasks_screen.dart';
+import 'package:find_doctor/screens/pharmacy_map/pharmacy_map.dart';
 import 'package:find_doctor/screens/symptoms_screen/symptoms_screen.dart';
 
 import 'package:find_doctor/screens/videocallscreen/video_call_screen.dart';
@@ -158,7 +159,10 @@ class GridPage extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => SymptomsScreen()));
                   } else {
-                    print('لسا');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const PharmacyMap()));
                   }
                 },
                 child: Card(

@@ -17,7 +17,7 @@ class DoctorListScreen extends StatelessWidget {
   bool? videocall;
   String? dignoseName;
   List shownList = [];
-  String value1 = '';
+  String value1 = " ";
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -26,8 +26,9 @@ class DoctorListScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
-          shownList = cubit.searchAboutDoctor(dignoseName!, value1, videocall);
+
           cubit.getDoctor();
+          shownList = cubit.searchAboutDoctor(dignoseName!, value1, videocall);
           return Scaffold(
             backgroundColor: kBackgroundColor,
             body: SafeArea(
@@ -78,10 +79,15 @@ class DoctorListScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    Expanded(
-                      child: DoctorListWidget(
-                          dignoseName: dignoseName!, shownList: shownList),
-                    ),
+                    (state is LoadingState)
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Expanded(
+                            child: DoctorListWidget(
+                                dignoseName: dignoseName!,
+                                shownList: shownList),
+                          ),
                   ],
                 )),
           );
