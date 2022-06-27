@@ -140,32 +140,29 @@ class SignIn extends StatelessWidget {
                                             bottenColor: Colors.blue,
                                             textColor: Colors.white,
                                             borderradius:
-                                                BorderRadius.circular(20),
-                                            onPressed: cubit.remeberMeValue
-                                                ? () async {
-                                                    if (_formKey.currentState!
-                                                        .validate()) {
-                                                      // doctor at the begning ------ later will be dynamic
-                                                      await cubit
-                                                          .logIn(
-                                                        _email.text,
-                                                        _password.text,
-                                                      )
-                                                          .then((value) {
-                                                        if (value == 1) {
-                                                          Navigator.pushReplacement(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          GridPage()));
-                                                        }
-                                                      });
-
-                                                      // _checkuser(context);
-                                                    }
+                                                BorderRadius.circular(5),
+                                            onPressed: () async {
+                                              if (_formKey.currentState!
+                                                  .validate()) {
+                                                // doctor at the begning ------ later will be dynamic
+                                                await cubit
+                                                    .logIn(
+                                                  _email.text,
+                                                  _password.text,
+                                                )
+                                                    .then((value) {
+                                                  if (value == 1) {
+                                                    Navigator.pushReplacement(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                GridPage()));
                                                   }
-                                                : null),
+                                                });
+
+                                                // _checkuser(context);
+                                              }
+                                            }),
                                       ],
                                     )),
                                 TextButton(

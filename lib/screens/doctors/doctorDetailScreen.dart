@@ -11,12 +11,8 @@ class DetailScreen extends StatelessWidget {
   final String? _name;
   final String? _description;
   String? id;
-
-  DetailScreen(
-    this.id,
-    this._name,
-    this._description,
-  );
+  bool? videoCall;
+  DetailScreen(this.id, this._name, this._description, this.videoCall);
   TextStyle saved = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 20,
@@ -357,8 +353,12 @@ class DetailScreen extends StatelessWidget {
                                                                               index]
                                                                           [
                                                                           "_id"],
-                                                                  "type":
-                                                                      "offline"
+                                                                  "type": (videoCall ==
+                                                                              null ||
+                                                                          videoCall ==
+                                                                              false)
+                                                                      ? "offline"
+                                                                      : "online"
                                                                 },
                                                                 context:
                                                                     context);
@@ -396,11 +396,17 @@ class DetailScreen extends StatelessWidget {
                                                                           cubit.shownSlots[index]
                                                                               [
                                                                               "_id"],
-                                                                      "type":
-                                                                          "offline"
+                                                                      "type": (videoCall == null ||
+                                                                              videoCall == false)
+                                                                          ? "offline"
+                                                                          : "online",
                                                                     },
                                                                     context:
-                                                                        context);
+                                                                        context)
+                                                                .then((value) {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            });
                                                           },
                                                         ),
                                                       ],

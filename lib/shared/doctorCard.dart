@@ -9,8 +9,9 @@ class DoctorCard extends StatelessWidget {
   final _description;
 
   final _bgColor;
-
-  DoctorCard(this.id, this._name, this._description, this._bgColor, {Key? key})
+  bool? videoCall;
+  DoctorCard(this.id, this._name, this._description, this._bgColor,
+      {Key? key, this.videoCall})
       : super(key: key);
 
   @override
@@ -20,11 +21,8 @@ class DoctorCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailScreen(
-              id,
-              _name,
-              _description,
-            ),
+            builder: (context) =>
+                DetailScreen(id, _name, _description, videoCall),
           ),
         );
       },

@@ -2,7 +2,7 @@ import 'package:find_doctor/screens/Video_call_now/VideoCallNow.dart';
 import 'package:flutter/material.dart';
 
 class VideoCallDetails extends StatelessWidget {
-  VideoCallDetails({
+  const VideoCallDetails({
     Key? key,
   }) : super(key: key);
 
@@ -38,19 +38,19 @@ class VideoCallDetails extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: const [
                         Text(
                           "Mousa",
-                          style: const TextStyle(
+                          style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 15),
                         ),
-                        const Text(
+                        Text(
                           "VideoCall",
                           style: TextStyle(fontSize: 15),
                         ),
-                        const Text(
+                        Text(
                           "10:30 - 11:00 Pm",
                           style: TextStyle(fontWeight: FontWeight.w500),
                         ),
@@ -155,7 +155,7 @@ class VideoCallDetails extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => VideoCallNow(),
+                      builder: (context) => const VideoCallNow(),
                     ));
               },
               child: const Padding(
