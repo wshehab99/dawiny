@@ -6,8 +6,10 @@ import 'package:find_doctor/screens/profile_photo_card.dart';
 import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
 import 'package:find_doctor/screens/welcome/widgets/doctor_education.dart';
 import 'package:find_doctor/shared/app_button.dart';
+import 'package:find_doctor/shared/gradient_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../shared/constant.dart';
 import '../shared/textFieldApp.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -73,26 +75,28 @@ class DoctorProfile extends StatelessWidget {
                               ),
                               Row(
                                 mainAxisSize: MainAxisSize.min,
-                                children: const [
+                                children: [
                                   SizedBox(
                                     width: 10,
                                   ),
                                   CircleAvatar(
+                                    backgroundColor: Colors.blue.withOpacity(1),
+                                    radius: 27,
                                     child: Image(
                                       image: AssetImage(
-                                        'assets/images/Dawiny logo - 2.png',
+                                        'assets/images/dawinyLogoW.png',
                                       ),
-                                      width: 40,
-                                      height: 40,
+                                      width: 50,
+                                      height: 50,
                                     ),
                                   ),
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  Text(
+                                  AppGradientText(
                                     "Profile",
                                     style: TextStyle(
-                                        fontSize: 22,
+                                        fontSize: 40,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ],

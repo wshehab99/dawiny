@@ -5,7 +5,8 @@ class AppButton extends StatelessWidget {
   BorderRadius borderradius = BorderRadius.circular(60);
   void Function()? onPressed;
   final String text;
-  Color bottenColor = Colors.blue;
+
+  Color bottenColor = Colors.green.withOpacity(0.7);
   Color textColor = Colors.white;
   AppButton({
     required this.text,
