@@ -7,6 +7,8 @@ import '../../shared/custom_appbar.dart';
 import '../nurse_details/nurse_details.dart';
 import 'package:custom_marker/marker_icon.dart';
 
+import 'doctor_details.dart';
+
 class DoctorMap extends StatefulWidget {
   const DoctorMap({Key? key}) : super(key: key);
 
@@ -49,7 +51,7 @@ class _DoctorMapState extends State<DoctorMap> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          NurseCardDatails(name: "Waleed Bin Shehab")));
+                          DoctorDetails(name: "Waleed Bin Shehab")));
             }),
       ));
       markers.add(Marker(
@@ -62,7 +64,7 @@ class _DoctorMapState extends State<DoctorMap> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          NurseCardDatails(name: "Mohammed Musa")));
+                          DoctorDetails(name: "Mohammed Musa")));
             }),
       ));
       markers.add(Marker(
@@ -74,7 +76,7 @@ class _DoctorMapState extends State<DoctorMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseCardDatails(name: "Morsy")));
+                      builder: (context) => DoctorDetails(name: "Morsy")));
             }),
       ));
       markers.add(Marker(
@@ -87,7 +89,7 @@ class _DoctorMapState extends State<DoctorMap> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          NurseCardDatails(name: "Ahmed Mohammed")));
+                          DoctorDetails(name: "Ahmed Mohammed")));
             }),
       ));
       markers.add(Marker(
@@ -99,7 +101,7 @@ class _DoctorMapState extends State<DoctorMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseCardDatails(name: "Nader")));
+                      builder: (context) => DoctorDetails(name: "Nader")));
             }),
       ));
       markers.add(Marker(
@@ -111,8 +113,7 @@ class _DoctorMapState extends State<DoctorMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          NurseCardDatails(name: "Ibraheem")));
+                      builder: (context) => DoctorDetails(name: "Ibraheem")));
             }),
       ));
       markers.add(Marker(
@@ -124,7 +125,7 @@ class _DoctorMapState extends State<DoctorMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseCardDatails(name: "Ayman")));
+                      builder: (context) => DoctorDetails(name: "Ayman")));
             }),
       ));
       markers.add(Marker(
@@ -136,7 +137,7 @@ class _DoctorMapState extends State<DoctorMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseCardDatails(name: "Mostafa")));
+                      builder: (context) => DoctorDetails(name: "Mostafa")));
             }),
       ));
     });

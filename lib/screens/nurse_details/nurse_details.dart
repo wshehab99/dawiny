@@ -20,8 +20,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 
-class NurseCardDatails extends StatelessWidget {
-  NurseCardDatails({Key? key, this.name}) : super(key: key);
+class NurseDetails extends StatelessWidget {
+  NurseDetails({Key? key, this.name}) : super(key: key);
   String? name;
   @override
   Widget build(BuildContext context) {
