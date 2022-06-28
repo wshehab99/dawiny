@@ -42,6 +42,8 @@ dependencies:
   flutter_typeahead: ^3.2.4
 
   geocoding: ^2.0.4
+  url_launcher: ^6.1.4
+  flutter_phone_direct_caller: ^2.1.1
 
 
   google_fonts: ^2.3.1

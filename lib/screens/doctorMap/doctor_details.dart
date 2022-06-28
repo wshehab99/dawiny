@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class DoctorDetails extends StatelessWidget {
+class DoctorDetails extends StatefulWidget {
   DoctorDetails({Key? key, this.name}) : super(key: key);
   String? name;
+
+  @override
+  State<DoctorDetails> createState() => _DoctorDetailsState();
+}
+
+class _DoctorDetailsState extends State<DoctorDetails> {
+  final number = "+201065479548";
+  @override
+  void initState() {
+    number;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,16 +82,22 @@ class DoctorDetails extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  SvgPicture.asset(
-                    'assets/icons/phone.svg',
-                    width: 20,
-                    height: 20,
+                  InkWell(
+                    onTap: () async {
+                      //launch("tell://$number");
+                      await FlutterPhoneDirectCaller.callNumber(number);
+                    },
+                    child: SvgPicture.asset(
+                      'assets/icons/phone.svg',
+                      width: 20,
+                      height: 20,
+                    ),
                   ),
                   SizedBox(
                     width: 20,
                   ),
                   Text(
-                    "01065479548",
+                    "$number",
                     style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                   ),
                 ],
