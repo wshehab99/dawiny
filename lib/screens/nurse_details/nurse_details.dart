@@ -33,15 +33,14 @@ class NurseCardDatails extends StatelessWidget {
             height: 600,
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Container(
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                child: Center(
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(20),
                     child: Image.asset(
                       "assets/images/doctorW.jpg",
-                      width: 300,
+                      width: double.infinity,
                       height: 300,
                       fit: BoxFit.cover,
                     ),
@@ -53,10 +52,10 @@ class NurseCardDatails extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  "Dr : Eman Ali",
+                  "$name",
                   style: TextStyle(
                       color: Colors.black,
-                      fontSize: 18,
+                      fontSize: 28,
                       fontWeight: FontWeight.bold),
                 ),
               ),
@@ -72,10 +71,11 @@ class NurseCardDatails extends StatelessWidget {
                       direction: Axis.horizontal,
                       allowHalfRating: true,
                       itemCount: 5,
+                      itemSize: 30,
                       itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
                       itemBuilder: (context, _) => Icon(
                         Icons.star,
-                        size: 10,
+                        size: 5,
                         color: Colors.amber,
                       ),
                       onRatingUpdate: (rating) {},
@@ -93,33 +93,32 @@ class NurseCardDatails extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Row(
-                  children: [
-                    ElevatedButton(
-                      child: SvgPicture.asset(
-                        "assets/icons/call.svg",
-                        height: 20,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: Container(
+                    width: 180,
+                    height: 40,
+                    child: Row(
+                      children: [
+                        ElevatedButton(
+                          child: Text(
+                            "Request visit ",
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                          onPressed: () {},
                         ),
-                      ),
+                        Image.asset(
+                          "assets/images/appointment.png",
+                          width: 20,
+                          height: 20,
+                          color: Colors.black,
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      "01144287526",
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
               SizedBox(
@@ -128,7 +127,7 @@ class NurseCardDatails extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 15),
                 child: Text(
-                  "Drscription Of Nurse:",
+                  "Drscription:",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),

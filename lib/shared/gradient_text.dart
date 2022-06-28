@@ -22,8 +22,10 @@ class AppGradientText extends StatelessWidget {
       shaderCallback: (bounds) => LinearGradient(
               colors: colors ??
                   [
-                    Colors.blue,
-                    Colors.green,
+                    Color(0xFF09C6F9),
+                    Color(0xFF045DE9)
+                    //Colors.blue,
+                    //Colors.green,
                   ])
           .createShader(
         Rect.fromLTWH(0, 0, bounds.width, bounds.height),

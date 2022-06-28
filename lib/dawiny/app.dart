@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../bloc/app_cubit.dart';
 import '../bloc/app_states.dart';
+import '../shared/doctor_details.dart';
 
 class Dawiny extends StatelessWidget {
   const Dawiny({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class Dawiny extends StatelessWidget {
                 primaryColor: kBlueColor, fontFamily: kRobotoCondensedFont),
             home: BlocProvider(
               create: (context) => AppCubit(InitialAppState()),
-              child: const WelcomeScreen(),
+              child: WelcomeScreen(),
             ),
             routes: {"WelcomeScreen": (context) => const WelcomeScreen()},
           );
