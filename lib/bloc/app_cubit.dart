@@ -428,7 +428,7 @@ class AppCubit extends Cubit<AppStates> {
         data: jsonEncode({
           "email": email,
           "password": password,
-          "role": "doctor",
+          "role": role,
         }),
       );
 
