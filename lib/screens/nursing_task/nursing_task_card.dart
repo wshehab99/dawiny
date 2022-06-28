@@ -3,6 +3,8 @@ import 'package:find_doctor/bloc/app_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../shared/constant.dart';
+
 class NursingTaskCard extends StatelessWidget {
   String? title;
   String? description;
@@ -34,6 +36,7 @@ class NursingTaskCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Checkbox(
+                    activeColor: Colors.green.withOpacity(0.9),
                     value: AppCubit.nursingTsks[index!]['value'],
                     onChanged: (value) {
                       cubit.changeNurseValue(value!, index!);
@@ -53,9 +56,10 @@ class NursingTaskCard extends StatelessWidget {
                           Text(
                             title!,
                             style: const TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                            ),
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: kNexaFont,
+                                color: Color.fromARGB(255, 135, 197, 64)),
                           ),
                           const SizedBox(
                             height: 10,
@@ -63,8 +67,7 @@ class NursingTaskCard extends StatelessWidget {
                           Text(
                             description!,
                             style: const TextStyle(
-                              fontSize: 18,
-                            ),
+                                fontSize: 18, color: Colors.grey),
                           )
                         ]),
                   ),
