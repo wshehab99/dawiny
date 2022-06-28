@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:find_doctor/screens/pharmacy_map/pharamcyDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -47,7 +48,8 @@ class _PharmacyMapState extends State<PharmacyMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseDetals(name: "Altarshouby")));
+                      builder: (context) =>
+                          PharmacyDetails(name: "Altarshouby")));
             }),
       ));
       markers.add(Marker(
@@ -59,7 +61,7 @@ class _PharmacyMapState extends State<PharmacyMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseDetals(name: "AlArrabi")));
+                      builder: (context) => PharmacyDetails(name: "AlArrabi")));
             }),
       ));
       markers.add(Marker(
@@ -71,7 +73,7 @@ class _PharmacyMapState extends State<PharmacyMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseDetals(name: "AlAyman")));
+                      builder: (context) => PharmacyDetails(name: "AlAyman")));
             }),
       ));
       markers.add(Marker(
@@ -83,7 +85,7 @@ class _PharmacyMapState extends State<PharmacyMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseDetals(name: "Alsadeeq")));
+                      builder: (context) => PharmacyDetails(name: "Alsadeeq")));
             }),
       ));
       markers.add(
@@ -95,7 +97,7 @@ class _PharmacyMapState extends State<PharmacyMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseDetals(name: "Sali")));
+                      builder: (context) => PharmacyDetails(name: "Sali")));
             }),
       );
       markers.add(Marker(
@@ -107,7 +109,7 @@ class _PharmacyMapState extends State<PharmacyMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NurseDetals(name: "Mekkawi")));
+                      builder: (context) => PharmacyDetails(name: "Mekkawi")));
             }),
       ));
       markers.add(Marker(
@@ -120,7 +122,7 @@ class _PharmacyMapState extends State<PharmacyMap> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          NurseDetals(name: "Hussein Pharmacy")));
+                          PharmacyDetails(name: "Hussein Pharmacy")));
             }),
       ));
       markers.add(Marker(
@@ -133,7 +135,7 @@ class _PharmacyMapState extends State<PharmacyMap> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            NurseDetals(name: "AlMenawi Pharmacy")));
+                            PharmacyDetails(name: "AlMenawi Pharmacy")));
               })));
       markers.add(Marker(
         markerId: const MarkerId("31.039241, 31.362951"),
@@ -145,7 +147,7 @@ class _PharmacyMapState extends State<PharmacyMap> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          NurseDetals(name: "Atef Pharmacy")));
+                          PharmacyDetails(name: "Atef Pharmacy")));
             }),
       ));
       markers.add(Marker(
@@ -158,7 +160,7 @@ class _PharmacyMapState extends State<PharmacyMap> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          NurseDetals(name: "Roshdy Pharmacy")));
+                          PharmacyDetails(name: "Roshdy Pharmacy")));
             }),
       ));
       markers.add(Marker(
@@ -171,7 +173,7 @@ class _PharmacyMapState extends State<PharmacyMap> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          NurseDetals(name: "Al Abdualateef Pharmacy")));
+                          PharmacyDetails(name: "Al Abdualateef Pharmacy")));
             }),
       ));
       markers.add(Marker(
@@ -184,7 +186,7 @@ class _PharmacyMapState extends State<PharmacyMap> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          NurseDetals(name: "Dr. AbdElmonaem Pharmcy")));
+                          PharmacyDetails(name: "Dr. AbdElmonaem Pharmcy")));
             }),
       ));
       markers.add(
@@ -197,7 +199,7 @@ class _PharmacyMapState extends State<PharmacyMap> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          NurseDetals(name: "AlSemaa Pharmacy")));
+                          PharmacyDetails(name: "AlSemaa Pharmacy")));
             }),
       );
     });
