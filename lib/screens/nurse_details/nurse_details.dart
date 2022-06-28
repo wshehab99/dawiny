@@ -17,12 +17,14 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 
 class NurseDetails extends StatelessWidget {
   NurseDetails({Key? key, this.name}) : super(key: key);
   String? name;
+  final number = "01144287526";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,7 +105,9 @@ class NurseDetails extends StatelessWidget {
                         height: 20,
                         color: Colors.white,
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        await FlutterPhoneDirectCaller.callNumber(number);
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -114,7 +118,7 @@ class NurseDetails extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "01144287526",
+                      "$number",
                       style: TextStyle(
                         fontSize: 18,
                       ),
