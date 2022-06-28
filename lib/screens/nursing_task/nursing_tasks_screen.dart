@@ -56,7 +56,7 @@ class NursingTasksScreen extends StatelessWidget {
               bottomNavigationBar: AppButton(
                 text: 'Continue',
                 borderradius: BorderRadius.circular(35),
-                bottenColor: Colors.blue,
+                bottenColor: Colors.green.withOpacity(0.7),
                 textColor: Colors.white,
                 onPressed: cubit.nursingListContinue
                     ? () {

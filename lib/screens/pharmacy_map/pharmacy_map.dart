@@ -225,6 +225,7 @@ class _PharmacyMapState extends State<PharmacyMap> {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Colors.green.withOpacity(0.7),
         onPressed: () {
           searchNearby();
         },

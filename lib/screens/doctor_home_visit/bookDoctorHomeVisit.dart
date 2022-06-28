@@ -43,9 +43,9 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
                   height: 15,
                 ),
                 Image(
-                  image: const AssetImage("assets/images/Dawiny logo - 2.png"),
-                  height: height * .07,
-                  width: width * .35,
+                  image: const AssetImage("assets/images/dawinyLogoW.png"),
+                  height: height * .1,
+                  width: width * .50,
                 ),
                 const SizedBox(
                   height: 5,

@@ -160,6 +160,7 @@ class _NurseMapState extends State<NurseMap> {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Colors.green.withOpacity(0.7),
         onPressed: () {
           searchNearby();
         },

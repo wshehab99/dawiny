@@ -60,6 +60,12 @@ class AppCubit extends Cubit<AppStates> {
           'The nurse performs one/all of the following procedures : intubation, replacment or removal of the urinary catheter.',
       "value": false,
     },
+    {
+      "title": 'Performing diagnostic tests',
+      "description":
+          'Nurses may perform a wide variety of diagnostic tests, including checking vitals and collecting tissue, blood.',
+      "value": false,
+    },
   ];
   Map spac = {
     "(vertigo) Paroymsal Positional Vertigo": " ear specialist",
