@@ -1,5 +1,6 @@
 import 'package:find_doctor/screens/signin/signin.dart';
 import 'package:find_doctor/screens/signup/signup.dart';
+import 'package:find_doctor/shared/gradient_text.dart';
 
 import 'package:flutter/material.dart';
 
@@ -22,31 +23,31 @@ class RegistrationScreen extends StatelessWidget {
                   height: MediaQuery.of(context).size.height / 9,
                 ),
                 const CircleAvatar(
-                  backgroundColor: Colors.blue,
-                  radius: 100,
+                  backgroundColor: Colors.white,
+                  radius: 120,
                   child: Padding(
                     padding: EdgeInsets.all(10.0),
                     child: Image(
                       image: AssetImage(
-                        'assets/images/Dawiny logo - 2.png',
+                        'assets/images/dawinyLogoG.png',
                       ),
                       fit: BoxFit.fitWidth,
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.15,
+                  height: MediaQuery.of(context).size.height * 0.09,
                 ),
-                const Text(
+                const AppGradientText(
                   "Welcome To Dawiny!",
-                  style: TextStyle(fontSize: 23, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.15,
                 ),
                 AppButton(
                   text: "Sign Up",
-                  bottenColor: Colors.blue,
+                  bottenColor: Colors.green.withOpacity(0.7),
                   textColor: Colors.white,
                   borderradius: BorderRadius.circular(60),
                   onPressed: () {
@@ -62,7 +63,7 @@ class RegistrationScreen extends StatelessWidget {
                 AppButton(
                     text: "Sign in",
                     bottenColor: const Color.fromARGB(255, 245, 244, 244),
-                    textColor: Colors.blue,
+                    textColor: Colors.green,
                     borderradius: BorderRadius.circular(60),
                     onPressed: () {
                       Navigator.pushReplacement(context,

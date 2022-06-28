@@ -1,6 +1,7 @@
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/signin/signin.dart';
 import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
+import 'package:find_doctor/shared/glass.dart';
 import 'package:flutter/material.dart';
 
 import '../../bloc/app_cubit.dart';
@@ -68,41 +69,43 @@ class SignUp extends StatelessWidget {
                                 width: double.infinity,
                                 height:
                                     MediaQuery.of(context).size.height * 0.29,
-                                decoration: const BoxDecoration(
-                                    color: Colors.blueAccent,
-                                    borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(200)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          offset: Offset(0, 5),
-                                          blurRadius: 10,
-                                          color: Colors.black54)
-                                    ]),
-                                child: Column(
-                                  children: const [
-                                    SizedBox(
-                                      height: 40,
-                                    ),
-                                    Image(
-                                      image: AssetImage(
-                                          'assets/images/Dawiny logo - 2.png'),
-                                      width: 220,
-                                      height: 100,
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Text(
-                                      "Sign up for free",
-                                      style: TextStyle(
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                  ],
+                                child: GlassMorphism(
+                                  // decoration: const BoxDecoration(
+                                  //     color: Colors.blueAccent,
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(200)),
+                                  // boxShadow: [
+                                  //   BoxShadow(
+                                  //       offset: Offset(0, 5),
+                                  //       blurRadius: 10,
+                                  //       color: Colors.black54)
+                                  // ]),
+                                  child: Column(
+                                    children: const [
+                                      SizedBox(
+                                        height: 40,
+                                      ),
+                                      Image(
+                                        image: AssetImage(
+                                            'assets/images/dawinyLogoG.png'),
+                                        width: 220,
+                                        height: 100,
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Text(
+                                        "Sign up for free",
+                                        style: TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               Form(
@@ -201,7 +204,8 @@ class SignUp extends StatelessWidget {
                                         text: 'Sign up',
                                         borderradius: BorderRadius.circular(60),
                                         textColor: Colors.white,
-                                        bottenColor: Colors.blue,
+                                        bottenColor:
+                                            Colors.green.withOpacity(0.7),
                                         onPressed: cubit.remeberMeValue
                                             ? () async {
                                                 if (_formKey.currentState!
@@ -285,7 +289,7 @@ class SignUp extends StatelessWidget {
                                           return SignIn();
                                         }));
                                       },
-                                      child: const Text(
+                                      child: Text(
                                         'Sign In',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),

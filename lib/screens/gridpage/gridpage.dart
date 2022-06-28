@@ -67,7 +67,7 @@ class GridPage extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.only(top: 16.0),
                 child: Image(
-                  image: AssetImage('assets/images/dawiny_logo.png'),
+                  image: AssetImage('assets/images/dawinyLogoG.png'),
                   width: 96,
                 ),
               ),

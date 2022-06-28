@@ -4,8 +4,13 @@ import 'package:flutter_svg/svg.dart';
 import 'constant.dart';
 
 class SearchBar extends StatelessWidget {
-  SearchBar({Key? key, this.onSearch}) : super(key: key);
+  SearchBar({
+    Key? key,
+    this.onSearch,
+    required this.hint,
+  }) : super(key: key);
   void Function(String?)? onSearch;
+  final String hint;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -19,11 +24,11 @@ class SearchBar extends StatelessWidget {
             borderRadius: BorderRadius.circular(30),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15),
+            padding: EdgeInsets.symmetric(vertical: 15),
             child: TextField(
               onChanged: onSearch,
-              decoration: const InputDecoration.collapsed(
-                hintText: 'Search for doctors',
+              decoration: InputDecoration.collapsed(
+                hintText: hint,
               ),
             ),
           ),

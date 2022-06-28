@@ -1,11 +1,15 @@
 import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/shared/diagnos_item_widget.dart';
+import 'package:find_doctor/shared/glass.dart';
+import 'package:find_doctor/shared/searchBar.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/doctors/doctor_list_screen.dart';
 import '../screens/search/search_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'constant.dart';
 
 class DiagnosesList extends StatelessWidget {
   const DiagnosesList({Key? key, this.vidoecall}) : super(key: key);
@@ -26,58 +30,63 @@ class DiagnosesList extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     height: 180,
-                    decoration: const BoxDecoration(
-                      color: Colors.blueAccent,
+                    child: GlassMorphism(
                       borderRadius:
                           BorderRadius.only(bottomLeft: Radius.circular(140)),
-                      boxShadow: [
-                        BoxShadow(
-                            blurRadius: 15,
-                            offset: Offset(0, 5),
-                            color: Colors.black54)
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Row(
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: const Icon(
-                                  Icons.arrow_back,
-                                  color: Colors.white,
-                                  size: 30,
-                                )),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            const Text(
-                              "Diagnosis",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: SearchTextFeild(
-                            hint: 'search',
-                            onSearch: (value) {
-                              cubit.searchOnSpecializations(value!);
-                            },
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 30,
                           ),
-                        ),
-                      ],
+                          Row(
+                            children: [
+                              IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: const Icon(
+                                    Icons.arrow_back,
+                                    color: Colors.white,
+                                    size: 30,
+                                  )),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              const Text(
+                                "Diagnosis",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child:
+                                // SearchTextFeild(
+                                //   hint: 'search',
+
+                                // onSearch: (value) {
+                                //   cubit.searchOnSpecializations(value!);
+                                //   },
+                                // ),
+                                Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30.0),
+                              child: SearchBar(
+                                hint: "search",
+                                onSearch: (value) {
+                                  cubit.searchOnSpecializations(value!);
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Expanded(

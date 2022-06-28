@@ -30,17 +30,17 @@ class WelcomeScreen extends StatelessWidget {
                   children: const [
                     InroScreen(
                         desc:
-                            'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of it over 2000 years old.',
+                            "At Dawiny, you will always be in the best of hands. The doctors who treat our international patients have many years of experience as senior physicians.",
                         img: 'doctorw2.png',
                         title: 'Find Doctor'),
                     InroScreen(
                         desc:
-                            'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of it over 2000 years old.',
+                            ' older adults need home nursing services to help manage more complicated or chronic conditions.We Specialize in Around the clock care to help Patients ',
                         img: 'doctorW.jpg',
                         title: 'Find Nurse'),
                     InroScreen(
                         desc:
-                            'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of it over 2000 years old.',
+                            'Would you like a doctor’s medical advice about a medical problem? We can help you with an online consultation or remote diagnosis.',
                         img: 'videoCon.png',
                         title: 'video consulting'),
                   ],
@@ -54,7 +54,7 @@ class WelcomeScreen extends StatelessWidget {
                       TextButton(
                         style: ButtonStyle(
                           foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.blue),
+                              MaterialStateProperty.all<Color>(Colors.green),
                         ),
                         onPressed: () {
                           Navigator.pushReplacement(
@@ -82,14 +82,11 @@ class WelcomeScreen extends StatelessWidget {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-
                                     builder: (context) => RegistrationScreen()),
-
-
                               );
                             }
                           },
-                          bottenColor: Colors.blue,
+                          bottenColor: Colors.green.withOpacity(0.7),
                           textColor: Colors.white,
                           borderradius: BorderRadius.circular(60),
                         ),
@@ -101,7 +98,7 @@ class WelcomeScreen extends StatelessWidget {
                           count: 3,
                           effect: const SlideEffect(
                             dotColor: Color.fromARGB(134, 158, 158, 158),
-                            activeDotColor: Color.fromARGB(255, 88, 139, 206),
+                            activeDotColor: Color.fromARGB(255, 10, 99, 62),
                             dotWidth: 10.0,
                             dotHeight: 10.0,
                           ),

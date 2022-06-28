@@ -2,6 +2,8 @@ import 'package:find_doctor/fake_data/fake_data.dart';
 import 'package:flutter/material.dart';
 import 'constant.dart';
 
+import 'constant.dart';
+
 class DiagnosItem extends StatelessWidget {
   DiagnosItem({Key? key, this.specialization, this.ontap}) : super(key: key);
   Widget? icon;
@@ -17,8 +19,12 @@ class DiagnosItem extends StatelessWidget {
         height: 40,
       ),
       title: Text(
-        specialization!.name,
-        style: const TextStyle(color: Colors.black),
+
+        '${specialization!.name}',
+        style: const TextStyle(
+            color: Colors.black,
+            fontFamily: kNexaFont,
+            fontWeight: FontWeight.w500),
       ),
     );
   }

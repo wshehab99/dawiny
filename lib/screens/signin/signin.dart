@@ -2,6 +2,7 @@ import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/gridpage/gridpage.dart';
 import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
+import 'package:find_doctor/shared/glass.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:find_doctor/screens/signin/continue_with.dart';
 import 'package:find_doctor/screens/signup/signup.dart';
@@ -70,41 +71,43 @@ class SignIn extends StatelessWidget {
                                   width: double.infinity,
                                   height:
                                       MediaQuery.of(context).size.height * 0.41,
-                                  decoration: const BoxDecoration(
-                                      color: Colors.blueAccent,
-                                      borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(180)),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            offset: Offset(0, 5),
-                                            blurRadius: 10,
-                                            color: Colors.black54)
-                                      ]),
-                                  child: Column(
-                                    children: const [
-                                      SizedBox(
-                                        height: 70,
-                                      ),
-                                      Image(
-                                        image: AssetImage(
-                                            'assets/images/Dawiny logo - 2.png'),
-                                        width: 220,
-                                        height: 100,
-                                      ),
-                                      SizedBox(
-                                        height: 30,
-                                      ),
-                                      Text(
-                                        "Sign in to your account",
-                                        style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                    ],
+                                  child: GlassMorphism(
+                                    // decoration: const BoxDecoration(
+                                    //     color: Colors.blueAccent,
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(180)),
+                                    //     boxShadow: [
+                                    //       BoxShadow(
+                                    //           offset: Offset(0, 5),
+                                    //           blurRadius: 10,
+                                    //           color: Colors.black54)
+                                    //     ]),
+                                    child: Column(
+                                      children: const [
+                                        SizedBox(
+                                          height: 70,
+                                        ),
+                                        Image(
+                                          image: AssetImage(
+                                              'assets/images/dawinyLogoG.png'),
+                                          width: 220,
+                                          height: 100,
+                                        ),
+                                        SizedBox(
+                                          height: 30,
+                                        ),
+                                        Text(
+                                          "Sign in to your account",
+                                          style: TextStyle(
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 Form(
@@ -158,7 +161,8 @@ class SignIn extends StatelessWidget {
                                         ),
                                         AppButton(
                                             text: 'Sign in',
-                                            bottenColor: Colors.blue,
+                                            bottenColor:
+                                                Colors.green.withOpacity(.7),
                                             textColor: Colors.white,
                                             borderradius:
                                                 BorderRadius.circular(5),
