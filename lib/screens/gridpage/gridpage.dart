@@ -81,7 +81,7 @@ class GridPage extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           children: [
             const HeadLine(),
-            SizedBox(height: 24.0),
+            const SizedBox(height: 24.0),
             GridView.count(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -97,7 +97,7 @@ class GridPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const ClinicBooking(),
+                          builder: (context) => const DiagnosesList(),
                         ),
                       );
 

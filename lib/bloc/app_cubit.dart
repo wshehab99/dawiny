@@ -29,6 +29,7 @@ class AppCubit extends Cubit<AppStates> {
   List shownDctors = [];
   List initDctors = [];
   Map? doctor;
+  Map? currentUser;
   bool availbeDate = false;
   String userType = 'Doctor';
   String symptomText =
@@ -421,11 +422,11 @@ class AppCubit extends Cubit<AppStates> {
     }
   }
 
-  Future<int> logIn(String email, String password) async {
+  Future<int> logIn(String email, String password, {String? diffRole}) async {
     emit(LoadingState());
 
     final pref = await SharedPreferences.getInstance();
-    String? role = pref.getString("role");
+    String? role = diffRole ?? pref.getString("role");
 
     var dio = Dio();
     try {
@@ -746,6 +747,32 @@ class AppCubit extends Cubit<AppStates> {
       errorMsg = ex.response!.data['msg'];
       print(errorMsg);
       emit(ErrorState());
+    }
+  }
+
+  Future getCurrentUser() async {
+    if (currentUser == null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      accessToken = prefs.getString("access");
+      Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
+      String role = payload['role'];
+      String id = payload['userId'];
+      try {
+        String url = "https://dawiny.herokuapp.com/api/" + role + "s/" + id;
+        emit(LoadingState());
+        var dio = Dio();
+
+        var response = await dio.get(url,
+            options: Options(headers: {
+              'authorization': accessToken,
+            }));
+        currentUser = response.data;
+        emit(DoneState());
+      } on DioError catch (ex) {
+        errorMsg = ex.response!.data['msg'];
+        print(errorMsg);
+        emit(ErrorState());
+      }
     }
   }
 }

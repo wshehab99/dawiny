@@ -1,8 +1,5 @@
-import 'dart:ui';
-
 import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
-import 'package:find_doctor/screens/profile_data.dart';
 import 'package:find_doctor/screens/welcome/user_profile.dart';
 import 'package:find_doctor/shared/constant.dart';
 import 'package:find_doctor/shared/glass.dart';
@@ -88,7 +85,8 @@ class AppDrawer extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ListOfAppointments(),
+                                builder: (context) =>
+                                    const ListOfAppointments(),
                               ),
                             );
                           },
@@ -106,7 +104,7 @@ class AppDrawer extends StatelessWidget {
                             );
                           },
                         ),
-                        Spacer(),
+                        const Spacer(),
                         const Divider(
                           endIndent: 8.0,
                           thickness: 1,
@@ -157,12 +155,12 @@ class _DrawerButton extends StatelessWidget {
                 color: kAppWhiteColor,
               ),
             if (icon != null)
-              SizedBox(
+              const SizedBox(
                 width: 8.0,
               ),
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 color: kAppWhiteColor,
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,

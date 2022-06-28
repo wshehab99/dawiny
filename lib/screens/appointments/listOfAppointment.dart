@@ -37,12 +37,7 @@ class ListOfAppointments extends StatelessWidget {
                         endAppointment: cubit.myAppointments[index]
                             ['appointment']['end'],
                         type: "${cubit.myAppointments[index]['type']}",
-                        onPressed: () {
-                          // setState(() {
-                          //   appointments.removeAt(index);
-                          //   print(appointments.length);
-                          // });
-                        },
+                        onPressed: () {},
                       );
                     },
                     // separatorBuilder: (BuildContext context, int index) =>

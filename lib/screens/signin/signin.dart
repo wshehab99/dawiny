@@ -1,6 +1,7 @@
 import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/gridpage/gridpage.dart';
+import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
 import 'package:find_doctor/shared/glass.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:find_doctor/screens/signin/continue_with.dart';
@@ -22,7 +23,12 @@ class SignIn extends StatelessWidget {
       TextEditingController(text: 'waleed@dawiny.com');
   final TextEditingController _password =
       TextEditingController(text: '12345678');
-
+  final AppDropDownMenu _role = AppDropDownMenu(
+    choices: const ['Doctor', 'Nurse', 'Patient'],
+    hint: "Role",
+    label: "Role",
+  );
+  bool differntRole = false;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -48,6 +54,13 @@ class SignIn extends StatelessWidget {
                                 ElevatedButton(
                                     onPressed: cubit.backToNormalState,
                                     child: const Text("back")),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      differntRole = true;
+                                      cubit.backToNormalState();
+                                    },
+                                    child:
+                                        const Text("Login with differnt role")),
                               ],
                             )
                           : SingleChildScrollView(
@@ -130,6 +143,14 @@ class SignIn extends StatelessWidget {
                                             },
                                             hide: true),
                                         const SizedBox(
+                                          height: 20,
+                                        ),
+                                        differntRole
+                                            ? _role
+                                            : const SizedBox(
+                                                width: 1,
+                                              ),
+                                        const SizedBox(
                                           height: 10,
                                         ),
                                         CheckBoxRow(
@@ -150,10 +171,13 @@ class SignIn extends StatelessWidget {
                                                   .validate()) {
                                                 // doctor at the begning ------ later will be dynamic
                                                 await cubit
-                                                    .logIn(
-                                                  _email.text,
-                                                  _password.text,
-                                                )
+                                                    .logIn(_email.text,
+                                                        _password.text,
+                                                        diffRole: differntRole
+                                                            ? _role
+                                                                .dropdownValue!
+                                                                .toLowerCase()
+                                                            : null)
                                                     .then((value) {
                                                   if (value == 1) {
                                                     Navigator.pushReplacement(
