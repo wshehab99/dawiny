@@ -81,7 +81,7 @@ class GridPage extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           children: [
             const HeadLine(),
-            SizedBox(height: 24.0),
+            const SizedBox(height: 24.0),
             GridView.count(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -97,24 +97,24 @@ class GridPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const ClinicBooking(),
+                          builder: (context) => const DiagnosesList(),
                         ),
                       );
 
-                    (context) => const DiagnosesList();
-                  } else if (index == 1) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const BookDoctorHomeVisit()));
-                  } else if (index == 2) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const VideoCallScreen()));
-                  } else if (index == 3) {
-                    Navigator.push(
-
+                      (context) => const DiagnosesList();
+                    } else if (index == 1) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const BookDoctorHomeVisit()));
+                    } else if (index == 2) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const VideoCallScreen()));
+                    } else if (index == 3) {
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const NursingTasksScreen(),
