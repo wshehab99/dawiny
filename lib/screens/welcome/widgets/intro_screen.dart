@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../shared/constant.dart';
+import '../../../shared/gradient_text.dart';
+
 class InroScreen extends StatelessWidget {
   final String title;
   final String desc;
@@ -28,23 +31,30 @@ class InroScreen extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    title,
-                    style: const TextStyle(
+                  padding: const EdgeInsets.only(top: 8.0, bottom: 0),
+                  child: AppGradientText(
+                    "${title}",
+                    style: TextStyle(
+                        fontFamily: kNexaFont,
                         fontSize: 30,
-                        color: Color(0xFF518DFF),
-                        fontWeight: FontWeight.w900),
+                        fontWeight: FontWeight.bold),
                   ),
+                  //AppGradientTex (
+                  //   title,
+                  //   style: const TextStyle(
+                  //       fontSize: 30,
+                  //       color: Color(0xFF518DFF),
+                  //       fontWeight: FontWeight.w900),
+                  // ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(x),
-                  child: Text(
-                    desc,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        fontSize: 15, fontWeight: FontWeight.w500),
-                  ),
+                  child: Text(desc,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.grey[700],
+                          fontWeight: FontWeight.bold)),
                 ),
               ],
             ),

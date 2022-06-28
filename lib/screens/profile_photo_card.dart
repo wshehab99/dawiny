@@ -124,13 +124,13 @@ class _ProfilePhotoCardState extends State<ProfilePhotoCard> {
                         ),
                       userImage == null
                           ? Text(
-                              "Upload Photo Profile",
+                              "${widget.title}",
                               style: TextStyle(
                                   color: Colors.blue[600],
                                   fontWeight: FontWeight.w600),
                             )
                           : Text(
-                              "Change Photo",
+                              "${widget.title2}",
                               style: TextStyle(
                                   color: Colors.blue[600],
                                   fontWeight: FontWeight.w600),

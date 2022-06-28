@@ -67,7 +67,7 @@ class GridPage extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.only(top: 16.0),
                 child: Image(
-                  image: AssetImage('assets/images/dawiny_logo.png'),
+                  image: AssetImage('assets/images/dawinyLogoG.png'),
                   width: 96,
                 ),
               ),
@@ -101,20 +101,20 @@ class GridPage extends StatelessWidget {
                         ),
                       );
 
-                    (context) => const DiagnosesList();
-                  } else if (index == 1) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const BookDoctorHomeVisit()));
-                  } else if (index == 2) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const VideoCallScreen()));
-                  } else if (index == 3) {
-                    Navigator.push(
-
+                      (context) => const DiagnosesList();
+                    } else if (index == 1) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const BookDoctorHomeVisit()));
+                    } else if (index == 2) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const VideoCallScreen()));
+                    } else if (index == 3) {
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const NursingTasksScreen(),

@@ -71,6 +71,7 @@ class DoctorListScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: SearchBar(
+                        hint: "Search for doctors",
                         onSearch: (value) {
                           value1 = value!;
                           shownList = cubit.searchAboutDoctor(

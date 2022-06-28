@@ -46,7 +46,9 @@ class DoctorList extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: SearchBar(),
+                child: SearchBar(
+                  hint: "Search for doctors",
+                ),
               ),
               const SizedBox(
                 height: 20,
