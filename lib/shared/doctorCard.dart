@@ -5,8 +5,8 @@ import 'constant.dart';
 
 class DoctorCard extends StatelessWidget {
   String? id;
-  final _name;
-  final _description;
+  final String? _name;
+  final String? _description;
 
   final _bgColor;
   bool? videoCall;
@@ -35,14 +35,14 @@ class DoctorCard extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: ListTile(
             title: Text(
-              _name,
+              _name!,
               style: TextStyle(
                 color: kTitleTextColor,
                 fontWeight: FontWeight.bold,
               ),
             ),
             subtitle: Text(
-              _description,
+              _description!,
               style: TextStyle(
                 color: kTitleTextColor.withOpacity(0.7),
               ),

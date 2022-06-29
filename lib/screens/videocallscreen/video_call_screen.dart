@@ -1,4 +1,3 @@
-import 'package:find_doctor/screens/videocalldetails/videocalldetails.dart';
 import 'package:find_doctor/shared/diagnosesList.dart';
 import 'package:find_doctor/shared/gradient_text.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +20,11 @@ class VideoCallScreen extends StatelessWidget {
                   width: double.infinity,
                   child: Image.asset("assets/images/dawinyLogoG.png")),
             ),
-            AppGradientText(
+            const AppGradientText(
               "Future of Healtcare",
               style: TextStyle(fontFamily: kNexaFont, fontSize: 30),
             ),
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
             GestureDetector(
@@ -43,7 +42,7 @@ class VideoCallScreen extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
-                    color: Color(0xFF0277BD).withOpacity(.8),
+                    color: const Color(0xFF0277BD).withOpacity(.8),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Row(
@@ -74,7 +73,7 @@ class VideoCallScreen extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
-                      color: Color(0xFF0277BD).withOpacity(.8),
+                      color: const Color(0xFF0277BD).withOpacity(.8),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Row(
