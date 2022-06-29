@@ -3,7 +3,6 @@ import 'package:find_doctor/shared/getLocation.dart';
 import 'package:flutter/material.dart';
 
 import '../../fake_data/fake_data.dart';
-import '../../shared/diagnosesList.dart';
 import '../doctorMap/doctorMap.dart';
 import 'diagnosesListDoctorHome.dart';
 
@@ -32,7 +31,7 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
       body: SingleChildScrollView(
           child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 16.0,
           ),
           Padding(
@@ -65,7 +64,7 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
                       fontSize: height * .033,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Text(
@@ -79,7 +78,7 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
                   ),
                   maxLines: 2,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Icon(
@@ -97,10 +96,10 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
                     Colors.green.withOpacity(.6),
                   ],
                 ),
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomRight: Radius.circular(60),
                 ),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                       blurRadius: 15, offset: Offset(0, 5), color: Colors.white)
                 ],
@@ -122,10 +121,10 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
                     Colors.grey.withOpacity(.3),
                   ],
                 ),
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(60),
                 ),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                       blurRadius: 15, offset: Offset(0, 5), color: Colors.white)
                 ],
@@ -147,7 +146,7 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    DiagnosesListDoctorHome()),
+                                    const DiagnosesListDoctorHome()),
                           );
 
                           setState(() {});
@@ -191,7 +190,7 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
 
                   Text(locationAddress!),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   ElevatedButton(
@@ -207,7 +206,7 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
                         await Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DoctorMap()));
+                                builder: (context) => const DoctorMap()));
 
                         setState(() {});
                       },

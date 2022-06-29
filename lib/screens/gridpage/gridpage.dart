@@ -7,11 +7,8 @@ import 'package:find_doctor/screens/symptoms_screen/symptoms_screen.dart';
 
 import 'package:find_doctor/screens/videocallscreen/video_call_screen.dart';
 import 'package:find_doctor/shared/constant.dart';
-import 'package:find_doctor/shared/gradient_text.dart';
 import 'package:flutter/material.dart';
 import '../../shared/diagnosesList.dart';
-import '../appointments/listOfAppointment.dart';
-import '../clinick_booking/clinic_booking.dart';
 import '../doctor_home_visit/bookDoctorHomeVisit.dart';
 
 class GridPage extends StatelessWidget {

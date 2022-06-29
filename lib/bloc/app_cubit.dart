@@ -27,7 +27,7 @@ class AppCubit extends Cubit<AppStates> {
   bool nursingListContinue = false;
   DateTime initialDate = DateTime.now();
   List shownDctors = [];
-  List initDctors = [];
+  List? initDctors;
   Map? doctor;
   Map? currentUser;
   bool availbeDate = false;
@@ -151,7 +151,7 @@ class AppCubit extends Cubit<AppStates> {
   String? refreshToken;
   List initSlots = [];
   List shownSlots = [];
-  List myAppointments = [];
+  List? myAppointments;
   void changePage(int value) {
     curentPage = value;
     emit(ChangeWelcomePage());
@@ -200,7 +200,10 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   List searchAboutDoctor(String dignoseName, String value, bool? video) {
-    shownDctors = initDctors
+    if (initDctors == null) {
+      return [];
+    }
+    shownDctors = initDctors!
         .where(
           (element) => (element['specification'] == dignoseName &&
               ("${element['firstName'].toLowerCase()} ${element['lastName'].toLowerCase()}"
@@ -218,30 +221,32 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   Future getDoctor() async {
-    emit(LoadingState());
-    final pref = await SharedPreferences.getInstance();
-    try {
-      var dio = Dio();
-      accessToken = pref.getString("access");
-      var response = await dio.get("https://dawiny.herokuapp.com/api/doctors",
-          options: Options(headers: {
-            "authorization": accessToken,
-          }));
-      initDctors = response.data;
-      emit(DoneState());
-    } on DioError catch (e) {
-      print(e);
-
-      if (e.response!.statusCode == 401) {
-        var result = refreshAccessToken();
-        if (result == -1) {
-        } else {
-          pref.setString("access", result.toString());
-          getDoctor();
-        }
-      } else {
+    if (initDctors == null) {
+      emit(LoadingState());
+      final pref = await SharedPreferences.getInstance();
+      try {
+        var dio = Dio();
+        accessToken = pref.getString("access");
+        var response = await dio.get("https://dawiny.herokuapp.com/api/doctors",
+            options: Options(headers: {
+              "authorization": accessToken,
+            }));
+        initDctors = response.data;
+        emit(DoneState());
+      } on DioError catch (e) {
         print(e);
-        emit(ErrorState());
+
+        if (e.response!.statusCode == 401) {
+          var result = refreshAccessToken();
+          if (result == -1) {
+          } else {
+            pref.setString("access", result.toString());
+            getDoctor();
+          }
+        } else {
+          print(e);
+          emit(ErrorState());
+        }
       }
     }
   }
@@ -466,7 +471,8 @@ class AppCubit extends Cubit<AppStates> {
 
   Future refreshAccessToken() async {
     var dio = Dio();
-
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    refreshToken = prefs.getString("refresh");
     final rr = await dio.post("https://dawiny.herokuapp.com/api/auth/token",
         options: Options(
           headers: {},
@@ -722,36 +728,43 @@ class AppCubit extends Cubit<AppStates> {
     }
   }
 
-  Future getMyAppintment() async {
-    emit(LoadingState());
-    try {
-      SharedPreferences pref = await SharedPreferences.getInstance();
+  Future<List> getMyAppintment() async {
+    if (myAppointments == null) {
+      emit(LoadingState());
+      try {
+        SharedPreferences pref = await SharedPreferences.getInstance();
 
-      accessToken = pref.getString("access");
-      Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
-      String role = payload['role'];
-      Dio dio = Dio();
-      var response = await dio.get(
-          "https://dawiny.herokuapp.com/api/" +
-              role +
-              "s/" +
-              payload['userId'] +
-              "/reservations",
-          options: Options(headers: {
-            'authorization': accessToken,
-          }));
-      print(response);
-      myAppointments = response.data;
-      emit(DoneState());
-    } on DioError catch (ex) {
-      errorMsg = ex.response!.data['msg'];
-      print(errorMsg);
-      emit(ErrorState());
+        accessToken = pref.getString("access");
+        Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
+        String role = payload['role'];
+        Dio dio = Dio();
+        var response = await dio.get(
+            "https://dawiny.herokuapp.com/api/" +
+                role +
+                "s/" +
+                payload['userId'] +
+                "/reservations",
+            options: Options(headers: {
+              'authorization': accessToken,
+            }));
+        myAppointments = response.data;
+
+        print(myAppointments);
+
+        emit(DoneState());
+        return myAppointments!;
+      } on DioError catch (ex) {
+        errorMsg = ex.response!.data['msg'];
+        print(errorMsg);
+        emit(ErrorState());
+        return [];
+      }
     }
+    return [];
   }
 
   Future getCurrentUser() async {
-    if (currentUser == null) {
+    if (currentUser!.isEmpty) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       accessToken = prefs.getString("access");
       Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../shared/custom_appbar.dart';
-import '../nurse_details/nurse_details.dart';
 import 'package:custom_marker/marker_icon.dart';
 
 import 'doctor_details.dart';

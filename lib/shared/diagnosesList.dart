@@ -27,12 +27,12 @@ class DiagnosesList extends StatelessWidget {
             body: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     height: 180,
                     child: GlassMorphism(
-                      borderRadius:
-                          BorderRadius.only(bottomLeft: Radius.circular(140)),
+                      borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(140)),
                       child: Column(
                         children: [
                           const SizedBox(
