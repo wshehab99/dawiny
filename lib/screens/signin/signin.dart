@@ -41,7 +41,7 @@ class SignIn extends StatelessWidget {
               backgroundColor:
                   (state is ErrorState) ? Colors.grey : Colors.white,
               body: SafeArea(
-                  child: (state is LoadingState)
+                  child: (state is LoadingState || state is DoneState)
                       ? const Center(
                           child: CircularProgressIndicator(),
                         )
@@ -67,14 +67,14 @@ class SignIn extends StatelessWidget {
                               keyboardDismissBehavior:
                                   ScrollViewKeyboardDismissBehavior.onDrag,
                               child: Column(children: [
-                                Container(
+                                SizedBox(
                                   width: double.infinity,
                                   height:
                                       MediaQuery.of(context).size.height * 0.41,
                                   child: GlassMorphism(
                                     // decoration: const BoxDecoration(
                                     //     color: Colors.blueAccent,
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                         bottomLeft: Radius.circular(180)),
                                     //     boxShadow: [
                                     //       BoxShadow(

@@ -29,7 +29,7 @@ class AppCubit extends Cubit<AppStates> {
   List shownDctors = [];
   List? initDctors;
   Map? doctor;
-  Map? currentUser;
+  Map? currentUser = {};
   bool availbeDate = false;
   String userType = 'Doctor';
   String symptomText =
@@ -224,28 +224,32 @@ class AppCubit extends Cubit<AppStates> {
     if (initDctors == null) {
       emit(LoadingState());
       final pref = await SharedPreferences.getInstance();
-      try {
-        var dio = Dio();
-        accessToken = pref.getString("access");
-        var response = await dio.get("https://dawiny.herokuapp.com/api/doctors",
-            options: Options(headers: {
-              "authorization": accessToken,
-            }));
-        initDctors = response.data;
-        emit(DoneState());
-      } on DioError catch (e) {
-        print(e);
+      accessToken = pref.getString("access");
+      Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
+      if (checkValidAccess(payload['exp'])) {
+        try {
+          var dio = Dio();
 
-        if (e.response!.statusCode == 401) {
-          var result = refreshAccessToken();
-          if (result == -1) {
-          } else {
-            pref.setString("access", result.toString());
-            getDoctor();
-          }
-        } else {
+          var response =
+              await dio.get("https://dawiny.herokuapp.com/api/doctors",
+                  options: Options(headers: {
+                    "authorization": accessToken,
+                  }));
+          initDctors = response.data;
+          emit(DoneState());
+        } on DioError catch (e) {
           print(e);
+
+          errorMsg = e.response!.data['msg'];
           emit(ErrorState());
+        }
+      } else {
+        var result = await refreshAccessToken();
+        if (result == -1) {
+          //make user login again
+        } else {
+          await pref.setString("access", result.toString());
+          getDoctor();
         }
       }
     }
@@ -451,7 +455,9 @@ class AppCubit extends Cubit<AppStates> {
 
         await pref.setString('access', accessToken!);
         await pref.setString('refresh', refreshToken!);
-        emit(DoneState());
+
+        print(accessToken);
+        print(refreshToken);
       }
       emit(DoneState());
       return 1;
@@ -473,104 +479,60 @@ class AppCubit extends Cubit<AppStates> {
     var dio = Dio();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     refreshToken = prefs.getString("refresh");
-    final rr = await dio.post("https://dawiny.herokuapp.com/api/auth/token",
-        options: Options(
-          headers: {},
-        ),
-        data: jsonEncode({
-          "refresh": refreshToken,
-        }));
-    if (rr.statusCode == 200) {
+    try {
+      final rr = await dio.post("https://dawiny.herokuapp.com/api/auth/token",
+          options: Options(
+            headers: {},
+          ),
+          data: jsonEncode({
+            "refresh": refreshToken,
+          }));
+      print(rr);
       return rr.data['access'];
-    } else {
-      return -1;
-    }
-  }
+    } on DioError catch (ex) {
+      errorMsg = ex.response!.data['msg'];
 
-  Future requestOnServer(String email, String password, String role) async {
-    emit(LoadingState());
-    final pref = await SharedPreferences.getInstance();
-    accessToken = pref.getString("access");
-    refreshToken = pref.getString("refresh");
-    var dio = Dio();
-    final response = await dio.post(
-      "https://dawiny.herokuapp.com/auth/login",
-      options: Options(headers: {
-        "authorization": accessToken,
-      }),
-      data: jsonEncode({
-        "email": email,
-        "password": password,
-        "role": role,
-      }),
-    );
-    if (response.statusCode == 200) {
-      emit(DoneState());
-      return response.data['disease'];
-    } else if (response.statusCode! == 401) {
-      var result = refreshAccessToken();
-      if (result == -1) {
-        //make user login again
-      } else {
-        await pref.setString("access", result.toString());
-        accessToken = result as String?;
-        logIn(email, password);
-      }
-    } else {
-      errorMsg = response.statusMessage;
-      emit(ErrorState());
-      return "";
+      return -1;
     }
   }
 
   Future logout() async {
     emit(LoadingState());
+
     SharedPreferences pref = await SharedPreferences.getInstance();
     accessToken = pref.getString('access');
-    var dio = Dio();
-    final response =
-        await dio.delete("https://dawiny.herokuapp.com/api/auth/logout",
-            options: Options(
-              headers: {
-                'authorization': accessToken,
-              },
-            ),
-            data: jsonEncode({
-              "refresh": refreshToken,
-            }));
+    Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
+    if (checkValidAccess(payload['exp'])) {
+      var dio = Dio();
+      final response =
+          await dio.delete("https://dawiny.herokuapp.com/api/auth/logout",
+              options: Options(
+                headers: {
+                  'authorization': accessToken,
+                },
+              ),
+              data: jsonEncode({
+                "refresh": refreshToken,
+              }));
 
-    try {
-      if (response.statusCode == 200) {
-        emit(DoneState());
-      } else if (response.statusCode! == 401) {
-        var result = refreshAccessToken();
-        if (result == -1) {
-          //make user login again
-        } else {
-          await pref.setString("access", result.toString());
-          accessToken = result as String?;
-          logout();
+      try {
+        if (response.statusCode == 200) {
+          emit(DoneState());
         }
+      } on DioError {
+        errorMsg = response.statusMessage;
+        emit(ErrorState());
       }
-    } on DioError {
-      errorMsg = response.statusMessage;
-      emit(ErrorState());
+    } else {
+      var result = await refreshAccessToken();
+      if (result == -1) {
+        //make user login again
+      } else {
+        await pref.setString("access", result.toString());
+        accessToken = result as String?;
+        logout();
+      }
     }
-    // if (response.statusCode == 200) {
-    //   emit(DoneState());
-    // } else if (response.statusCode! == 401) {
-    //   var result = refreshAccessToken();
-    //   if (result == -1) {
-    //     //make user login again
-    //   } else {
-    //     await pref.setString("access", result.toString());
-    //     accessToken = result as String?;
-    //     logout();
-    //   }
-    // } else {
-    //   errorMsg = response.statusMessage;
-    //   emit(ErrorState());
-    // }
   }
 
   DateTime timeOfDayMinToInt(TimeOfDay t) {
@@ -584,42 +546,57 @@ class AppCubit extends Cubit<AppStates> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     accessToken = prefs.getString("access");
     Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
-    String role = payload['role'];
-    print(payload);
-    print(accessToken);
-    if (role == "patient") {
-      data.addAll({"address": data["clinicAddress"]});
-      data.remove("clinicAddress");
-    } else if (role == "nurse") {
-      data.remove("clinicAddress");
-    }
-    print(data);
-    try {
-      var response = dio.patch(
-          'https://dawiny.herokuapp.com/api/' + role + 's/' + payload['userId'],
-          data: jsonEncode(data),
-          options: Options(headers: {
-            'authorization': accessToken,
-          }));
-      emit(DoneState());
-      if (role == "doctor") {
-        return 1;
-      } else {
-        return -1;
+    if (checkValidAccess(payload['exp'])) {
+      String role = payload['role'];
+      print(payload);
+      print(accessToken);
+      if (role == "patient") {
+        data.addAll({"address": data["clinicAddress"]});
+        data.remove("clinicAddress");
+      } else if (role == "nurse") {
+        data.remove("clinicAddress");
       }
-    } on DioError catch (ex) {
-      print(ex.response);
-      if (ex.response!.statusCode == 400) {
-        errorMsg = ex.response!.data['msg'];
-      } else {
-        errorMsg = ex.response!.data['msg'];
+      print(data);
+      try {
+        var response = dio.patch(
+            'https://dawiny.herokuapp.com/api/' +
+                role +
+                's/' +
+                payload['userId'],
+            data: jsonEncode(data),
+            options: Options(headers: {
+              'authorization': accessToken,
+            }));
+        emit(DoneState());
+        if (role == "doctor") {
+          return 1;
+        } else {
+          return -1;
+        }
+      } on DioError catch (ex) {
+        print(ex.response);
+        if (ex.response!.statusCode == 400) {
+          errorMsg = ex.response!.data['msg'];
+        } else {
+          errorMsg = ex.response!.data['msg'];
+        }
+        emit(ErrorState());
+        return 0;
+      } catch (ex) {
+        errorMsg = "something went wrong";
+        emit(ErrorState());
+        return 0;
       }
-      emit(ErrorState());
-      return 0;
-    } catch (ex) {
-      errorMsg = "something went wrong";
-      emit(ErrorState());
-      return 0;
+    } else {
+      var result = await refreshAccessToken();
+      if (result == -1) {
+        //make user login again
+        return 100;
+      } else {
+        await prefs.setString("access", result.toString());
+        accessToken = result as String?;
+        return updatePProfile(data: data);
+      }
     }
   }
 
@@ -647,23 +624,36 @@ class AppCubit extends Cubit<AppStates> {
 
   Future getDoctorById({required String id}) async {
     if (doctor == null) {
-      try {
-        String url = "https://dawiny.herokuapp.com/api/doctors/" + id;
-        emit(LoadingState());
-        var dio = Dio();
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        accessToken = prefs.getString("access");
-        var response = await dio.get(url,
-            options: Options(headers: {
-              'authorization': accessToken,
-            }));
-        doctor = response.data;
-        initSlots = response.data['appointments'];
-        emit(DoneState());
-      } on DioError catch (ex) {
-        errorMsg = ex.response!.data['msg'];
-        print(errorMsg);
-        emit(ErrorState());
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      accessToken = prefs.getString("access");
+      Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
+      if (checkValidAccess(payload['exp'])) {
+        try {
+          String url = "https://dawiny.herokuapp.com/api/doctors/" + id;
+          emit(LoadingState());
+          var dio = Dio();
+
+          var response = await dio.get(url,
+              options: Options(headers: {
+                'authorization': accessToken,
+              }));
+          doctor = response.data;
+          initSlots = response.data['appointments'];
+          emit(DoneState());
+        } on DioError catch (ex) {
+          errorMsg = ex.response!.data['msg'];
+          print(errorMsg);
+          emit(ErrorState());
+        }
+      } else {
+        var result = await refreshAccessToken();
+        if (result == -1) {
+          //make user login again
+        } else {
+          await prefs.setString("access", result.toString());
+          accessToken = result as String?;
+          getDoctorById(id: id);
+        }
       }
     }
   }
@@ -672,32 +662,43 @@ class AppCubit extends Cubit<AppStates> {
       {required String id,
       required Map data,
       required BuildContext context}) async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      accessToken = prefs.getString("access");
-      Dio dio = Dio();
-      var respons = await dio.post(
-          "https://dawiny.herokuapp.com/api/doctors/" +
-              id +
-              "/reservations?check=true",
-          options: Options(headers: {
-            'authorization': accessToken,
-          }),
-          data: jsonEncode(data));
-      print(respons);
-      availbeDate = respons.data['available'];
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(
-          availbeDate
-              ? "This time is available right now"
-              : "This time is not available right now",
-        ),
-      ));
-      emit(DoneState());
-    } on DioError catch (ex) {
-      errorMsg = ex.response!.data['msg'];
-      print(errorMsg);
-      emit(ErrorState());
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    accessToken = prefs.getString("access");
+    Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
+    if (checkValidAccess(payload['exp'])) {
+      try {
+        Dio dio = Dio();
+        var respons = await dio.post(
+            "https://dawiny.herokuapp.com/api/doctors/" +
+                id +
+                "/reservations?check=true",
+            options: Options(headers: {
+              'authorization': accessToken,
+            }),
+            data: jsonEncode(data));
+        print(respons);
+        availbeDate = respons.data['available'];
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+            availbeDate
+                ? "This time is available right now"
+                : "This time is not available right now",
+          ),
+        ));
+        emit(DoneState());
+      } on DioError catch (ex) {
+        errorMsg = ex.response!.data['msg'];
+        print(errorMsg);
+        emit(ErrorState());
+      }
+    } else {
+      var result = await refreshAccessToken();
+      if (result == -1) {
+        //make user login again
+      } else {
+        await prefs.setString("access", result.toString());
+        checkDate(id: id, data: data, context: context);
+      }
     }
   }
 
@@ -705,87 +706,160 @@ class AppCubit extends Cubit<AppStates> {
       {required String id,
       required Map data,
       required BuildContext context}) async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      accessToken = prefs.getString("access");
-      Dio dio = Dio();
-      var respons = await dio.post(
-          "https://dawiny.herokuapp.com/api/doctors/" + id + "/reservations",
-          options: Options(headers: {
-            'authorization': accessToken,
-          }),
-          data: jsonEncode(data));
-      print(respons);
-
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Done"),
-      ));
-      emit(DoneState());
-    } on DioError catch (ex) {
-      errorMsg = ex.response!.data['msg'];
-      print(errorMsg);
-      emit(ErrorState());
-    }
-  }
-
-  Future<List> getMyAppintment() async {
-    if (myAppointments == null) {
-      emit(LoadingState());
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    accessToken = prefs.getString("access");
+    Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
+    if (checkValidAccess(payload['exp'])) {
       try {
-        SharedPreferences pref = await SharedPreferences.getInstance();
-
-        accessToken = pref.getString("access");
-        Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
-        String role = payload['role'];
         Dio dio = Dio();
-        var response = await dio.get(
-            "https://dawiny.herokuapp.com/api/" +
-                role +
-                "s/" +
-                payload['userId'] +
-                "/reservations",
+        var respons = await dio.post(
+            "https://dawiny.herokuapp.com/api/doctors/" + id + "/reservations",
             options: Options(headers: {
               'authorization': accessToken,
-            }));
-        myAppointments = response.data;
+            }),
+            data: jsonEncode(data));
+        print(respons);
 
-        print(myAppointments);
-
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Done"),
+        ));
         emit(DoneState());
-        return myAppointments!;
       } on DioError catch (ex) {
         errorMsg = ex.response!.data['msg'];
         print(errorMsg);
         emit(ErrorState());
-        return [];
+      }
+    } else {
+      var result = await refreshAccessToken();
+      if (result == -1) {
+        //make user login again
+      } else {
+        await prefs.setString("access", result.toString());
+        accessToken = result as String?;
+        bookAppointment(id: id, data: data, context: context);
+      }
+    }
+  }
+
+  Future<List> getMyAppintment() async {
+    if (count == 0) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      print(count);
+      count++;
+      accessToken = prefs.getString("access");
+      print(accessToken);
+      Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
+      if (checkValidAccess(payload['exp'])) {
+        emit(LoadingState());
+        try {
+          String role = payload['role'];
+          Dio dio = Dio();
+          var response = await dio.get(
+              "https://dawiny.herokuapp.com/api/" +
+                  role +
+                  "s/" +
+                  payload['userId'] +
+                  "/reservations",
+              options: Options(headers: {
+                'authorization': accessToken,
+              }));
+          myAppointments = response.data;
+
+          print(myAppointments);
+
+          emit(DoneState());
+          return myAppointments!;
+        } on DioError catch (ex) {
+          errorMsg = ex.response!.data['msg'];
+          print(errorMsg);
+          emit(ErrorState());
+          return [];
+        }
+      } else {
+        var result = await refreshAccessToken();
+        if (result == -1) {
+          //make user login again
+          return [100];
+        } else {
+          await prefs.setString("access", result.toString());
+          count = 0;
+          return getMyAppintment();
+        }
       }
     }
     return [];
   }
 
-  Future getCurrentUser() async {
-    if (currentUser!.isEmpty) {
+  int count = 0;
+  Future<Map> getCurrentUser() async {
+    if (count == 0) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
+      count++;
+      print(count++);
       accessToken = prefs.getString("access");
       Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
       String role = payload['role'];
       String id = payload['userId'];
-      try {
-        String url = "https://dawiny.herokuapp.com/api/" + role + "s/" + id;
-        emit(LoadingState());
-        var dio = Dio();
-
-        var response = await dio.get(url,
-            options: Options(headers: {
-              'authorization': accessToken,
-            }));
-        currentUser = response.data;
-        emit(DoneState());
-      } on DioError catch (ex) {
-        errorMsg = ex.response!.data['msg'];
-        print(errorMsg);
-        emit(ErrorState());
+      if (checkValidAccess(payload['exp'])) {
+        try {
+          emit(LoadingState());
+          var dio = Dio();
+          var response = await dio.get(
+              "https://dawiny.herokuapp.com/api/" + role + "s/" + id,
+              options: Options(headers: {
+                'authorization': accessToken,
+              }));
+          currentUser = response.data;
+          emit(DoneState());
+        } on DioError catch (ex) {
+          errorMsg = ex.response!.data['msg'];
+          print(errorMsg);
+          emit(ErrorState());
+        }
+      } else {
+        var result = await refreshAccessToken();
+        if (result == -1) {
+          //make user login again
+        } else {
+          await prefs.setString("access", result.toString());
+          count = 0;
+          return getCurrentUser();
+        }
       }
     }
+    return currentUser!;
+  }
+
+  bool checkValidAccess(int timeStamp) {
+    return DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000)
+        .isAfter(DateTime.now());
+  }
+
+  Future<int> stayLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    refreshToken = prefs.getString("refresh");
+    if (refreshToken != null) {
+      if (count == 0) {
+        count++;
+        var result = await refreshAccessToken();
+        if (result == -1) {
+          return 0;
+        } else {
+          accessToken = result.toString();
+          print(accessToken);
+          prefs.setString("access", accessToken!);
+
+          Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
+          if (payload["role"] == "doctor") {
+            return 2;
+          } else if (payload["role"] == "nurse") {
+            return 3;
+          } else {
+            return 1;
+          }
+        }
+      }
+    }
+    return -1;
   }
 }

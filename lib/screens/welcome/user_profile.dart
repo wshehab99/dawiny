@@ -24,14 +24,16 @@ class UserProfile extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
+
           cubit.getCurrentUser().then((value) {
-            firstNameController.text = cubit.currentUser!['firstName'];
-            lastNameController.text = cubit.currentUser!['lastName'];
-            emailController.text = cubit.currentUser!['email'];
-            dateOfBirth.text = cubit.currentUser!['dateOfBirth'];
-            addressControllerr.text = cubit.currentUser!['address'] ??
-                cubit.currentUser!['clincAddress'];
+            firstNameController.text = value['firstName'] ?? " ";
+            lastNameController.text = value['lastName'] ?? " ";
+            emailController.text = value['email'] ?? " ";
+            dateOfBirth.text = value['dateOfBirth'] ?? " ";
+            addressControllerr.text =
+                value['address'] ?? value['clincAddress'] ?? " ";
           });
+
           if (state is LoadingState) {
             return Scaffold(
                 appBar: CustomAppbar(
