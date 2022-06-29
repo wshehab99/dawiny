@@ -19,6 +19,7 @@ class AppDrawer extends StatelessWidget {
             listener: (context, state) {},
             builder: (context, state) {
               AppCubit cubit = AppCubit.get(context);
+              cubit.getCurrentUser();
               return SizedBox(
                 width: MediaQuery.of(context).size.width * 0.7,
                 child: GlassMorphism(
@@ -39,17 +40,21 @@ class AppDrawer extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                children: const [
+                                children: [
                                   Text(
-                                    "Morsy HashisH",
-                                    style: TextStyle(
+                                    cubit.currentUser!['firstName'] != null
+                                        ? cubit.currentUser!['firstName'] +
+                                            " " +
+                                            cubit.currentUser!['lastName']
+                                        : " ",
+                                    style: const TextStyle(
                                         color: kAppWhiteColor,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18),
                                   ),
                                   Text(
-                                    "morsyhashish123@gmail.com",
-                                    style: TextStyle(
+                                    cubit.currentUser!['email'] ?? " ",
+                                    style: const TextStyle(
                                       color: kAppWhiteColor,
                                       fontWeight: FontWeight.bold,
                                     ),
