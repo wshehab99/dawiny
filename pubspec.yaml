@@ -44,11 +44,14 @@ dependencies:
   geocoding: ^2.0.4
   url_launcher: ^6.1.4
   flutter_phone_direct_caller: ^2.1.1
+  flutter_otp_text_field: ^1.0.1
+  email_auth: ^1.0.0
 
 
   google_fonts: ^2.3.1
   flutter_svg: ^1.0.3
   mask_text_input_formatter: ^2.3.0
+  image_picker_android: ^0.8.5+1
 
   intl: ^0.17.0
   google_maps_flutter: ^2.1.3
