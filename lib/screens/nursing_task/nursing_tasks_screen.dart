@@ -59,11 +59,25 @@ class NursingTasksScreen extends StatelessWidget {
                 bottenColor: Colors.green.withOpacity(0.7),
                 textColor: Colors.white,
                 onPressed: cubit.nursingListContinue
-                    ? () {
+                    ? () async {
+                        cubit.nursingListContinue = false;
+
+                        await cubit.getLocation(value: null);
+
+                        var location = AppCubit.initialPosition;
+                        var nurses = await cubit.getNearestNurses(
+                            location!.latitude, location.longitude);
+                        var locationData = await cubit.geCurrentLocation();
+                        nurses?.forEach((element) {
+                          print("==================================${element}");
+                        });
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const NurseMap()));
+                                builder: (context) => NurseMap(
+                                      nurses: nurses!,
+                                      locationData: locationData!,
+                                    )));
                       }
                     : null,
               ),
