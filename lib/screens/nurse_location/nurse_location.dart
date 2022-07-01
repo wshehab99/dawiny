@@ -1,18 +1,17 @@
 import 'dart:async';
 import 'package:find_doctor/bloc/app_cubit.dart';
+import 'package:find_doctor/screens/gridpage/app_drawer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../../bloc/app_cubit.dart';
+import '../../bloc/app_states.dart';
 
-import '../bloc/app_states.dart';
-import 'app_button.dart';
-import 'custom_appbar.dart';
+class NurseLocation extends StatelessWidget {
+  NurseLocation({
+    Key? key,
+  }) : super(key: key);
 
-class GetLocation extends StatelessWidget {
-  GetLocation({Key? key, required this.title}) : super(key: key);
-
-  final String title;
   LatLng? location;
   final Completer<GoogleMapController> _controller = Completer();
 
@@ -23,11 +22,11 @@ class GetLocation extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
-
-          cubit.getLocation(value: location);
+          cubit.updateLocation();
           location = AppCubit.initialPosition;
           return Scaffold(
-            appBar: CustomAppbar(context, titleText: title),
+            drawer: const AppDrawer(),
+            appBar: AppBar(title: const Text("Location"), centerTitle: true),
             body: AppCubit.initialPosition == null
                 ? const Center(
                     child: CircularProgressIndicator(),
@@ -37,10 +36,6 @@ class GetLocation extends StatelessWidget {
                     children: [
                       GoogleMap(
                         zoomControlsEnabled: false,
-                        onTap: (value1) {
-                          location = value1;
-                          cubit.getLocation(value: location);
-                        },
                         markers: {
                           Marker(
                             markerId: const MarkerId('1'),
@@ -56,21 +51,6 @@ class GetLocation extends StatelessWidget {
                           _controller.complete(controller);
                         },
                       ),
-                      Positioned(
-                        bottom: 15,
-                        child: AppButton(
-                            text: 'Select Location',
-                            bottenColor: Colors.blue,
-                            textColor: Colors.white,
-                            borderradius: BorderRadius.circular(35),
-                            onPressed: () async {
-                              List<Placemark> placemarks =
-                                  await placemarkFromCoordinates(
-                                      location!.latitude, location!.longitude);
-                              Navigator.pop(context,
-                                  "${placemarks[0].country}, ${placemarks[0].subLocality}, ${placemarks[0].street}");
-                            }),
-                      )
                     ],
                   ),
           );

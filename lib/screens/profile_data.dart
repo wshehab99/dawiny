@@ -59,9 +59,10 @@ class UserData extends StatelessWidget {
                                     width: 10,
                                   ),
                                   CircleAvatar(
+                                    backgroundColor: Colors.white,
                                     child: Image(
                                       image: AssetImage(
-                                        'assets/images/Dawiny logo - 2.png',
+                                        'assets/images/DawinyLogoK.png',
                                       ),
                                       width: 40,
                                       height: 40,

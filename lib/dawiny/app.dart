@@ -1,5 +1,6 @@
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/gridpage/gridpage.dart';
+import 'package:find_doctor/screens/signin/signin.dart';
 import 'package:find_doctor/screens/welcome/welcomescreen.dart';
 import 'package:find_doctor/shared/constant.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,10 +8,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../bloc/app_cubit.dart';
 import '../bloc/app_states.dart';
+import '../screens/nurse_location/nurse_location.dart';
 
-class Dawiny extends StatelessWidget {
-  Dawiny({Key? key}) : super(key: key);
+class Dawiny extends StatefulWidget {
+  const Dawiny({Key? key}) : super(key: key);
+
+  @override
+  State<Dawiny> createState() => _DawinyState();
+}
+
+class _DawinyState extends State<Dawiny> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused) {
+      updatePProfile(data: {"status": "offline"}).then((value) {
+        print(value);
+      });
+    } else if (state == AppLifecycleState.resumed) {
+      updatePProfile(data: {"status": "online"}).then((value) {
+        print(value);
+      });
+    }
+  }
+
   int? navigationvalue;
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -20,7 +55,7 @@ class Dawiny extends StatelessWidget {
         builder: (context, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
+            title: 'Dawiny',
             theme: ThemeData(
                 primaryColor: kBlueColor, fontFamily: kRobotoCondensedFont),
             home: BlocProvider(
@@ -29,23 +64,31 @@ class Dawiny extends StatelessWidget {
                   listener: (context, state) {},
                   builder: (context, state) {
                     AppCubit cubit = AppCubit.get(context);
-                    print(cubit.accessToken);
+
                     cubit.stayLogin().then((value) {
                       navigationvalue = value;
-                      if (navigationvalue == 0 || navigationvalue == -1) {
-                        print(cubit.accessToken);
+                      print("value = $value");
+                      if (navigationvalue == -1) {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: ((context) => const WelcomeScreen())));
-                      } else {
-                        print(cubit.accessToken);
+                      } else if (navigationvalue == 0) {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => SignIn())));
+                      } else if (navigationvalue == 2) {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: ((context) => GridPage())));
+                      } else {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => NurseLocation())));
                       }
-                      print(value);
                     });
                     return const Scaffold(
                       body: SafeArea(

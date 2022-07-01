@@ -54,7 +54,7 @@ class SymptomsScreen extends StatelessWidget {
                                   const SizedBox(
                                     height: 30,
                                   ),
-                                  Padding(
+                                  const Padding(
                                     padding: EdgeInsets.only(left: 10.0),
                                     // child: Text(
                                     //   'Add Your Sympotoms',
@@ -67,7 +67,7 @@ class SymptomsScreen extends StatelessWidget {
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  SizedBox(height: 15),
+                                  const SizedBox(height: 15),
                                   const Padding(
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 20.0),
@@ -111,7 +111,8 @@ class SymptomsScreen extends StatelessWidget {
                                                       horizontal: 10.0,
                                                       vertical: 4.0),
                                                   decoration: BoxDecoration(
-                                                      color: Color(0xFF81C784),
+                                                      color: const Color(
+                                                          0xFF81C784),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               16.0)),
@@ -199,7 +200,7 @@ class SymptomsScreen extends StatelessWidget {
                                         style: ButtonStyle(
                                             fixedSize:
                                                 MaterialStateProperty.all(
-                                                    Size(200, 40)),
+                                                    const Size(200, 40)),
                                             elevation:
                                                 MaterialStateProperty.all(0.0),
                                             backgroundColor:
@@ -212,12 +213,12 @@ class SymptomsScreen extends StatelessWidget {
                                                         .medicalDiagnosis();
                                                   }
                                                 : null,
-                                        child: Text(
+                                        child: const Text(
                                           "Continue",
                                           style: TextStyle(color: Colors.white),
                                         )),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   )
                                 ],
