@@ -24,7 +24,6 @@ class UserProfile extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
-
           cubit.getCurrentUser().then((value) {
             firstNameController.text = value['firstName'] ?? " ";
             lastNameController.text = value['lastName'] ?? " ";

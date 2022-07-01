@@ -1,5 +1,6 @@
 import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
+import 'package:find_doctor/screens/signin/signin.dart';
 import 'package:find_doctor/screens/welcome/user_profile.dart';
 import 'package:find_doctor/shared/constant.dart';
 import 'package:find_doctor/shared/glass.dart';
@@ -119,7 +120,12 @@ class AppDrawer extends StatelessWidget {
                           title: "Logout",
                           icon: Icons.logout,
                           onTap: () {
-                            cubit.logout();
+                            cubit.logout().then((value) {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignIn()));
+                            });
                           },
                         ),
                         _DrawerButton(

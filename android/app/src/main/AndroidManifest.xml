@@ -2,10 +2,11 @@
     package="com.example.find_doctor">
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="find_doctor"
+        android:label="Dawiny"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyABfpeNNydhT7GAcR8mW-zFXidEYc2_dyI"/>
         

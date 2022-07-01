@@ -181,7 +181,7 @@ class _BookDoctorHomeVisitState extends State<BookDoctorHomeVisit> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => GetLocation(
-                                    title: "",
+                                    title: "My Location",
                                   )),
                         );
                         setState(() {});

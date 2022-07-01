@@ -8,7 +8,7 @@ class ChangeRemeberMeValue extends AppStates {}
 
 class ShowUnShowPassword extends AppStates {}
 
-class GetLocation extends AppStates {}
+class GetLocationState extends AppStates {}
 
 class SpecializationsSearch extends AppStates {}
 

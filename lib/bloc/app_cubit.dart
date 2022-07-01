@@ -188,7 +188,7 @@ class AppCubit extends Cubit<AppStates> {
           initialPosition = value;
         });
       }
-      emit(GetLocation());
+      emit(GetLocationState());
     }
   }
 
@@ -221,7 +221,8 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   Future getDoctor() async {
-    if (initDctors == null) {
+    if (count == 0) {
+      count++;
       emit(LoadingState());
       final pref = await SharedPreferences.getInstance();
       accessToken = pref.getString("access");
@@ -249,6 +250,7 @@ class AppCubit extends Cubit<AppStates> {
           //make user login again
         } else {
           await pref.setString("access", result.toString());
+          count = 0;
           getDoctor();
         }
       }
@@ -412,17 +414,16 @@ class AppCubit extends Cubit<AppStates> {
         if (role == "doctor") {
           emit(DoneState());
           return -1;
+        } else if (role == "nurse") {
+          await updatePProfile(data: {"status": "online"});
         }
         emit(DoneState());
       }
       return 1;
     } on DioError catch (ex) {
       errorMsg = null;
-      print("Dio Error::::::::: ${ex.response!.data}");
-      if (ex.response!.statusCode == 404) {
-        errorMsg = ex.response!.data['msg'];
-      } else if (ex.response!.statusCode == 401) {
-        errorMsg = ex.response!.data['msg'];
+      if (ex.response == null || ex.response!.data is! Map) {
+        errorMsg = "something went wrong, please try again later";
       } else {
         errorMsg = ex.response!.data['msg'];
       }
@@ -455,21 +456,28 @@ class AppCubit extends Cubit<AppStates> {
 
         await pref.setString('access', accessToken!);
         await pref.setString('refresh', refreshToken!);
-
+        await pref.setString('role', role!);
         print(accessToken);
         print(refreshToken);
+      }
+      if (role == "nurse") {
+        return await updatePProfile(data: {"status": "online"});
+      } else if (role == "patient") {
+        return 2;
       }
       emit(DoneState());
       return 1;
     } on DioError catch (ex) {
       errorMsg = null;
-      if (ex.response!.statusCode == 404) {
-        errorMsg = ex.response!.data['msg'];
-      } else if (ex.response!.statusCode == 401) {
+      if (ex.response == null || ex.response!.data is! Map) {
+        errorMsg = "something went wrong, please try again later";
+      } else {
         errorMsg = ex.response!.data['msg'];
       }
+      print(ex);
+
       print(ex.response);
-      print(ex.response!.statusCode);
+
       emit(ErrorState());
       return 0;
     }
@@ -490,7 +498,11 @@ class AppCubit extends Cubit<AppStates> {
       print(rr);
       return rr.data['access'];
     } on DioError catch (ex) {
-      errorMsg = ex.response!.data['msg'];
+      if (ex.response == null || ex.response!.data is! Map) {
+        errorMsg = "something went wrong, please try again later";
+      } else {
+        errorMsg = ex.response!.data['msg'];
+      }
 
       return -1;
     }
@@ -503,26 +515,27 @@ class AppCubit extends Cubit<AppStates> {
     accessToken = pref.getString('access');
     Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
     if (checkValidAccess(payload['exp'])) {
-      var dio = Dio();
-      final response =
-          await dio.delete("https://dawiny.herokuapp.com/api/auth/logout",
-              options: Options(
-                headers: {
-                  'authorization': accessToken,
-                },
-              ),
-              data: jsonEncode({
-                "refresh": refreshToken,
-              }));
+      pref.setString("refresh", " ");
+      // var dio = Dio();
+      // final response =
+      //     await dio.delete("https://dawiny.herokuapp.com/api/auth/logout",
+      //         options: Options(
+      //           headers: {
+      //             'authorization': accessToken,
+      //           },
+      //         ),
+      //         data: jsonEncode({
+      //           "refresh": refreshToken,
+      //         }));
 
-      try {
-        if (response.statusCode == 200) {
-          emit(DoneState());
-        }
-      } on DioError {
-        errorMsg = response.statusMessage;
-        emit(ErrorState());
-      }
+      // try {
+      //   if (response.statusCode == 200) {
+      //     emit(DoneState());
+      //   }
+      // } on DioError {
+      //   errorMsg = response.statusMessage;
+      //   emit(ErrorState());
+      // }
     } else {
       var result = await refreshAccessToken();
       if (result == -1) {
@@ -540,8 +553,6 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   Future<int> updatePProfile({required Map data}) async {
-    emit(LoadingState());
-
     var dio = Dio();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     accessToken = prefs.getString("access");
@@ -550,10 +561,9 @@ class AppCubit extends Cubit<AppStates> {
       String role = payload['role'];
       print(payload);
       print(accessToken);
-      if (role == "patient") {
+      if ((role == "patient" || role == "nurse") &&
+          data["clinicAddress"] != null) {
         data.addAll({"address": data["clinicAddress"]});
-        data.remove("clinicAddress");
-      } else if (role == "nurse") {
         data.remove("clinicAddress");
       }
       print(data);
@@ -567,11 +577,12 @@ class AppCubit extends Cubit<AppStates> {
             options: Options(headers: {
               'authorization': accessToken,
             }));
-        emit(DoneState());
         if (role == "doctor") {
           return 1;
+        } else if (role == "nurse") {
+          return 3;
         } else {
-          return -1;
+          return 2;
         }
       } on DioError catch (ex) {
         print(ex.response);
@@ -623,7 +634,8 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   Future getDoctorById({required String id}) async {
-    if (doctor == null) {
+    if (count == 0) {
+      count++;
       SharedPreferences prefs = await SharedPreferences.getInstance();
       accessToken = prefs.getString("access");
       Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
@@ -652,6 +664,7 @@ class AppCubit extends Cubit<AppStates> {
         } else {
           await prefs.setString("access", result.toString());
           accessToken = result as String?;
+          count = 0;
           getDoctorById(id: id);
         }
       }
@@ -841,6 +854,7 @@ class AppCubit extends Cubit<AppStates> {
     if (refreshToken != null) {
       if (count == 0) {
         count++;
+        print(count++);
         var result = await refreshAccessToken();
         if (result == -1) {
           return 0;
@@ -851,15 +865,39 @@ class AppCubit extends Cubit<AppStates> {
 
           Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
           if (payload["role"] == "doctor") {
-            return 2;
-          } else if (payload["role"] == "nurse") {
-            return 3;
-          } else {
             return 1;
+          } else if (payload["role"] == "nurse") {
+            return await updatePProfile(data: {'status': 'online'});
+          } else {
+            return 2;
           }
         }
       }
     }
     return -1;
+  }
+
+  Future updateLocation() async {
+    if (count == 0) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      accessToken = prefs.getString("access");
+      Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
+      count++;
+      print(count);
+      if (payload['role'] == "nurse" || payload['role'] == "doctor") {
+        await getLocation();
+        await updatePProfile(data: {
+          "location": {
+            "lat": initialPosition!.latitude,
+            "lng": initialPosition!.longitude
+          }
+        });
+        print("10 sec start");
+        await Future.delayed(const Duration(seconds: 10));
+        print("10 sec end");
+        count = 0;
+        emit(DoneState());
+      }
+    }
   }
 }
