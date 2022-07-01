@@ -152,6 +152,7 @@ class AppCubit extends Cubit<AppStates> {
   List initSlots = [];
   List shownSlots = [];
   List? myAppointments;
+  List shownAppointments = [];
   void changePage(int value) {
     curentPage = value;
     emit(ChangeWelcomePage());
@@ -459,12 +460,13 @@ class AppCubit extends Cubit<AppStates> {
         await pref.setString('role', role!);
         print(accessToken);
         print(refreshToken);
+        if (role == "nurse") {
+          return await updatePProfile(data: {"status": "online"});
+        } else if (role == "patient") {
+          return 2;
+        }
       }
-      if (role == "nurse") {
-        return await updatePProfile(data: {"status": "online"});
-      } else if (role == "patient") {
-        return 2;
-      }
+
       emit(DoneState());
       return 1;
     } on DioError catch (ex) {
@@ -884,7 +886,7 @@ class AppCubit extends Cubit<AppStates> {
       Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
       count++;
       print(count);
-      if (payload['role'] == "nurse" || payload['role'] == "doctor") {
+      if (payload['role'] == "nurse") {
         await getLocation();
         await updatePProfile(data: {
           "location": {
@@ -898,6 +900,23 @@ class AppCubit extends Cubit<AppStates> {
         count = 0;
         emit(DoneState());
       }
+    }
+  }
+
+  int dateCount = 0;
+  filterAppointments(DateTime date) async {
+    if (dateCount == 0) {
+      dateCount++;
+      await getMyAppintment().then((value) {
+        initialDate = date;
+        print(date.toString().substring(0, 10));
+        shownAppointments = myAppointments!
+            .where((element) =>
+                element['date'] == date.toString().substring(0, 10))
+            .toList();
+        print(shownAppointments);
+        emit(ChangeSelectedDate());
+      });
     }
   }
 }

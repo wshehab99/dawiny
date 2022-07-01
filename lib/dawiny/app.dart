@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../bloc/app_cubit.dart';
 import '../bloc/app_states.dart';
+import '../screens/appointments/listOfAppointment.dart';
 import '../screens/nurse_location/nurse_location.dart';
 
 class Dawiny extends StatefulWidget {
@@ -33,9 +34,11 @@ class _DawinyState extends State<Dawiny> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.paused) {
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.detached) {
       updatePProfile(data: {"status": "offline"}).then((value) {
         print(value);
+        print(state);
       });
     } else if (state == AppLifecycleState.resumed) {
       updatePProfile(data: {"status": "online"}).then((value) {
@@ -83,11 +86,16 @@ class _DawinyState extends State<Dawiny> with WidgetsBindingObserver {
                             context,
                             MaterialPageRoute(
                                 builder: ((context) => GridPage())));
-                      } else {
+                      } else if (navigationvalue == 3) {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: ((context) => NurseLocation())));
+                      } else if (value == 1) {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ListOfAppointments()));
                       }
                     });
                     return const Scaffold(

@@ -1,6 +1,8 @@
 import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
+import 'package:find_doctor/screens/appointments/listOfAppointment.dart';
 import 'package:find_doctor/screens/gridpage/gridpage.dart';
+import 'package:find_doctor/screens/nurse_location/nurse_location.dart';
 import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
 import 'package:find_doctor/shared/glass.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -179,12 +181,24 @@ class SignIn extends StatelessWidget {
                                                                 .toLowerCase()
                                                             : null)
                                                     .then((value) {
-                                                  if (value == 1) {
+                                                  if (value == 2) {
                                                     Navigator.pushReplacement(
                                                         context,
                                                         MaterialPageRoute(
                                                             builder: (context) =>
                                                                 GridPage()));
+                                                  } else if (value == 3) {
+                                                    Navigator.pushReplacement(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                NurseLocation()));
+                                                  } else if (value == 1) {
+                                                    Navigator.pushReplacement(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                ListOfAppointments()));
                                                   }
                                                 });
 
