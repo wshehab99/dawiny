@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:developer';
+import 'package:find_doctor/model/nurse.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 import 'package:find_doctor/bloc/app_states.dart';
@@ -191,6 +193,24 @@ class AppCubit extends Cubit<AppStates> {
       }
       emit(GetLocationState());
     }
+  }
+
+  Future<LocationData?> geCurrentLocation() async {
+    bool _serviceEnabled = await location.serviceEnabled();
+    PermissionStatus _permissionGranted = await location.hasPermission();
+    LocationData _locationData;
+
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+    }
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+    }
+    if (_serviceEnabled && _permissionGranted == PermissionStatus.granted) {
+      _locationData = await location.getLocation();
+      return _locationData;
+    }
+    return null;
   }
 
   void searchOnSpecializations(String value) {
@@ -918,5 +938,33 @@ class AppCubit extends Cubit<AppStates> {
         emit(ChangeSelectedDate());
       });
     }
+  Future<List<Nurse>?> getNearestNurses(double lat, double lng) async {
+    try {
+      final dio = Dio();
+      final prefs = await SharedPreferences.getInstance();
+      accessToken = prefs.getString("access");
+      var response = await dio.get(
+        "https://dawiny.herokuapp.com/api/nurses?lat=$lat&lng=$lng",
+        options: Options(
+          headers: {
+            "authorization": accessToken,
+          },
+        ),
+      );
+      print("response::  ${response.data}");
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return (response.data as List).map((x) => Nurse.fromJson(x)).toList();
+      }
+    } on DioError catch (ex) {
+      print("Dio Error::::::::: ${ex.response!.data}");
+      if (ex.response!.statusCode == 404) {
+        errorMsg = ex.response!.data['msg'];
+      } else if (ex.response!.statusCode == 401) {
+        errorMsg = ex.response!.data['msg'];
+      } else {
+        errorMsg = ex.response!.data['msg'];
+      }
+    }
+    return null;
   }
 }

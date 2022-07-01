@@ -1,6 +1,7 @@
 import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/appointments/listOfAppointment.dart';
+import 'package:find_doctor/screens/Reset_passwod/Forget_Pawword.dart';
 import 'package:find_doctor/screens/gridpage/gridpage.dart';
 import 'package:find_doctor/screens/nurse_location/nurse_location.dart';
 import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
@@ -209,10 +210,19 @@ class SignIn extends StatelessWidget {
                                     )),
                                 TextButton(
                                   onPressed: () {},
-                                  child: const Text(
-                                    'Forget the password?',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ForgetPassword()));
+                                    },
+                                    child: const Text(
+                                      'Forget the password?',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(

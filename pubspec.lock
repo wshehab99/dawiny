@@ -120,6 +120,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  email_auth:
+    dependency: "direct main"
+    description:
+      name: email_auth
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -202,6 +209,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.3+1"
+  flutter_otp_text_field:
+    dependency: "direct main"
+    description:
+      name: flutter_otp_text_field
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   flutter_phone_direct_caller:
     dependency: "direct main"
     description:
@@ -325,7 +339,7 @@ packages:
     source: hosted
     version: "0.8.5+3"
   image_picker_android:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: image_picker_android
       url: "https://pub.dartlang.org"

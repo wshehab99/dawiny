@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../bloc/app_cubit.dart';
 import '../../bloc/app_states.dart';
+import '../../shared/custom_appbar.dart';
 
 class NurseLocation extends StatelessWidget {
   NurseLocation({
@@ -33,7 +34,7 @@ class NurseLocation extends StatelessWidget {
           location = AppCubit.initialPosition;
           return Scaffold(
             drawer: const AppDrawer(),
-            appBar: AppBar(title: const Text("Location"), centerTitle: true),
+            appBar: CustomAppbar(context, titleText: "Location"),
             body: AppCubit.initialPosition == null
                 ? const Center(
                     child: CircularProgressIndicator(),
