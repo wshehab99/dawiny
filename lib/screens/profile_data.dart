@@ -2,6 +2,7 @@ import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/doctor_time/doctor_time_screen.dart';
 import 'package:find_doctor/screens/gridpage/gridpage.dart';
+import 'package:find_doctor/screens/nurse_location/nurse_location.dart';
 import 'package:find_doctor/screens/profile_photo_card.dart';
 import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
 import 'package:find_doctor/shared/app_button.dart';
@@ -167,8 +168,14 @@ class UserData extends StatelessWidget {
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             DoctorTime()));
-                                              } else if (value == -1) {
+                                              } else if (value == 2) {
                                                 Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            NurseLocation()));
+                                              } else if (value == 3) {
+                                                Navigator.pushReplacement(
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>

@@ -3,11 +3,12 @@ import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/appointments/appointment_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:date_picker_timeline/date_picker_timeline.dart';
 import '../../shared/custom_appbar.dart';
 
 class ListOfAppointments extends StatelessWidget {
-  const ListOfAppointments({Key? key}) : super(key: key);
+  ListOfAppointments({Key? key}) : super(key: key);
+  DateTime now = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -21,22 +22,31 @@ class ListOfAppointments extends StatelessWidget {
             builder: (context, state) {
               AppCubit cubit = AppCubit.get(context);
 
-              cubit.getMyAppintment().then(
-                (value) {
-                  shownAppointMint = value;
-                },
-              );
+              cubit.filterAppointments(now);
+              shownAppointMint = cubit.shownAppointments;
+
               if (state is LoadingState) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
-              } else if (shownAppointMint.isEmpty) {
-                return const Center(
-                  child: Text("There is no appointment yet"),
-                );
               } else {
                 return Column(
                   children: [
+                    const SizedBox(height: 5),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: DatePicker(
+                        DateTime.now(),
+                        initialSelectedDate: now,
+                        selectionColor: Colors.blue,
+                        selectedTextColor: Colors.white,
+                        onDateChange: (date) {
+                          cubit.dateCount = 0;
+                          now = date;
+                          cubit.filterAppointments(date);
+                        },
+                      ),
+                    ),
                     Expanded(
                       child: ListView.builder(
                         padding: const EdgeInsets.all(8),

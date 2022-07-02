@@ -1,7 +1,6 @@
 import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
-import 'package:find_doctor/screens/gridpage/gridpage.dart';
-import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
+import 'package:find_doctor/screens/appointments/listOfAppointment.dart';
 import 'package:find_doctor/shared/CustomRow.dart';
 import 'package:find_doctor/shared/textFieldApp.dart';
 import 'package:flutter/cupertino.dart';
@@ -187,7 +186,7 @@ class DoctorTime extends StatelessWidget {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    GridPage()));
+                                                    ListOfAppointments()));
                                       }
                                     });
                                   },
