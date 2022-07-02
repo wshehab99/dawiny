@@ -168,13 +168,13 @@ class UserData extends StatelessWidget {
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             DoctorTime()));
-                                              } else if (value == 2) {
+                                              } else if (value == 3) {
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             NurseLocation()));
-                                              } else if (value == 3) {
+                                              } else if (value == 2) {
                                                 Navigator.pushReplacement(
                                                     context,
                                                     MaterialPageRoute(
