@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:find_doctor/bloc/app_cubit.dart';
+import 'package:find_doctor/bloc/app_states.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfilePhotoCard extends StatefulWidget {
   ProfilePhotoCard(
@@ -26,123 +29,137 @@ class _ProfilePhotoCardState extends State<ProfilePhotoCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100),
-          boxShadow: [
-            BoxShadow(
-                blurRadius: 50,
-                color: Colors.grey.shade200,
-                offset: const Offset(0, 15),
-                spreadRadius: 10)
-          ],
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: InkWell(
-            onTap: (() async {
-              return showDialog(
-                  context: context,
-                  builder: (builder) {
-                    return AlertDialog(
-                      title: Text("choose from",
-                          style: TextStyle(
-                            color: Colors.black45,
-                          )),
-                      actions: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            ElevatedButton(
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                  Colors.green.withOpacity(0.1),
-                                )),
-                                onPressed: () async {
-                                  var s = await _picker.pickImage(
-                                      source: ImageSource.gallery);
-                                  if (s != null) {
-                                    userImage = s;
-                                  }
-                                  Navigator.pop(context);
-                                  setState(() {});
-                                },
-                                child: Text("gallery")),
-                            ElevatedButton(
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                  Colors.green.withOpacity(0.1),
-                                )),
-                                onPressed: () async {
-                                  var s = await _picker.pickImage(
-                                      source: ImageSource.camera);
-                                  if (s != null) {
-                                    userImage = s;
-                                  }
-                                  Navigator.pop(context);
-                                  setState(() {});
-                                },
-                                child: Text("camera")),
-                          ],
+    return BlocProvider(
+      create: ((context) => AppCubit(InitialAppState())),
+      child: BlocConsumer<AppCubit, AppStates>(
+          listener: ((context, state) {}),
+          builder: (context, state) {
+            AppCubit cubit = AppCubit.get(context);
+            return Center(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  boxShadow: [
+                    BoxShadow(
+                        blurRadius: 50,
+                        color: Colors.grey.shade200,
+                        offset: const Offset(0, 15),
+                        spreadRadius: 10)
+                  ],
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: InkWell(
+                    onTap: (() async {
+                      return showDialog(
+                          context: context,
+                          builder: (builder) {
+                            return AlertDialog(
+                              title: Text("choose from",
+                                  style: TextStyle(
+                                    color: Colors.black45,
+                                  )),
+                              actions: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    ElevatedButton(
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                          Colors.green.withOpacity(0.1),
+                                        )),
+                                        onPressed: () async {
+                                          var s = await _picker.pickImage(
+                                              source: ImageSource.gallery);
+
+                                          if (s != null) {
+                                            userImage = s;
+                                          }
+                                          Navigator.pop(context);
+                                          await cubit.uploadFile(s!.path);
+                                        },
+                                        child: Text("gallery")),
+                                    ElevatedButton(
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                          Colors.green.withOpacity(0.1),
+                                        )),
+                                        onPressed: () async {
+                                          var s = await _picker.pickImage(
+                                              source: ImageSource.camera);
+                                          if (s != null) {
+                                            userImage = s;
+                                          }
+                                          Navigator.pop(context);
+                                          await cubit.uploadFile(s!.path);
+                                        },
+                                        child: Text("camera")),
+                                  ],
+                                ),
+                              ],
+                            );
+                          });
+                    }),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InkWell(
+                          child: Column(
+                            children: [
+                              if (widget.showIcon)
+                                Container(
+                                  height:
+                                      MediaQuery.of(context).size.width * .3,
+                                  width: MediaQuery.of(context).size.width * .3,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  child: userImage == null
+                                      ? (widget.placeholerImgPath != null
+                                          ? CircleAvatar(
+                                              maxRadius: 68,
+                                              backgroundImage: AssetImage(
+                                                widget.placeholerImgPath!,
+                                              ),
+                                            )
+                                          : const Icon(
+                                              Icons.cloud_upload_rounded))
+                                      : Image.file(
+                                          File(userImage!.path),
+                                          fit: BoxFit.cover,
+                                        ),
+                                ),
+                              if (widget.showIcon)
+                                SizedBox(
+                                  height: 10,
+                                ),
+                              userImage == null
+                                  ? Text(
+                                      "${widget.title}",
+                                      style: TextStyle(
+                                          color: Colors.blue[600],
+                                          fontWeight: FontWeight.w600),
+                                    )
+                                  : Text(
+                                      "${widget.title2}",
+                                      style: TextStyle(
+                                          color: Colors.blue[600],
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                            ],
+                          ),
                         ),
                       ],
-                    );
-                  });
-            }),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InkWell(
-                  child: Column(
-                    children: [
-                      if (widget.showIcon)
-                        Container(
-                          height: MediaQuery.of(context).size.width * .3,
-                          width: MediaQuery.of(context).size.width * .3,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          child: userImage == null
-                              ? (widget.placeholerImgPath != null
-                                  ? CircleAvatar(
-                                      maxRadius: 68,
-                                      backgroundImage: AssetImage(
-                                        widget.placeholerImgPath!,
-                                      ),
-                                    )
-                                  : const Icon(Icons.cloud_upload_rounded))
-                              : Image.file(
-                                  File(userImage!.path),
-                                  fit: BoxFit.cover,
-                                ),
-                        ),
-                      if (widget.showIcon)
-                        SizedBox(
-                          height: 10,
-                        ),
-                      userImage == null
-                          ? Text(
-                              "${widget.title}",
-                              style: TextStyle(
-                                  color: Colors.blue[600],
-                                  fontWeight: FontWeight.w600),
-                            )
-                          : Text(
-                              "${widget.title2}",
-                              style: TextStyle(
-                                  color: Colors.blue[600],
-                                  fontWeight: FontWeight.w600),
-                            ),
-                    ],
+                    ),
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
-      ),
+              ),
+            );
+          }),
     );
   }
 }

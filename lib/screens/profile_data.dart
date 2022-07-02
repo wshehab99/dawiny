@@ -147,12 +147,14 @@ class UserData extends StatelessWidget {
                                         borderradius: BorderRadius.circular(60),
                                         textColor: Colors.white,
                                         bottenColor: Colors.green,
-                                        onPressed: () {
+                                        onPressed: () async {
                                           if (_formKey.currentState!
                                                   .validate() &&
                                               appDropDownMenu.dropdownValue !=
-                                                  null) {
+                                                  null &&
+                                              AppCubit.urlImage != null) {
                                             cubit.updatePProfile(data: {
+                                              'imageUrl': AppCubit.urlImage!,
                                               'gender': appDropDownMenu
                                                   .dropdownValue!
                                                   .toLowerCase(),

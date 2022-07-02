@@ -25,15 +25,19 @@ class AppDrawer extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.7,
                 child: GlassMorphism(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 48.0, horizontal: 8.0),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 48.0, horizontal: 8.0),
                     child: Column(
                       children: [
                         Row(
                           children: [
-                            const CircleAvatar(
-                                backgroundImage:
-                                    AssetImage("assets/images/photo.jpg")),
+                            CircleAvatar(
+                              child: Image(
+                                image: NetworkImage(cubit.currentUser == null
+                                    ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXaova-4IVX3jj2DvzkGfkSzhrWWMyzxDwxw&usqp=CAU"
+                                    : cubit.currentUser!['imageUrl']),
+                              ),
+                            ),
                             const SizedBox(
                               width: 8.0,
                             ),
