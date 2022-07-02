@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:find_doctor/model/nurse.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
@@ -938,6 +937,8 @@ class AppCubit extends Cubit<AppStates> {
         emit(ChangeSelectedDate());
       });
     }
+  }
+
   Future<List<Nurse>?> getNearestNurses(double lat, double lng) async {
     try {
       final dio = Dio();
