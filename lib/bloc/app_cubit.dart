@@ -32,7 +32,9 @@ class AppCubit extends Cubit<AppStates> {
   Map? doctor;
   Map? currentUser = {};
   bool availbeDate = false;
+  static String? urlImage;
   String userType = 'Doctor';
+
   String symptomText =
       'Itching,Skin Rash,Nodal Skin Eruptions,Continuous Sneezing,Shivering,Chills,Joint Pain,Stomach Pain,Acidity,Ulcers On Tongue,Muscle Wasting,Vomiting,Burning Micturition,Spotting  urination,Fatigue,Weight Gain,Anxiety,Cold Hands And Feets,Mood Swings,Weight Loss,Restlessness,Lethargy,Patches In Throat,Irregular Sugar Level,Cough,High Fever,Sunken Eyes,Breathlessness,Sweating,Dehydration,Indigestion,Headache,Yellowish Skin,Dark Urine,Nausea,Loss Of Appetite,Pain Behind The Eyes,Back Pain,Constipation,Abdominal Pain,Diarrhoea,Mild Fever,Yellow Urine,Yellowing Of Eyes,Acute Liver Failure,Fluid Overload,Swelling Of Stomach,Swelled Lymph Nodes,Malaise,Blurred And Distorted Vision,Phlegm,Throat Irritation,Redness Of Eyes,Sinus Pressure,Runny Nose,Congestion,Chest Pain,Weakness In Limbs,Fast Heart Rate,Pain During Bowel Movements,Pain In Anal Region,Bloody Stool,Irritation In Anus,Neck Pain,Dizziness,Cramps,Bruising,Obesity,Swollen Legs,Swollen Blood Vessels,Puffy Face And Eyes,Enlarged Thyroid,Brittle Nails,Swollen Extremeties,Excessive Hunger,Extra Marital Contacts,Drying And Tingling Lips,Slurred Speech,Knee Pain,Hip Joint Pain,Muscle Weakness,Stiff Neck,Swelling Joints,Movement Stiffness,Spinning Movements,Loss Of Balance,Unsteadiness,Weakness Of One Body Side,Loss Of Smell,Bladder Discomfort,Foul Smell Of urine,Continuous Feel Of Urine,Passage Of Gases,Internal Itching,Toxic Look (typhos),Depression,Irritability,Muscle Pain,Altered Sensorium,Red Spots Over Body,Belly Pain,Abnormal Menstruation,Dischromic  Patches,Watering From Eyes,Increased Appetite,Polyuria,Family History,Mucoid Sputum,Rusty Sputum,Lack Of Concentration,Visual Disturbances,Receiving Blood Transfusion,Receiving Unsterile Injections,Coma,Stomach Bleeding,Distention Of Abdomen,History Of Alcohol Consumption,Fluid Overload.1,Blood In Sputum,Prominent Veins On Calf,Palpitations,Painful Walking,Pus Filled Pimples,Blackheads,Scurring,Skin Peeling,Silver Like Dusting,Small Dents In Nails,Inflammatory Nails,Blister,Red Sore Around Nose,Yellow Crust Ooze,Prognosis,';
   static List symptomList = [];
@@ -966,6 +968,32 @@ class AppCubit extends Cubit<AppStates> {
         errorMsg = ex.response!.data['msg'];
       }
     }
-    return null;
+    return [];
+  }
+
+  Future<dynamic> uploadFile(String imagePath) async {
+    try {
+      var data =
+          FormData.fromMap({'image': await MultipartFile.fromFile(imagePath)});
+      var response = await Dio()
+          .post('https://dawiny.herokuapp.com/api/upload', data: data);
+      print("response::::::::::::::::::::::::::::::  ${response.data}");
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        urlImage = response.data['url'];
+        print("$urlImage ::::${response.data['url']}");
+        return (response.data);
+      }
+    } on DioError catch (ex) {
+      print("Dio Error::::::::: ${ex.response!.data}");
+      if (ex.response!.statusCode == 404) {
+        errorMsg = ex.response!.data['msg'];
+      } else if (ex.response!.statusCode == 401) {
+        errorMsg = ex.response!.data['msg'];
+      } else {
+        errorMsg = ex.response!.data['msg'];
+      }
+    }
+
+    return [];
   }
 }

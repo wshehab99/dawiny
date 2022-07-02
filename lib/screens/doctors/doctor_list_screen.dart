@@ -45,9 +45,6 @@ class DoctorListScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SvgPicture.asset('assets/icons/menu.svg'),
-                          const CircleAvatar(
-                              backgroundImage:
-                                  AssetImage("assets/images/photo.jpg")),
                         ],
                       ),
                     ),

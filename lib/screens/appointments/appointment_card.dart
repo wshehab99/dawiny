@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../Video_call_now/VideoCallNow.dart';
+
 class AppointmentCard extends StatelessWidget {
   const AppointmentCard(
       {Key? key,
@@ -76,9 +78,16 @@ class AppointmentCard extends StatelessWidget {
           Row(
             children: [
               (type.contains("online"))
-                  ? const Icon(
-                      Icons.video_call_outlined,
-                      size: 40,
+                  ? IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => VideoCallNow()),
+                        );
+                      },
+                      icon: Icon(Icons.video_call_outlined),
+                      iconSize: 40,
                     )
                   : const Icon(
                       Icons.videocam_off_outlined,
