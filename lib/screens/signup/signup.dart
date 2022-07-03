@@ -65,14 +65,14 @@ class SignUp extends StatelessWidget {
                             keyboardDismissBehavior:
                                 ScrollViewKeyboardDismissBehavior.onDrag,
                             child: Column(children: [
-                              Container(
+                              SizedBox(
                                 width: double.infinity,
                                 height:
                                     MediaQuery.of(context).size.height * 0.29,
                                 child: GlassMorphism(
                                   // decoration: const BoxDecoration(
                                   //     color: Colors.blueAccent,
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(200)),
                                   // boxShadow: [
                                   //   BoxShadow(
@@ -206,42 +206,40 @@ class SignUp extends StatelessWidget {
                                         textColor: Colors.white,
                                         bottenColor:
                                             Colors.green.withOpacity(0.7),
-                                        onPressed: cubit.remeberMeValue
-                                            ? () async {
-                                                if (_formKey.currentState!
-                                                    .validate()) {
-                                                  await cubit
-                                                      .signUp(
-                                                    _email.text,
-                                                    _password.text,
-                                                    _firstName.text,
-                                                    _lastName.text,
-                                                    _role.dropdownValue!
-                                                        .toLowerCase(),
-                                                  )
-                                                      .then((value) {
-                                                    if (value == 1) {
-                                                      cubit.userType = cubit
-                                                              .userType =
-                                                          _role.dropdownValue!;
-                                                      Navigator.pushReplacement(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  UserData()));
-                                                    } else if (value == -1) {
-                                                      cubit.userType =
-                                                          _role.dropdownValue!;
-                                                      Navigator.pushReplacement(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  DoctorProfile()));
-                                                    }
-                                                  });
-                                                }
+                                        onPressed: () async {
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            await cubit
+                                                .signUp(
+                                              _email.text,
+                                              _password.text,
+                                              _firstName.text,
+                                              _lastName.text,
+                                              _role.dropdownValue!
+                                                  .toLowerCase(),
+                                            )
+                                                .then((value) {
+                                              if (value == 1) {
+                                                cubit.userType =
+                                                    cubit.userType =
+                                                        _role.dropdownValue!;
+                                                Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            UserData()));
+                                              } else if (value == -1) {
+                                                cubit.userType =
+                                                    _role.dropdownValue!;
+                                                Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            DoctorProfile()));
                                               }
-                                            : null,
+                                            });
+                                          }
+                                        },
                                       ),
                                     ],
                                   )),
@@ -289,7 +287,7 @@ class SignUp extends StatelessWidget {
                                           return SignIn();
                                         }));
                                       },
-                                      child: Text(
+                                      child: const Text(
                                         'Sign In',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
