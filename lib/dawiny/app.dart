@@ -1,4 +1,5 @@
 import 'package:find_doctor/bloc/app_states.dart';
+import 'package:find_doctor/screens/doctor_screen/doctor_screen.dart';
 import 'package:find_doctor/screens/gridpage/gridpage.dart';
 import 'package:find_doctor/screens/signin/signin.dart';
 import 'package:find_doctor/screens/welcome/welcomescreen.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../bloc/app_cubit.dart';
 import '../bloc/app_states.dart';
-import '../screens/appointments/listOfAppointment.dart';
 import '../screens/nurse_location/nurse_location.dart';
 
 class Dawiny extends StatefulWidget {
@@ -95,7 +95,7 @@ class _DawinyState extends State<Dawiny> with WidgetsBindingObserver {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ListOfAppointments()));
+                                builder: (context) => Doctor_screen()));
                       }
                     });
                     return const Scaffold(

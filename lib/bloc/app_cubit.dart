@@ -357,7 +357,7 @@ class AppCubit extends Cubit<AppStates> {
       veiwedSymptoms = [];
     } else {
       veiwedSymptoms = symptomList
-          .where((element) => element.toString().contains(value))
+          .where((element) => element.toString().toLowerCase().contains(value))
           .toList();
     }
     emit(LoadingSymptom());
@@ -381,7 +381,7 @@ class AppCubit extends Cubit<AppStates> {
       spac.forEach(
         (key, value) {
           if (key.toString().contains(disease)) {}
-          result = {key: value};
+          result = {disease: value};
         },
       );
       result ??= {response.data['disease']: " "};
