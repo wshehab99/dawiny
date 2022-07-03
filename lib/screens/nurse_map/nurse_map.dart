@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:find_doctor/model/nurse.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -15,7 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class NurseMap extends StatefulWidget {
   const NurseMap({Key? key, required this.nurses, required this.locationData})
       : super(key: key);
-  final List<Nurse> nurses;
+  final List nurses;
   final LocationData locationData;
   @override
   State<NurseMap> createState() => _NurseMapState();
@@ -44,15 +43,17 @@ class _NurseMapState extends State<NurseMap> {
     setState(() {
       for (var element in widget.nurses) {
         markers.add(Marker(
-          markerId: MarkerId(element.id),
-          position: LatLng(element.location.lat, element.location.lng),
+          markerId: MarkerId(element["_id"]),
+          position:
+              LatLng(element["location"]["lat"], element["location"]["lng"]),
           infoWindow: InfoWindow(
-              title: "${element.firstName} ${element.lastName}",
+              title: "${element["firstName"]} ${element["lastName"]}",
               onTap: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => NurseDetails(id: element.id)));
+                        builder: (context) =>
+                            NurseDetails(id: element["_id"])));
               }),
         ));
       }
