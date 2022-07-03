@@ -21,7 +21,7 @@ class PharmacyDetails extends StatelessWidget {
                 "Pharmacy",
                 style: TextStyle(
                   fontSize: 30,
-                  color: Colors.blue,
+                  color: Colors.green,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -57,7 +57,7 @@ class ParmacyCard extends StatelessWidget {
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: Colors.blue),
+        side: BorderSide(color: Colors.green),
         borderRadius: const BorderRadius.all(Radius.circular(12)),
       ),
       child: SizedBox(
@@ -84,13 +84,13 @@ class ParmacyCard extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.blue),
+                    color: Colors.green),
               ),
               Row(
                 children: [
                   Icon(
                     Icons.call,
-                    color: Colors.blue,
+                    color: Colors.green,
                   ),
                   SizedBox(
                     width: 5,
