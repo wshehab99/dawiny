@@ -60,7 +60,7 @@ class GetLocation extends StatelessWidget {
                         bottom: 15,
                         child: AppButton(
                             text: 'Select Location',
-                            bottenColor: Colors.blue,
+                            bottenColor: Colors.green,
                             textColor: Colors.white,
                             borderradius: BorderRadius.circular(35),
                             onPressed: () async {
