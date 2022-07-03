@@ -83,7 +83,7 @@ class UserData extends StatelessWidget {
                               const SizedBox(
                                 height: 10,
                               ),
-                              Center(
+                              const Center(
                                 child: ProfilePhotoCard(
                                   title: "Upload Photo Profile",
                                   title2: "Change Photo",
@@ -161,17 +161,15 @@ class UserData extends StatelessWidget {
                                               "clinicAddress": _address.text,
                                               "dateOfBirth":
                                                   _dateController.text,
-                                              "dateOfBirth":
-                                                  _dateController.text,
                                             }).then((value) {
                                               if (value == 1) {
-                                                Navigator.push(
+                                                Navigator.pushReplacement(
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             DoctorTime()));
                                               } else if (value == 3) {
-                                                Navigator.push(
+                                                Navigator.pushReplacement(
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>

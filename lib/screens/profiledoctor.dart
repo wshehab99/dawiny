@@ -1,7 +1,6 @@
 import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/doctor_time/doctor_time_screen.dart';
-import 'package:find_doctor/screens/gridpage/gridpage.dart';
 import 'package:find_doctor/screens/profile_photo_card.dart';
 import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
 import 'package:find_doctor/screens/welcome/widgets/doctor_education.dart';
@@ -9,7 +8,6 @@ import 'package:find_doctor/shared/app_button.dart';
 import 'package:find_doctor/shared/gradient_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../shared/constant.dart';
 import '../shared/textFieldApp.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -76,13 +74,13 @@ class DoctorProfile extends StatelessWidget {
                               Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
                                   CircleAvatar(
                                     backgroundColor: Colors.blue.withOpacity(1),
                                     radius: 27,
-                                    child: Image(
+                                    child: const Image(
                                       image: AssetImage(
                                         'assets/images/dawinyLogoW.png',
                                       ),
@@ -90,10 +88,10 @@ class DoctorProfile extends StatelessWidget {
                                       height: 50,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
-                                  AppGradientText(
+                                  const AppGradientText(
                                     "Profile",
                                     style: TextStyle(
                                         fontSize: 40,
@@ -104,7 +102,7 @@ class DoctorProfile extends StatelessWidget {
                               const SizedBox(
                                 height: 10,
                               ),
-                              Center(
+                              const Center(
                                 child: ProfilePhotoCard(
                                   title: "Upload Photo Profile",
                                   title2: "Change Photo",
@@ -177,8 +175,10 @@ class DoctorProfile extends StatelessWidget {
                                           if (_formKey.currentState!
                                                   .validate() &&
                                               appDropDownMenu.dropdownValue !=
-                                                  null) {
+                                                  null &&
+                                              AppCubit.urlImage != null) {
                                             cubit.updatePProfile(data: {
+                                              "imageUrl": AppCubit.urlImage,
                                               "specification":
                                                   appDropDownMenu.dropdownValue,
                                               'gender': Gender.dropdownValue!
@@ -188,17 +188,11 @@ class DoctorProfile extends StatelessWidget {
                                                   _dateController.text,
                                             }).then((value) {
                                               if (value == 1) {
-                                                Navigator.push(
+                                                Navigator.pushReplacement(
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             DoctorTime()));
-                                              } else if (value == -1) {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            GridPage()));
                                               }
                                             });
                                           }

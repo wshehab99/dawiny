@@ -30,6 +30,7 @@ class AppCubit extends Cubit<AppStates> {
   List shownDctors = [];
   List? initDctors;
   Map? doctor;
+  Map? nurse;
   Map? currentUser = {};
   bool availbeDate = false;
   static String? urlImage;
@@ -995,5 +996,44 @@ class AppCubit extends Cubit<AppStates> {
     }
 
     return [];
+  }
+
+  Future getNurseById({required String id}) async {
+    if (count == 0) {
+      print(count);
+
+      count++;
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      accessToken = prefs.getString("access");
+      Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
+      if (checkValidAccess(payload['exp'])) {
+        try {
+          String url = "https://dawiny.herokuapp.com/api/nurses/" + id;
+          emit(LoadingState());
+          var dio = Dio();
+
+          var response = await dio.get(url,
+              options: Options(headers: {
+                'authorization': accessToken,
+              }));
+          nurse = response.data;
+          emit(DoneState());
+        } on DioError catch (ex) {
+          errorMsg = ex.response!.data['msg'];
+          print(errorMsg);
+          emit(ErrorState());
+        }
+      } else {
+        var result = await refreshAccessToken();
+        if (result == -1) {
+          //make user login again
+        } else {
+          await prefs.setString("access", result.toString());
+          accessToken = result as String?;
+          count = 0;
+          getNurseById(id: id);
+        }
+      }
+    }
   }
 }

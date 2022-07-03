@@ -53,6 +53,7 @@ class UserProfile extends StatelessWidget {
                     Map data = {};
                     data.addAll({
                       "clinicAddress": addressControllerr.text,
+                      "imageUrl": AppCubit.urlImage,
                     });
                     if (firstNameController.text !=
                         cubit.currentUser!['firstName']) {
@@ -100,7 +101,8 @@ class UserProfile extends StatelessWidget {
                     ProfilePhotoCard(
                       title: 'upload photo',
                       title2: 'change photo',
-                      placeholerImgPath: "assets/images/photo.jpg",
+                      placeholerImgPath: cubit.currentUser!['imageUrl'] ??
+                          "https://cdn3.iconfinder.com/data/icons/black-easy/512/538642-user_512x512.png",
                     ),
                     const SizedBox(
                       height: 8.0,

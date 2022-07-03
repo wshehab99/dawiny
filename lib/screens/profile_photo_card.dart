@@ -7,7 +7,7 @@ import 'package:find_doctor/bloc/app_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfilePhotoCard extends StatefulWidget {
-  ProfilePhotoCard(
+  const ProfilePhotoCard(
       {Key? key,
       required this.title,
       this.showIcon = true,
@@ -48,14 +48,14 @@ class _ProfilePhotoCardState extends State<ProfilePhotoCard> {
                   ],
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: InkWell(
                     onTap: (() async {
                       return showDialog(
                           context: context,
                           builder: (builder) {
                             return AlertDialog(
-                              title: Text("choose from",
+                              title: const Text("choose from",
                                   style: TextStyle(
                                     color: Colors.black45,
                                   )),
@@ -80,7 +80,7 @@ class _ProfilePhotoCardState extends State<ProfilePhotoCard> {
                                           Navigator.pop(context);
                                           await cubit.uploadFile(s!.path);
                                         },
-                                        child: Text("gallery")),
+                                        child: const Text("gallery")),
                                     ElevatedButton(
                                         style: ButtonStyle(
                                             backgroundColor:
@@ -96,7 +96,7 @@ class _ProfilePhotoCardState extends State<ProfilePhotoCard> {
                                           Navigator.pop(context);
                                           await cubit.uploadFile(s!.path);
                                         },
-                                        child: Text("camera")),
+                                        child: const Text("camera")),
                                   ],
                                 ),
                               ],
@@ -122,7 +122,7 @@ class _ProfilePhotoCardState extends State<ProfilePhotoCard> {
                                       ? (widget.placeholerImgPath != null
                                           ? CircleAvatar(
                                               maxRadius: 68,
-                                              backgroundImage: AssetImage(
+                                              backgroundImage: NetworkImage(
                                                 widget.placeholerImgPath!,
                                               ),
                                             )
@@ -134,18 +134,18 @@ class _ProfilePhotoCardState extends State<ProfilePhotoCard> {
                                         ),
                                 ),
                               if (widget.showIcon)
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                               userImage == null
                                   ? Text(
-                                      "${widget.title}",
+                                      widget.title,
                                       style: TextStyle(
                                           color: Colors.blue[600],
                                           fontWeight: FontWeight.w600),
                                     )
                                   : Text(
-                                      "${widget.title2}",
+                                      widget.title2,
                                       style: TextStyle(
                                           color: Colors.blue[600],
                                           fontWeight: FontWeight.w600),

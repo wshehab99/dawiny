@@ -68,8 +68,9 @@ class GridPage extends StatelessWidget {
                   width: 96,
                 ),
               ),
-              const CircleAvatar(
-                  backgroundImage: AssetImage("assets/images/photo.jpg")),
+              const SizedBox(
+                width: 15,
+              )
             ],
           ),
         ),

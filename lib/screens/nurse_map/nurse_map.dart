@@ -29,10 +29,10 @@ class _NurseMapState extends State<NurseMap> {
 
   getMyLocation() async {
     markers.add(Marker(
-      markerId: MarkerId("0"),
+      markerId: const MarkerId("0"),
       position:
           LatLng(widget.locationData.latitude!, widget.locationData.longitude!),
-      infoWindow: InfoWindow(
+      infoWindow: const InfoWindow(
         title: "My Location",
       ),
       icon: await MarkerIcon.markerFromIcon(
@@ -42,7 +42,7 @@ class _NurseMapState extends State<NurseMap> {
 
   searchNearby() {
     setState(() {
-      widget.nurses.forEach((element) {
+      for (var element in widget.nurses) {
         markers.add(Marker(
           markerId: MarkerId(element.id),
           position: LatLng(element.location.lat, element.location.lng),
@@ -52,112 +52,10 @@ class _NurseMapState extends State<NurseMap> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => NurseDetails(
-                            name: "${element.firstName} ${element.lastName}")));
+                        builder: (context) => NurseDetails(id: element.id)));
               }),
         ));
-      });
-
-      // markers.add(Marker(
-      //   markerId: const MarkerId("3136166931035543"),
-      //   position: const LatLng(31.035543, 31.361669),
-      //   infoWindow: InfoWindow(
-      //       title: "Waleed Bin Shehab",
-      //       onTap: () {
-      //         Navigator.push(
-      //             context,
-      //             MaterialPageRoute(
-      //                 builder: (context) =>
-      //                     NurseDetails(name: "Waleed Bin Shehab")));
-      //       }),
-      // ));
-
-      // markers.add(Marker(
-      //   markerId: const MarkerId("3136166931035545"),
-      //   position: const LatLng(31.036628, 31.362581),
-      //   infoWindow: InfoWindow(
-      //       title: "Eman Ali",
-      //       onTap: () {
-      //         Navigator.push(
-      //             context,
-      //             MaterialPageRoute(
-      //                 builder: (context) =>
-      //                     NurseDetails(name: "Mohammed Musa")));
-      //       }),
-      // ));
-      // markers.add(Marker(
-      //   markerId: const MarkerId("3136166031035543"),
-      //   position: const LatLng(31.038650, 31.363793),
-      //   infoWindow: InfoWindow(
-      //       title: "Morsy",
-      //       onTap: () {
-      //         Navigator.push(
-      //             context,
-      //             MaterialPageRoute(
-      //                 builder: (context) => NurseDetails(name: "Morsy")));
-      //       }),
-      // ));
-      // markers.add(Marker(
-      //   markerId: const MarkerId("3136166031035545"),
-      //   position: const LatLng(31.037262, 31.366379),
-      //   infoWindow: InfoWindow(
-      //       title: "Ahmed Mohammed",
-      //       onTap: () {
-      //         Navigator.push(
-      //             context,
-      //             MaterialPageRoute(
-      //                 builder: (context) =>
-      //                     NurseDetails(name: "Ahmed Mohammed")));
-      //       }),
-      // ));
-      // markers.add(Marker(
-      //   markerId: const MarkerId("3136136931035543"),
-      //   position: const LatLng(31.033217, 31.363504),
-      //   infoWindow: InfoWindow(
-      //       title: "Nader",
-      //       onTap: () {
-      //         Navigator.push(
-      //             context,
-      //             MaterialPageRoute(
-      //                 builder: (context) => NurseDetails(name: "Nader")));
-      //       }),
-      // ));
-      // markers.add(Marker(
-      //   markerId: const MarkerId("3130166931035545"),
-      //   position: const LatLng(31.033824, 31.356176),
-      //   infoWindow: InfoWindow(
-      //       title: "Ibraheem",
-      //       onTap: () {
-      //         Navigator.push(
-      //             context,
-      //             MaterialPageRoute(
-      //                 builder: (context) => NurseDetails(name: "Ibraheem")));
-      //       }),
-      // ));
-      // markers.add(Marker(
-      //   markerId: const MarkerId("3136110031035543"),
-      //   position: const LatLng(31.041794, 31.364384),
-      //   infoWindow: InfoWindow(
-      //       title: "Ayman",
-      //       onTap: () {
-      //         Navigator.push(
-      //             context,
-      //             MaterialPageRoute(
-      //                 builder: (context) => NurseDetails(name: "Ayman")));
-      //       }),
-      // ));
-      // markers.add(Marker(
-      //   markerId: const MarkerId("3136166055035545"),
-      //   position: const LatLng(31.043439, 31.368300),
-      //   infoWindow: InfoWindow(
-      //       title: "Mostafa",
-      //       onTap: () {
-      //         Navigator.push(
-      //             context,
-      //             MaterialPageRoute(
-      //                 builder: (context) => NurseDetails(name: "Mostafa")));
-      //       }),
-      // ));
+      }
     });
   }
 
