@@ -1,7 +1,7 @@
 import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
-import 'package:find_doctor/screens/appointments/listOfAppointment.dart';
 import 'package:find_doctor/screens/Reset_passwod/Forget_Pawword.dart';
+import 'package:find_doctor/screens/doctor_screen/doctor_screen.dart';
 import 'package:find_doctor/screens/gridpage/gridpage.dart';
 import 'package:find_doctor/screens/nurse_location/nurse_location.dart';
 import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
@@ -22,10 +22,8 @@ class SignIn extends StatelessWidget {
   }) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _email =
-      TextEditingController(text: 'waleed@dawiny.com');
-  final TextEditingController _password =
-      TextEditingController(text: '12345678');
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
   final AppDropDownMenu _role = AppDropDownMenu(
     choices: const ['Doctor', 'Nurse', 'Patient'],
     hint: "Role",
@@ -199,7 +197,7 @@ class SignIn extends StatelessWidget {
                                                         context,
                                                         MaterialPageRoute(
                                                             builder: (context) =>
-                                                                ListOfAppointments()));
+                                                                Doctor_screen()));
                                                   }
                                                 });
 
