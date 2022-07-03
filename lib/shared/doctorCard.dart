@@ -7,11 +7,11 @@ class DoctorCard extends StatelessWidget {
   String? id;
   final String? _name;
   final String? _description;
-
+  String? imageUrl;
   final _bgColor;
   bool? videoCall;
   DoctorCard(this.id, this._name, this._description, this._bgColor,
-      {Key? key, this.videoCall})
+      {Key? key, this.videoCall, this.imageUrl})
       : super(key: key);
 
   @override
@@ -34,6 +34,12 @@ class DoctorCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: ListTile(
+            leading: CircleAvatar(
+              backgroundImage: imageUrl != null
+                  ? NetworkImage(imageUrl!)
+                  : const NetworkImage(
+                      "https://cdn3.iconfinder.com/data/icons/black-easy/512/538642-user_512x512.png"),
+            ),
             title: Text(
               _name!,
               style: TextStyle(

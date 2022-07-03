@@ -94,10 +94,17 @@ class DetailScreen extends StatelessWidget {
                         children: <Widget>[
                           Row(
                             children: <Widget>[
-                              // Image.asset(
-                              //   _imageUrl,
-                              //   height: 120,
-                              // ),
+                              cubit.doctor != null
+                                  ? CircleAvatar(
+                                      backgroundImage: cubit
+                                                  .doctor!['imageUrl'] !=
+                                              null
+                                          ? NetworkImage(
+                                              cubit.doctor!['imageUrl'])
+                                          : const NetworkImage(
+                                              "https://cdn3.iconfinder.com/data/icons/black-easy/512/538642-user_512x512.png"),
+                                    )
+                                  : const SizedBox(),
                               const SizedBox(
                                 width: 20,
                               ),

@@ -27,6 +27,7 @@ class DoctorListWidget extends StatelessWidget {
                 "${shownList![index]['firstName']} ${shownList![index]['lastName']}",
                 "${shownList![index]['specification']} - ${shownList![index]['clinicAddress']}",
                 kBlueColor,
+                imageUrl: "${shownList![index]['imageUrl']}",
                 videoCall: videoCall,
               );
             },
