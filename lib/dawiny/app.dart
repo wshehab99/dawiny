@@ -1,3 +1,4 @@
+import 'package:find_doctor/bloc/api_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/doctor_screen/doctor_screen.dart';
 import 'package:find_doctor/screens/gridpage/gridpage.dart';
@@ -7,7 +8,6 @@ import 'package:find_doctor/shared/constant.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../bloc/app_cubit.dart';
 import '../bloc/app_states.dart';
 import '../screens/nurse_location/nurse_location.dart';
 
@@ -62,11 +62,11 @@ class _DawinyState extends State<Dawiny> with WidgetsBindingObserver {
             theme: ThemeData(
                 primaryColor: kBlueColor, fontFamily: kRobotoCondensedFont),
             home: BlocProvider(
-              create: (context) => AppCubit(InitialAppState()),
-              child: BlocConsumer<AppCubit, AppStates>(
+              create: (context) => ApiCubit(InitialAppState()),
+              child: BlocConsumer<ApiCubit, AppStates>(
                   listener: (context, state) {},
                   builder: (context, state) {
-                    AppCubit cubit = AppCubit.get(context);
+                    ApiCubit cubit = ApiCubit.get(context);
 
                     cubit.stayLogin().then((value) {
                       navigationvalue = value;

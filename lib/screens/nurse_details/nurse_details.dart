@@ -1,4 +1,4 @@
-import 'package:find_doctor/bloc/app_cubit.dart';
+import 'package:find_doctor/bloc/api_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
@@ -16,11 +16,11 @@ class NurseDetails extends StatelessWidget {
       body: Padding(
           padding: const EdgeInsets.only(top: 10),
           child: BlocProvider(
-            create: ((context) => AppCubit(InitialAppState())),
-            child: BlocConsumer<AppCubit, AppStates>(
+            create: ((context) => ApiCubit(InitialAppState())),
+            child: BlocConsumer<ApiCubit, AppStates>(
               listener: (context, state) {},
               builder: (context, states) {
-                AppCubit cubit = AppCubit.get(context);
+                ApiCubit cubit = ApiCubit.get(context);
                 cubit.getNurseById(id: id!);
 
                 return (states is LoadingState)

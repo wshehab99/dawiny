@@ -1,4 +1,4 @@
-import 'package:find_doctor/bloc/app_cubit.dart';
+import 'package:find_doctor/bloc/api_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/appointments/appointment_card.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +16,11 @@ class ListOfAppointments extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppbar(context, titleText: "My Appointments"),
       body: BlocProvider(
-        create: (context) => AppCubit(InitialAppState()),
-        child: BlocConsumer<AppCubit, AppStates>(
+        create: (context) => ApiCubit(InitialAppState()),
+        child: BlocConsumer<ApiCubit, AppStates>(
             listener: (context, state) {},
             builder: (context, state) {
-              AppCubit cubit = AppCubit.get(context);
+              ApiCubit cubit = ApiCubit.get(context);
 
               cubit.filterAppointments(now);
               shownAppointMint = cubit.shownAppointments;

@@ -1,10 +1,10 @@
-import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/nurse_map/nurse_map.dart';
 import 'package:find_doctor/screens/search/search_widget.dart';
 import 'package:find_doctor/shared/app_button.dart';
 import 'package:flutter/material.dart';
 
+import '../../bloc/api_cubit.dart';
 import '../../shared/custom_appbar.dart';
 import 'nursing_task_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,11 +15,11 @@ class NursingTasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: ((context) => AppCubit(InitialAppState())),
-      child: BlocConsumer<AppCubit, AppStates>(
+      create: ((context) => ApiCubit(InitialAppState())),
+      child: BlocConsumer<ApiCubit, AppStates>(
           listener: ((context, state) {}),
           builder: (context, state) {
-            AppCubit cubit = AppCubit.get(context);
+            ApiCubit cubit = ApiCubit.get(context);
             return Scaffold(
               appBar: CustomAppbar(context, titleText: "Nursing Tasks"),
               body: Column(
@@ -40,8 +40,8 @@ class NursingTasksScreen extends StatelessWidget {
                             ScrollViewKeyboardDismissBehavior.onDrag,
                         itemBuilder: ((context, index) {
                           return NursingTaskCard(
-                            title: AppCubit.nursingTsks[index]['title'],
-                            description: AppCubit.nursingTsks[index]
+                            title: ApiCubit.nursingTsks[index]['title'],
+                            description: ApiCubit.nursingTsks[index]
                                 ['description'],
                             index: index,
                             onChange: () {
@@ -49,7 +49,7 @@ class NursingTasksScreen extends StatelessWidget {
                             },
                           );
                         }),
-                        itemCount: AppCubit.nursingTsks.length),
+                        itemCount: ApiCubit.nursingTsks.length),
                   )
                 ],
               ),
@@ -64,7 +64,7 @@ class NursingTasksScreen extends StatelessWidget {
 
                         await cubit.getLocation(value: null);
 
-                        var location = AppCubit.initialPosition;
+                        var location = ApiCubit.initialPosition;
                         var nurses = await cubit.getNearestNurses(
                             location!.latitude, location.longitude);
                         var locationData = await cubit.geCurrentLocation();

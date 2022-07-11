@@ -1,4 +1,4 @@
-import 'package:find_doctor/bloc/app_cubit.dart';
+import 'package:find_doctor/bloc/api_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,11 +22,11 @@ class NursingTaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit(InitialAppState()),
-      child: BlocConsumer<AppCubit, AppStates>(
+      create: (context) => ApiCubit(InitialAppState()),
+      child: BlocConsumer<ApiCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          AppCubit cubit = AppCubit.get(context);
+          ApiCubit cubit = ApiCubit.get(context);
           return Card(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -37,7 +37,7 @@ class NursingTaskCard extends StatelessWidget {
                 children: [
                   Checkbox(
                     activeColor: Colors.green.withOpacity(0.9),
-                    value: AppCubit.nursingTsks[index!]['value'],
+                    value: ApiCubit.nursingTsks[index!]['value'],
                     onChanged: (value) {
                       cubit.changeNurseValue(value!, index!);
                       onChange!();

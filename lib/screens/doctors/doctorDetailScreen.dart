@@ -1,4 +1,4 @@
-import 'package:find_doctor/bloc/app_cubit.dart';
+import 'package:find_doctor/bloc/api_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/shared/app_button.dart';
 import 'package:flutter/material.dart';
@@ -26,11 +26,11 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       body: BlocProvider(
-        create: (context) => AppCubit(InitialAppState()),
-        child: BlocConsumer<AppCubit, AppStates>(
+        create: (context) => ApiCubit(InitialAppState()),
+        child: BlocConsumer<ApiCubit, AppStates>(
           listener: (context, state) {},
           builder: (context, stste) {
-            AppCubit cubit = AppCubit.get(context);
+            ApiCubit cubit = ApiCubit.get(context);
             cubit.getDoctorById(id: id!).then((value) {
               cubit.changeDate(dateTime);
             });

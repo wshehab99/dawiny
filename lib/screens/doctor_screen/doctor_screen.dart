@@ -1,4 +1,4 @@
-import 'package:find_doctor/bloc/app_cubit.dart';
+import 'package:find_doctor/bloc/api_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/Video_call_now/VideoCallNow.dart';
 import 'package:find_doctor/screens/gridpage/app_drawer.dart';
@@ -17,11 +17,11 @@ class Doctor_screen extends StatelessWidget {
       appBar: AppBar(title: const Text('My Appointments')),
       drawer: const AppDrawer(),
       body: BlocProvider(
-        create: (context) => AppCubit(InitialAppState()),
-        child: BlocConsumer<AppCubit, AppStates>(
+        create: (context) => ApiCubit(InitialAppState()),
+        child: BlocConsumer<ApiCubit, AppStates>(
             listener: (context, state) {},
             builder: (context, state) {
-              AppCubit cubit = AppCubit.get(context);
+              ApiCubit cubit = ApiCubit.get(context);
 
               cubit.filterAppointments(now);
               shownAppointMint = cubit.shownAppointments;

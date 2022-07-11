@@ -1,3 +1,4 @@
+import 'package:find_doctor/bloc/api_cubit.dart';
 import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/profile_photo_card.dart';
@@ -19,11 +20,11 @@ class UserProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit(InitialAppState()),
-      child: BlocConsumer<AppCubit, AppStates>(
+      create: (context) => ApiCubit(InitialAppState()),
+      child: BlocConsumer<ApiCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          AppCubit cubit = AppCubit.get(context);
+          ApiCubit cubit = ApiCubit.get(context);
           cubit.getCurrentUser().then((value) {
             firstNameController.text = value['firstName'] ?? " ";
             lastNameController.text = value['lastName'] ?? " ";
@@ -53,7 +54,7 @@ class UserProfile extends StatelessWidget {
                     Map data = {};
                     data.addAll({
                       "clinicAddress": addressControllerr.text,
-                      "imageUrl": AppCubit.urlImage,
+                      "imageUrl": ApiCubit.urlImage,
                     });
                     if (firstNameController.text !=
                         cubit.currentUser!['firstName']) {

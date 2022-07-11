@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:find_doctor/bloc/app_cubit.dart';
+import 'package:find_doctor/bloc/api_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -19,16 +19,16 @@ class GetLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      child: BlocConsumer<AppCubit, AppStates>(
+      child: BlocConsumer<ApiCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          AppCubit cubit = AppCubit.get(context);
+          ApiCubit cubit = ApiCubit.get(context);
 
           cubit.getLocation(value: location);
-          location = AppCubit.initialPosition;
+          location = ApiCubit.initialPosition;
           return Scaffold(
             appBar: CustomAppbar(context, titleText: title),
-            body: AppCubit.initialPosition == null
+            body: ApiCubit.initialPosition == null
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
@@ -44,12 +44,12 @@ class GetLocation extends StatelessWidget {
                         markers: {
                           Marker(
                             markerId: const MarkerId('1'),
-                            position: AppCubit.initialPosition!,
+                            position: ApiCubit.initialPosition!,
                           )
                         },
                         mapType: MapType.normal,
                         initialCameraPosition: CameraPosition(
-                          target: AppCubit.initialPosition!,
+                          target: ApiCubit.initialPosition!,
                           zoom: 14.4746,
                         ),
                         onMapCreated: (GoogleMapController controller) {
@@ -77,7 +77,7 @@ class GetLocation extends StatelessWidget {
         },
       ),
       create: (context) {
-        return AppCubit(InitialAppState());
+        return ApiCubit(InitialAppState());
       },
     );
   }
