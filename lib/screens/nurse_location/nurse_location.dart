@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'package:custom_marker/marker_icon.dart';
-import 'package:find_doctor/bloc/app_cubit.dart';
+import 'package:find_doctor/bloc/api_cubit.dart';
+
 import 'package:find_doctor/screens/gridpage/app_drawer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../../bloc/app_cubit.dart';
+
 import '../../bloc/app_states.dart';
 
 class NurseLocation extends StatelessWidget {
@@ -25,16 +26,16 @@ class NurseLocation extends StatelessWidget {
   Widget build(BuildContext context) {
     getIcon();
     return BlocProvider(
-      child: BlocConsumer<AppCubit, AppStates>(
+      child: BlocConsumer<ApiCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          AppCubit cubit = AppCubit.get(context);
+          ApiCubit cubit = ApiCubit.get(context);
           cubit.updateLocation();
-          location = AppCubit.initialPosition;
+          location = ApiCubit.initialPosition;
           return Scaffold(
             drawer: const AppDrawer(),
             appBar: AppBar(title: const Text("Location"), centerTitle: true),
-            body: AppCubit.initialPosition == null
+            body: ApiCubit.initialPosition == null
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
@@ -46,13 +47,13 @@ class NurseLocation extends StatelessWidget {
                         markers: {
                           Marker(
                               markerId: const MarkerId('1'),
-                              position: AppCubit.initialPosition!,
+                              position: ApiCubit.initialPosition!,
                               infoWindow: const InfoWindow(title: 'My Loction'),
                               icon: myIcone ?? BitmapDescriptor.defaultMarker)
                         },
                         mapType: MapType.normal,
                         initialCameraPosition: CameraPosition(
-                          target: AppCubit.initialPosition!,
+                          target: ApiCubit.initialPosition!,
                           zoom: 14.4746,
                         ),
                         onMapCreated: (GoogleMapController controller) {
@@ -65,7 +66,7 @@ class NurseLocation extends StatelessWidget {
         },
       ),
       create: (context) {
-        return AppCubit(InitialAppState());
+        return ApiCubit(InitialAppState());
       },
     );
   }

@@ -1,10 +1,10 @@
+import 'package:find_doctor/bloc/api_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/signin/signin.dart';
 import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
 import 'package:find_doctor/shared/glass.dart';
 import 'package:flutter/material.dart';
 
-import '../../bloc/app_cubit.dart';
 import '../../shared/app_CheckBox.dart';
 import '../../shared/app_button.dart';
 import '../../shared/textFieldApp.dart';
@@ -36,13 +36,13 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: ((context) => AppCubit(
+        create: ((context) => ApiCubit(
               InitialAppState(),
             )),
-        child: BlocConsumer<AppCubit, AppStates>(
+        child: BlocConsumer<ApiCubit, AppStates>(
           listener: ((context, state) {}),
           builder: ((context, state) {
-            AppCubit cubit = AppCubit.get(context);
+            ApiCubit cubit = ApiCubit.get(context);
             return Scaffold(
               backgroundColor: Colors.white,
               body: SafeArea(
@@ -220,17 +220,12 @@ class SignUp extends StatelessWidget {
                                             )
                                                 .then((value) {
                                               if (value == 1) {
-                                                cubit.userType =
-                                                    cubit.userType =
-                                                        _role.dropdownValue!;
                                                 Navigator.pushReplacement(
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             UserData()));
                                               } else if (value == -1) {
-                                                cubit.userType =
-                                                    _role.dropdownValue!;
                                                 Navigator.pushReplacement(
                                                     context,
                                                     MaterialPageRoute(

@@ -1,4 +1,4 @@
-import 'package:find_doctor/bloc/app_cubit.dart';
+import 'package:find_doctor/bloc/api_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/signin/signin.dart';
 import 'package:find_doctor/screens/welcome/user_profile.dart';
@@ -15,11 +15,11 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => AppCubit(InitialAppState()),
-        child: BlocConsumer<AppCubit, AppStates>(
+        create: (context) => ApiCubit(InitialAppState()),
+        child: BlocConsumer<ApiCubit, AppStates>(
             listener: (context, state) {},
             builder: (context, state) {
-              AppCubit cubit = AppCubit.get(context);
+              ApiCubit cubit = ApiCubit.get(context);
               cubit.getCurrentUser();
               return SizedBox(
                 width: MediaQuery.of(context).size.width * 0.7,

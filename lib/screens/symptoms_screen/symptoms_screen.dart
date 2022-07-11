@@ -1,4 +1,3 @@
-import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/search/search_widget.dart';
 import 'package:find_doctor/screens/symptoms_screen/diagnos_card.dart';
@@ -6,6 +5,7 @@ import 'package:find_doctor/shared/gradient_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../bloc/ml_model_cubit.dart';
 import '../../shared/constant.dart';
 import '../../shared/custom_appbar.dart';
 
@@ -16,11 +16,11 @@ class SymptomsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit(InitialAppState()),
-      child: BlocConsumer<AppCubit, AppStates>(
+      create: (context) => ModelCubit(InitialAppState()),
+      child: BlocConsumer<ModelCubit, AppStates>(
           listener: ((context, state) {}),
           builder: (context, state) {
-            AppCubit cubit = AppCubit.get(context);
+            ModelCubit cubit = ModelCubit.get(context);
             cubit.loadingSymptom();
 
             return Scaffold(

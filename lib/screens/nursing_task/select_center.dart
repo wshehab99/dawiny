@@ -1,3 +1,4 @@
+import 'package:find_doctor/bloc/api_cubit.dart';
 import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/nursing_task/ceners_list.dart';
@@ -11,11 +12,11 @@ class SelectCenterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit(InitialAppState()),
-      child: BlocConsumer<AppCubit, AppStates>(
+      create: (context) => ApiCubit(InitialAppState()),
+      child: BlocConsumer<ApiCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          AppCubit cubit = AppCubit.get(context);
+          ApiCubit cubit = ApiCubit.get(context);
           return Scaffold(
             appBar: AppBar(
               title: const Text('Select Center'),

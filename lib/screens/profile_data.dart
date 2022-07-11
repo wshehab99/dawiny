@@ -1,4 +1,4 @@
-import 'package:find_doctor/bloc/app_cubit.dart';
+import 'package:find_doctor/bloc/api_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:find_doctor/screens/doctor_time/doctor_time_screen.dart';
 import 'package:find_doctor/screens/gridpage/gridpage.dart';
@@ -24,11 +24,11 @@ class UserData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit(InitialAppState()),
-      child: BlocConsumer<AppCubit, AppStates>(
+      create: (context) => ApiCubit(InitialAppState()),
+      child: BlocConsumer<ApiCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          AppCubit cubit = AppCubit.get(context);
+          ApiCubit cubit = ApiCubit.get(context);
           return Scaffold(
               body: SafeArea(
             child: (state is LoadingState)
@@ -152,9 +152,9 @@ class UserData extends StatelessWidget {
                                                   .validate() &&
                                               appDropDownMenu.dropdownValue !=
                                                   null &&
-                                              AppCubit.urlImage != null) {
+                                              ApiCubit.urlImage != null) {
                                             cubit.updatePProfile(data: {
-                                              'imageUrl': AppCubit.urlImage!,
+                                              'imageUrl': ApiCubit.urlImage!,
                                               'gender': appDropDownMenu
                                                   .dropdownValue!
                                                   .toLowerCase(),

@@ -1,8 +1,8 @@
 import 'dart:io';
 
+import 'package:find_doctor/bloc/api_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:find_doctor/bloc/app_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,11 +30,11 @@ class _ProfilePhotoCardState extends State<ProfilePhotoCard> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: ((context) => AppCubit(InitialAppState())),
-      child: BlocConsumer<AppCubit, AppStates>(
+      create: ((context) => ApiCubit(InitialAppState())),
+      child: BlocConsumer<ApiCubit, AppStates>(
           listener: ((context, state) {}),
           builder: (context, state) {
-            AppCubit cubit = AppCubit.get(context);
+            ApiCubit cubit = ApiCubit.get(context);
             return Center(
               child: Container(
                 decoration: BoxDecoration(
@@ -77,8 +77,8 @@ class _ProfilePhotoCardState extends State<ProfilePhotoCard> {
                                           if (s != null) {
                                             userImage = s;
                                           }
-                                          Navigator.pop(context);
                                           await cubit.uploadFile(s!.path);
+                                          Navigator.pop(context);
                                         },
                                         child: const Text("gallery")),
                                     ElevatedButton(
