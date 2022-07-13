@@ -12,7 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ApiCubit extends Cubit<AppStates> {
   ApiCubit(AppStates initialState) : super(InitialAppState());
   static ApiCubit get(context) => BlocProvider.of(context);
-  bool remeberMeValue = false;
   List shownDctors = [];
   List? initDctors;
   int count = 0;
@@ -67,11 +66,6 @@ class ApiCubit extends Cubit<AppStates> {
 
   void backToNormalState() {
     emit(InitialAppState());
-  }
-
-  void remeberMe(bool value) {
-    remeberMeValue = value;
-    emit(ChangeRemeberMeValue());
   }
 
   Future getDoctor() async {
@@ -170,114 +164,6 @@ class ApiCubit extends Cubit<AppStates> {
     return shownDctors;
   }
 
-  Future<int> signUp(
-    String email,
-    String password,
-    String firstName,
-    String lastName,
-    String role,
-  ) async {
-    emit(LoadingState());
-
-    var dio = Dio();
-    String? url;
-
-    final pref = await SharedPreferences.getInstance();
-    try {
-      var response = await dio.post(
-        "https://dawiny.herokuapp.com/api/" + role + "s",
-        data: jsonEncode({
-          "email": email,
-          "password": password,
-          "firstName": firstName,
-          "lastName": lastName,
-          "role": role
-        }),
-      );
-
-      print(response.data);
-
-      if (response.statusCode == 201) {
-        print("Done");
-        accessToken = response.data['access'];
-        refreshToken = response.data['refresh'];
-
-        await pref.setString('access', accessToken!);
-        await pref.setString('refresh', refreshToken!);
-        await pref.setString('role', role);
-        if (role == "doctor") {
-          emit(DoneState());
-          return -1;
-        } else if (role == "nurse") {
-          await updatePProfile(data: {"status": "online"});
-        }
-        emit(DoneState());
-      }
-      return 1;
-    } on DioError catch (ex) {
-      errorMsg = null;
-      if (ex.response == null || ex.response!.data is! Map) {
-        errorMsg = "something went wrong, please try again later";
-      } else {
-        errorMsg = ex.response!.data['msg'];
-      }
-      emit(ErrorState());
-      return 0;
-    }
-  }
-
-  Future<int> logIn(String email, String password, {String? diffRole}) async {
-    emit(LoadingState());
-
-    final pref = await SharedPreferences.getInstance();
-    String? role = diffRole ?? pref.getString("role");
-
-    var dio = Dio();
-    try {
-      final response = await dio.post(
-        "https://dawiny.herokuapp.com/api/auth/login",
-        data: jsonEncode({
-          "email": email,
-          "password": password,
-          "role": role,
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        print(response.data);
-        accessToken = response.data['access'];
-        refreshToken = response.data['refresh'];
-
-        await pref.setString('access', accessToken!);
-        await pref.setString('refresh', refreshToken!);
-        await pref.setString('role', role!);
-        print(accessToken);
-        print(refreshToken);
-        if (role == "nurse") {
-          return await updatePProfile(data: {"status": "online"});
-        } else if (role == "patient") {
-          return 2;
-        }
-      }
-
-      emit(DoneState());
-      return 1;
-    } on DioError catch (ex) {
-      errorMsg = null;
-      if (ex.response == null || ex.response!.data is! Map) {
-        errorMsg = "something went wrong, please try again later";
-      } else {
-        errorMsg = ex.response!.data['msg'];
-      }
-      print(ex);
-
-      print(ex.response);
-
-      emit(ErrorState());
-      return 0;
-    }
-  }
-
   Future refreshAccessToken() async {
     var dio = Dio();
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -311,6 +197,9 @@ class ApiCubit extends Cubit<AppStates> {
     Map<String, dynamic> payload = Jwt.parseJwt(accessToken!);
     if (checkValidAccess(payload['exp'])) {
       pref.setString("refresh", " ");
+      if (payload['role'] == 'nurse') {
+        await updatePProfile(data: {'status': 'offline'});
+      }
     } else {
       var result = await refreshAccessToken();
       if (result == -1) {

@@ -1,5 +1,5 @@
-import 'package:find_doctor/bloc/api_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
+import 'package:find_doctor/bloc/auth_cubit.dart';
 import 'package:find_doctor/screens/Reset_passwod/Forget_Pawword.dart';
 import 'package:find_doctor/screens/doctor_screen/doctor_screen.dart';
 import 'package:find_doctor/screens/gridpage/gridpage.dart';
@@ -33,11 +33,11 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => ApiCubit(InitialAppState()),
-        child: BlocConsumer<ApiCubit, AppStates>(
+        create: (context) => AuthCubit(InitialAppState()),
+        child: BlocConsumer<AuthCubit, AppStates>(
           listener: ((context, state) {}),
           builder: (context, state) {
-            ApiCubit cubit = ApiCubit.get(context);
+            AuthCubit cubit = AuthCubit.get(context);
             return Scaffold(
               backgroundColor:
                   (state is ErrorState) ? Colors.grey : Colors.white,
