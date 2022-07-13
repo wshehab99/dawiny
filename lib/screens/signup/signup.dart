@@ -1,5 +1,5 @@
-import 'package:find_doctor/bloc/api_cubit.dart';
 import 'package:find_doctor/bloc/app_states.dart';
+import 'package:find_doctor/bloc/auth_cubit.dart';
 import 'package:find_doctor/screens/signin/signin.dart';
 import 'package:find_doctor/screens/teriaq_drop_down_menu.dart';
 import 'package:find_doctor/shared/glass.dart';
@@ -36,13 +36,13 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: ((context) => ApiCubit(
+        create: ((context) => AuthCubit(
               InitialAppState(),
             )),
-        child: BlocConsumer<ApiCubit, AppStates>(
+        child: BlocConsumer<AuthCubit, AppStates>(
           listener: ((context, state) {}),
           builder: ((context, state) {
-            ApiCubit cubit = ApiCubit.get(context);
+            AuthCubit cubit = AuthCubit.get(context);
             return Scaffold(
               backgroundColor: Colors.white,
               body: SafeArea(
